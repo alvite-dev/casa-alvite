@@ -18,6 +18,7 @@ const config: Config = {
       },
       fontFamily: {
         'instrument': ['Instrument Sans', 'sans-serif'],
+        'instrument-serif': ['Instrument Serif', 'serif'],
         'junyper': ['var(--font-juniper-bay)', 'Crimson Text', 'serif'],
       },
     },
