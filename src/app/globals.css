@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-cream: #F4E8DA;
+  --color-verde: #6A6D51;
+  --color-roxo: #532C51;
+  --color-amarelo: #D59146;
+  --color-terracotta: #B55C3A;
+  --color-cinza: #40413E;
+}
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+}
+
+/* Juniper Bay agora é configurada via next/font/local */ 
