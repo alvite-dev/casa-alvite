@@ -15,8 +15,8 @@ export const metadata: Metadata = {
   description: 'Experiências únicas em cerâmica com sistema de agendamento e pagamento online.',
   keywords: 'cerâmica, experiências, agendamento, Casa Alvite, arte, criatividade',
   icons: {
-    icon: '/icon.svg',
-    shortcut: '/favicon.ico',
+    icon: '/images/logo/favicon/favicon.ico',
+    shortcut: '/images/logo/favicon/favicon.ico',
     apple: '/images/logo/favicon/favicon-128x128.png',
   },
 }
