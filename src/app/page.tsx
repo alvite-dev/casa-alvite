@@ -1,27 +1,47 @@
+'use client'
+
 import Image from 'next/image'
+import { useState, useEffect } from 'react'
 
 export default function Home() {
-  return (
-    <main className="relative h-screen w-full overflow-hidden">
-      {/* Imagem de fundo que ocupa toda a viewport */}
-      <div 
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/images/background-home.png')", // Substitua pela sua imagem
-        }}
-      >
-        {/* Overlay opcional para melhorar legibilidade do texto */}
-        <div className="absolute inset-0 bg-black/20"></div>
-      </div>
+  const [isScrolled, setIsScrolled] = useState(false)
 
-      {/* Header */}
-      <header className="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-10 lg:py-12">
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      const viewportHeight = window.innerHeight
+      
+      // Detecta se scrollou além da primeira seção (viewport)
+      setIsScrolled(scrollPosition > viewportHeight * 0.8)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToNextSection = () => {
+    const nextSection = document.getElementById('next-section')
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  return (
+    <>
+      {/* Header Fixo */}
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-cream border-b border-verde/20 py-3 sm:py-4 lg:py-4' 
+            : 'bg-transparent py-4 sm:py-6 lg:py-8'
+        }`}
+      >
         <div className="flex items-center justify-between">
           {/* Logo e Nome */}
           <div className="flex items-center gap-2 sm:gap-4">
             <a 
               href="/"
-              className="w-12 h-12 sm:w-24 sm:h-24 lg:w-24 lg:h-24 flex items-center justify-center p-1 sm:p-2 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+              className="w-12 h-12 sm:w-20 sm:h-20 lg:w-24 lg:h-24 flex items-center justify-center p-1 sm:p-2 cursor-pointer hover:opacity-80 transition-opacity duration-200"
               title="Casa Alvite - Home"
             >
               <Image
@@ -29,11 +49,16 @@ export default function Home() {
                 alt="Casa Alvite Logo"
                 width={96}
                 height={96}
-                className="w-full h-full"
+                className={`w-full h-full transition-all duration-300 ${
+                  isScrolled ? 'brightness-0 saturate-100' : ''
+                }`}
+                style={isScrolled ? { filter: 'brightness(0) saturate(100%) invert(38%) sepia(12%) saturate(1088%) hue-rotate(56deg) brightness(93%) contrast(89%)' } : {}}
                 priority
               />
             </a>
-            <h2 className="text-cream font-instrument font-medium text-sm sm:text-[30px] tracking-wide">
+            <h2 className={`font-instrument font-medium text-sm sm:text-2xl lg:text-[30px] tracking-wide transition-colors duration-300 ${
+              isScrolled ? 'text-verde' : 'text-cream'
+            }`}>
               CASA ALVITE
             </h2>
           </div>
@@ -44,7 +69,11 @@ export default function Home() {
               href="https://wa.me/5521991792065" 
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex items-center justify-center text-cream hover:text-cream/80 transition-colors duration-200 cursor-pointer"
+              className={`w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                isScrolled 
+                  ? 'text-verde hover:text-verde/80' 
+                  : 'text-cream hover:text-cream/80'
+              }`}
               title="WhatsApp"
             >
               <svg className="w-6 h-6 sm:w-8 sm:h-8 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24">
@@ -56,7 +85,11 @@ export default function Home() {
               href="https://instagram.com/casa.alvite" 
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex items-center justify-center text-cream hover:text-cream/80 transition-colors duration-200 cursor-pointer"
+              className={`w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                isScrolled 
+                  ? 'text-verde hover:text-verde/80' 
+                  : 'text-cream hover:text-cream/80'
+              }`}
               title="Instagram"
             >
               <svg className="w-6 h-6 sm:w-8 sm:h-8 lg:w-9 lg:h-9" fill="currentColor" viewBox="0 0 24 24">
@@ -67,24 +100,154 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Conteúdo centralizado */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 -mt-16 sm:-mt-20">
-        <div className="text-center space-y-16 sm:space-y-20 lg:space-y-28">
-          {/* Título principal */}
-          <h1 className="text-white font-instrument-serif italic text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-wide leading-tight">
-            Barro, Bebidas e<br className="sm:hidden" />
-            <span className="sm:block">Belisquetes</span>
-          </h1>
-
-          {/* Botão de Agendar */}
-          <button 
-            className="bg-amarelo hover:bg-amarelo/90 text-white font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 sm:h-16 rounded-2xl sm:rounded-[28px] transition-all duration-200 uppercase tracking-wide"
-            type="button"
-          >
-            AGENDAR EXPERIÊNCIA
-          </button>
+      <main className="relative h-screen w-full overflow-hidden">
+        {/* Imagem de fundo que ocupa toda a viewport */}
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/images/background-home.png')",
+          }}
+        >
+          {/* Overlay opcional para melhorar legibilidade do texto */}
+          <div className="absolute inset-0 bg-black/20"></div>
         </div>
-      </div>
-    </main>
+
+        {/* Conteúdo centralizado */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 pt-20 sm:pt-24">
+          <div className="text-center space-y-16 sm:space-y-20 lg:space-y-28">
+            {/* Título principal */}
+            <h1 className="text-white font-instrument-serif italic text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-wide leading-tight">
+              Barro, Bebidas e<br className="sm:hidden" />
+              <span className="sm:block">Belisquetes</span>
+            </h1>
+
+            {/* Botão de Agendar */}
+            <button 
+              onClick={scrollToNextSection}
+              className="bg-amarelo hover:bg-amarelo/90 text-white font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 sm:h-16 rounded-2xl sm:rounded-[28px] transition-all duration-200 uppercase tracking-wide"
+              type="button"
+            >
+              AGENDAR EXPERIÊNCIA
+            </button>
+          </div>
+        </div>
+      </main>
+
+      {/* Seção Experiência de Cerâmica */}
+      <section id="next-section" className="min-h-screen bg-cream w-full relative overflow-hidden pt-20 sm:pt-24 lg:pt-8">
+        {/* Layout Mobile: Igual à referência */}
+        <div className="lg:hidden flex flex-col min-h-screen">
+          {/* Imagem na parte superior - um pouco menor que a tela */}
+          <div className="flex-1 relative px-4">
+            <div className="w-full h-full rounded-2xl overflow-hidden">
+              <Image
+                src="/images/experience-2.png"
+                alt="Experiência de Cerâmica - Pessoas fazendo cerâmica"
+                width={400}
+                height={600}
+                className="w-full h-full object-cover object-bottom"
+                style={{ objectPosition: '50% 80%' }}
+                priority
+              />
+            </div>
+          </div>
+          
+          {/* Quadrado verde sobrepondo a parte inferior da imagem */}
+          <div className="relative -mt-20 sm:-mt-24 z-10">
+            <div className="bg-verde px-6 sm:px-8 pt-8 sm:pt-10 pb-8 sm:pb-12 space-y-6 sm:space-y-8">
+              <h2 className="font-junyper text-4xl sm:text-5xl text-cream font-normal leading-tight">
+                EXPERIÊNCIA DE CERÂMICA
+              </h2>
+              
+              <p className="text-cream/90 text-base sm:text-lg leading-relaxed font-instrument">
+                Aqui você vive uma experiência exclusiva de modelagem e pintura em cerâmica, em um ambiente reservado só para o seu grupo. Traga quem ama, seus petiscos e bebidas, e aproveite duas horas de criatividade e muita conversa.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 sm:gap-8">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex items-center text-cream font-instrument text-sm sm:text-base">
+                    <span className="mr-2">—</span>
+                    <span>2 a 5 pessoas</span>
+                  </div>
+                  <div className="flex items-center text-cream font-instrument text-sm sm:text-base">
+                    <span className="mr-2">—</span>
+                    <span>R$200 por pessoa</span>
+                  </div>
+                  <div className="flex items-center text-cream font-instrument text-sm sm:text-base">
+                    <span className="mr-2">—</span>
+                    <span>2 horas de experiência</span>
+                  </div>
+                </div>
+                
+                <button 
+                  className="bg-amarelo hover:bg-amarelo/90 text-white font-instrument font-semibold text-sm sm:text-base px-8 sm:px-10 h-12 sm:h-16 rounded-2xl transition-all duration-200 uppercase tracking-wide flex-shrink-0"
+                  type="button"
+                >
+                  RESERVAR
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Layout Desktop: Grid com distâncias equidistantes */}
+        <div className="hidden lg:flex lg:items-center lg:justify-center lg:min-h-screen lg:px-8 xl:px-12">
+          <div className="w-full max-w-7xl mx-auto flex items-center gap-8 xl:gap-12">
+            
+            {/* Quadrado verde - 2/3 da largura */}
+            <div className="flex-[2]">
+              <div className="bg-verde rounded-3xl p-10 xl:p-12 space-y-8 h-[500px] xl:h-[600px] flex flex-col justify-center">
+                <h2 className="font-junyper text-5xl xl:text-6xl text-cream font-normal leading-tight">
+                  EXPERIÊNCIA DE CERÂMICA
+                </h2>
+                
+                <p className="text-cream/90 text-xl xl:text-2xl leading-relaxed font-instrument">
+                  Aqui você vive uma experiência exclusiva de modelagem e pintura em cerâmica, em um ambiente reservado só para o seu grupo. Traga quem ama, seus petiscos e bebidas, e aproveite duas horas de criatividade e muita conversa.
+                </p>
+                
+                                 <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
+                   <div className="space-y-4">
+                     <div className="flex items-center text-cream font-instrument text-lg xl:text-xl">
+                       <span className="mr-2">—</span>
+                       <span>2 a 5 pessoas</span>
+                     </div>
+                     <div className="flex items-center text-cream font-instrument text-lg xl:text-xl">
+                       <span className="mr-2">—</span>
+                       <span>R$200 por pessoa</span>
+                     </div>
+                     <div className="flex items-center text-cream font-instrument text-lg xl:text-xl">
+                       <span className="mr-2">—</span>
+                       <span>2 horas de experiência</span>
+                     </div>
+                   </div>
+                   
+                   <button 
+                     className="bg-amarelo hover:bg-amarelo/90 text-white font-instrument font-semibold text-lg xl:text-xl px-12 h-16 rounded-[28px] transition-all duration-200 uppercase tracking-wide flex-shrink-0"
+                     type="button"
+                   >
+                     ESCOLHER DATA
+                   </button>
+                 </div>
+              </div>
+            </div>
+            
+            {/* Imagem - 1/3 da largura, mesma altura do quadrado */}
+            <div className="flex-[1]">
+                             <div className="h-[500px] xl:h-[600px] rounded-3xl overflow-hidden">
+                 <Image
+                   src="/images/experience-1.png"
+                   alt="Experiência de Cerâmica - Pessoas fazendo cerâmica"
+                   width={400}
+                   height={600}
+                   className="w-full h-full object-cover"
+                   priority
+                 />
+               </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+    </>
   )
 } 
