@@ -330,8 +330,8 @@ export default function Home() {
             src="/images/footer-ceramics.png"
             alt="Cerâmicas decorativas"
             width={1200}
-            height={150}
-            className="w-full h-24 sm:h-32 md:h-40 object-cover object-center"
+            height={80}
+            className="w-full h-16 sm:h-20 md:h-24 object-contain"
             priority={false}
           />
         </div>
