@@ -269,22 +269,29 @@ export default function Home() {
               </h3>
             </div>
 
-            {/* Contatos */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 text-sm font-instrument">
-              <a 
-                href="https://wa.me/5521991792065" 
-                className="text-cream/90 hover:text-amarelo transition-colors flex items-center gap-1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                📞 (21) 99179-2065
-              </a>
-              <a 
-                href="mailto:contato@alvite.com.br" 
-                className="text-cream/90 hover:text-amarelo transition-colors flex items-center gap-1"
-              >
-                📧 contato@alvite.com.br
-              </a>
+            {/* Contatos e Copyright */}
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-center gap-4 text-sm font-instrument">
+                <a 
+                  href="https://wa.me/5521991792065" 
+                  className="text-cream/90 hover:text-amarelo transition-colors flex items-center gap-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  📞 (21) 99179-2065
+                </a>
+                <a 
+                  href="mailto:contato@alvite.com.br" 
+                  className="text-cream/90 hover:text-amarelo transition-colors flex items-center gap-1"
+                >
+                  📧 contato@alvite.com.br
+                </a>
+              </div>
+              
+              {/* Copyright */}
+              <p className="text-cream/80 text-sm font-instrument text-center">
+                © 2025 Casa Alvite. Todos os direitos reservados.
+              </p>
             </div>
 
             {/* Redes Sociais */}
@@ -315,13 +322,18 @@ export default function Home() {
             </div>
             
           </div>
-          
-          {/* Copyright */}
-          <div className="mt-6 pt-6 border-t border-cream/20 text-center">
-            <p className="text-cream/80 text-sm font-instrument">
-              © 2025 Casa Alvite. Todos os direitos reservados.
-            </p>
-          </div>
+        </div>
+        
+        {/* Imagem decorativa no final */}
+        <div className="w-full">
+          <Image
+            src="/images/footer-ceramics.png"
+            alt="Cerâmicas decorativas"
+            width={1200}
+            height={150}
+            className="w-full h-24 sm:h-32 md:h-40 object-cover object-center"
+            priority={false}
+          />
         </div>
       </footer>
     </>
