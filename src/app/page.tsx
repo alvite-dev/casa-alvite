@@ -116,7 +116,7 @@ export default function Home() {
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 pt-20 sm:pt-24">
           <div className="text-center space-y-16 sm:space-y-20 lg:space-y-28">
             {/* Título principal */}
-            <h1 className="text-white font-instrument-serif italic text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-wide leading-tight">
+            <h1 className="text-cream font-instrument-serif italic text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-wide leading-tight">
               Barro, Bebidas e<br className="sm:hidden" />
               <span className="sm:block">Belisquetes</span>
             </h1>
@@ -124,7 +124,7 @@ export default function Home() {
             {/* Botão de Agendar */}
             <button 
               onClick={scrollToNextSection}
-              className="bg-amarelo hover:bg-amarelo/90 text-white font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 sm:h-16 rounded-2xl sm:rounded-[28px] transition-all duration-200 uppercase tracking-wide"
+              className="bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 sm:h-16 rounded-2xl sm:rounded-[28px] transition-all duration-200 uppercase tracking-wide"
               type="button"
             >
               AGENDAR EXPERIÊNCIA
@@ -180,7 +180,7 @@ export default function Home() {
                 </div>
                 
                 <button 
-                  className="bg-amarelo hover:bg-amarelo/90 text-white font-instrument font-semibold text-sm sm:text-base px-8 sm:px-10 h-12 sm:h-16 rounded-2xl transition-all duration-200 uppercase tracking-wide flex-shrink-0"
+                  className="bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base px-8 sm:px-10 h-12 sm:h-16 rounded-2xl transition-all duration-200 uppercase tracking-wide flex-shrink-0"
                   type="button"
                 >
                   RESERVAR
@@ -222,7 +222,7 @@ export default function Home() {
                    </div>
                    
                    <button 
-                     className="bg-amarelo hover:bg-amarelo/90 text-white font-instrument font-semibold text-lg xl:text-xl px-12 h-16 rounded-[28px] transition-all duration-200 uppercase tracking-wide flex-shrink-0"
+                     className="bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-lg xl:text-xl px-12 h-16 rounded-[28px] transition-all duration-200 uppercase tracking-wide flex-shrink-0"
                      type="button"
                    >
                      ESCOLHER DATA
