@@ -10,7 +10,7 @@ export default function AdminPage() {
             Acesso aos testes e configurações do sistema Casa Alvite
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Teste Supabase - Experiences */}
             <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center mb-4">
@@ -53,8 +53,29 @@ export default function AdminPage() {
               </a>
             </div>
 
+            {/* Novo: Teste Calendário */}
+            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                  <span className="text-orange-600 font-semibold">🗓️</span>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Teste Calendário
+                </h3>
+              </div>
+              <p className="text-gray-600 mb-4">
+                Visualizar e testar componente react-calendar para agendamentos
+              </p>
+              <a
+                href="/calendar-test"
+                className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors inline-block"
+              >
+                Acessar →
+              </a>
+            </div>
+
             {/* Status Supabase */}
-            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow md:col-span-2">
+            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow md:col-span-2 lg:col-span-3">
               <div className="flex items-center mb-4">
                 <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
                   <span className="text-purple-600 font-semibold">🔗</span>
