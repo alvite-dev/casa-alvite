@@ -443,12 +443,12 @@ export default function Home() {
             <div className="bg-verde rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-6 h-[400px] md:h-[500px]">
               <div className="flex flex-col items-center space-y-4">
                 {/* SVG de Vaso */}
-                <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center">
+                <div className="w-[300px] h-[300px] flex items-center justify-center">
                   <Image
                     src="/images/vaso.svg"
                     alt="Vaso de cerâmica"
-                    width={112}
-                    height={112}
+                    width={300}
+                    height={300}
                     className="w-full h-full object-contain opacity-90"
                   />
                 </div>
@@ -464,12 +464,12 @@ export default function Home() {
             <div className="bg-amarelo rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-6 h-[400px] md:h-[500px]">
               <div className="flex flex-col items-center space-y-4">
                 {/* SVG de Ferramentas */}
-                <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center">
+                <div className="w-[350px] h-[350px] flex items-center justify-center">
                   <Image
                     src="/images/ferramentas.svg"
                     alt="Ferramentas de cerâmica"
-                    width={112}
-                    height={112}
+                    width={350}
+                    height={350}
                     className="w-full h-full object-contain opacity-90"
                   />
                 </div>
@@ -485,12 +485,12 @@ export default function Home() {
             <div className="bg-[#B85C3E] rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-6 h-[400px] md:h-[500px]">
               <div className="flex flex-col items-center space-y-4">
                 {/* SVG de Cumbucas */}
-                <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center">
+                <div className="w-[300px] h-[300px] flex items-center justify-center">
                   <Image
                     src="/images/cumbucas.svg"
                     alt="Cumbucas de cerâmica"
-                    width={112}
-                    height={112}
+                    width={300}
+                    height={300}
                     className="w-full h-full object-contain opacity-90"
                   />
                 </div>
@@ -509,7 +509,7 @@ export default function Home() {
               
               {/* SVG da Estrela */}
               <div className="flex-shrink-0 flex justify-center lg:justify-start">
-                <div className="w-16 h-16 lg:w-20 lg:h-20">
+                <div className="w-[80px] h-[80px]">
                   <Image
                     src="/images/estrela.svg"
                     alt="Estrela dourada"
