@@ -442,11 +442,11 @@ export default function Home() {
             {/* Caixa 1 - Verde */}
             <div className="bg-verde rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center text-center space-y-6">
               <div className="flex flex-col items-center space-y-4">
-                {/* SVG de Cumbucas */}
+                {/* SVG de Vaso */}
                 <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center">
                   <Image
-                    src="/images/cumbucas.svg"
-                    alt="Cumbucas de cerâmica"
+                    src="/images/vaso.svg"
+                    alt="Vaso de cerâmica"
                     width={112}
                     height={112}
                     className="w-full h-full object-contain opacity-90"
@@ -484,13 +484,13 @@ export default function Home() {
             {/* Caixa 3 - Terracota */}
             <div className="bg-[#B85C3E] rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center text-center space-y-6">
               <div className="flex flex-col items-center space-y-4">
-                {/* SVG de Estrela */}
-                <div className="w-20 h-20 lg:w-24 lg:h-24 flex items-center justify-center">
+                {/* SVG de Cumbucas */}
+                <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center">
                   <Image
-                    src="/images/estrela.svg"
-                    alt="Estrela dourada"
-                    width={96}
-                    height={96}
+                    src="/images/cumbucas.svg"
+                    alt="Cumbucas de cerâmica"
+                    width={112}
+                    height={112}
                     className="w-full h-full object-contain opacity-90"
                   />
                 </div>
@@ -507,12 +507,12 @@ export default function Home() {
           <div className="bg-verde rounded-3xl p-8 lg:p-12 text-cream">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-8">
               
-              {/* SVG do Vaso */}
+              {/* SVG da Estrela */}
               <div className="flex-shrink-0 flex justify-center lg:justify-start">
                 <div className="w-24 h-24 lg:w-32 lg:h-32">
                   <Image
-                    src="/images/vaso.svg"
-                    alt="Vaso de cerâmica"
+                    src="/images/estrela.svg"
+                    alt="Estrela dourada"
                     width={128}
                     height={128}
                     className="w-full h-full object-contain opacity-90"
