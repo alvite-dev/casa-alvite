@@ -440,10 +440,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-6 lg:mb-8">
             
             {/* Caixa 1 - Verde */}
-            <div className="bg-verde rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-6 h-[400px] md:h-[500px]">
+            <div className="bg-verde rounded-3xl p-6 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-4 md:space-y-6 h-[400px] md:h-[500px]">
               <div className="flex flex-col items-center space-y-4">
                 {/* SVG de Vaso */}
-                <div className="w-[300px] h-[300px] flex items-center justify-center">
+                <div className="w-[200px] h-[200px] md:w-[300px] md:h-[300px] flex items-center justify-center">
                   <Image
                     src="/images/vaso.svg"
                     alt="Vaso de cerâmica"
@@ -454,17 +454,17 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <h3 className="font-instrument font-bold text-lg lg:text-xl uppercase tracking-wide leading-tight">
+                <h3 className="font-instrument font-semibold text-2xl uppercase tracking-wide leading-tight">
                   BARRO, TINTAS E<br />QUEIMAS INCLUSOS
                 </h3>
               </div>
             </div>
             
             {/* Caixa 2 - Amarela */}
-            <div className="bg-amarelo rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-6 h-[400px] md:h-[500px]">
+            <div className="bg-amarelo rounded-3xl p-6 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-4 md:space-y-6 h-[400px] md:h-[500px]">
               <div className="flex flex-col items-center space-y-4">
                 {/* SVG de Ferramentas */}
-                <div className="w-[350px] h-[350px] flex items-center justify-center">
+                <div className="w-[220px] h-[220px] md:w-[350px] md:h-[350px] flex items-center justify-center">
                   <Image
                     src="/images/ferramentas.svg"
                     alt="Ferramentas de cerâmica"
@@ -475,17 +475,17 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <h3 className="font-instrument font-bold text-lg lg:text-xl uppercase tracking-wide leading-tight">
+                <h3 className="font-instrument font-semibold text-2xl uppercase tracking-wide leading-tight">
                   2 HORAS DE OFICINA<br />COM SEUS AMADOS
                 </h3>
               </div>
             </div>
             
             {/* Caixa 3 - Terracota */}
-            <div className="bg-[#B85C3E] rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-6 h-[400px] md:h-[500px]">
+            <div className="bg-[#B85C3E] rounded-3xl p-6 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-4 md:space-y-6 h-[400px] md:h-[500px]">
               <div className="flex flex-col items-center space-y-4">
                 {/* SVG de Cumbucas */}
-                <div className="w-[300px] h-[300px] flex items-center justify-center">
+                <div className="w-[200px] h-[200px] md:w-[300px] md:h-[300px] flex items-center justify-center">
                   <Image
                     src="/images/cumbucas.svg"
                     alt="Cumbucas de cerâmica"
@@ -496,7 +496,7 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <h3 className="font-instrument font-bold text-lg lg:text-xl uppercase tracking-wide leading-tight">
+                <h3 className="font-instrument font-semibold text-2xl uppercase tracking-wide leading-tight">
                   MÚSICA BOA, BEBIDINHA<br />E BELISQUETES
                 </h3>
               </div>
@@ -504,12 +504,12 @@ export default function Home() {
           </div>
           
           {/* Caixa grande embaixo */}
-          <div className="bg-verde rounded-3xl p-6 lg:p-8 text-cream h-[120px] md:h-[140px]">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-8">
+          <div className="bg-verde rounded-3xl p-6 lg:p-8 text-cream h-[220px] md:h-[160px]">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8 h-full">
               
               {/* SVG da Estrela */}
               <div className="flex-shrink-0 flex justify-center lg:justify-start">
-                <div className="w-[80px] h-[80px]">
+                <div className="w-[60px] h-[60px] md:w-[80px] md:h-[80px]">
                   <Image
                     src="/images/estrela.svg"
                     alt="Estrela dourada"
@@ -521,10 +521,10 @@ export default function Home() {
               </div>
               
               {/* Texto */}
-              <div className="flex-1 text-center lg:text-left">
-                <p className="font-instrument font-bold text-xl lg:text-2xl uppercase tracking-wide leading-relaxed">
+              <div className="flex-1 text-center lg:text-left flex items-center">
+                <p className="font-instrument font-semibold text-lg md:text-2xl uppercase tracking-wide leading-tight md:leading-relaxed">
                   SUA ARTE PRONTA EM 30 DIAS COM QUEIMA E ESMALTAÇÃO PROFISSIONAL.<br />
-                  NO FINAL, COMBINAMOS A MELHOR FORMA DE ENTREGA 🔥
+                  NO FINAL, COMBINAMOS A MELHOR FORMA DE ENTREGA
                 </p>
               </div>
             </div>
