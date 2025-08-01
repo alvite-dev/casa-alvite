@@ -440,7 +440,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-6 lg:mb-8">
             
             {/* Caixa 1 - Verde */}
-            <div className="bg-verde rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center text-center space-y-6">
+            <div className="bg-verde rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-6 h-[400px] md:h-[500px]">
               <div className="flex flex-col items-center space-y-4">
                 {/* SVG de Vaso */}
                 <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center">
@@ -461,7 +461,7 @@ export default function Home() {
             </div>
             
             {/* Caixa 2 - Amarela */}
-            <div className="bg-amarelo rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center text-center space-y-6">
+            <div className="bg-amarelo rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-6 h-[400px] md:h-[500px]">
               <div className="flex flex-col items-center space-y-4">
                 {/* SVG de Ferramentas */}
                 <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center">
@@ -482,7 +482,7 @@ export default function Home() {
             </div>
             
             {/* Caixa 3 - Terracota */}
-            <div className="bg-[#B85C3E] rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center text-center space-y-6">
+            <div className="bg-[#B85C3E] rounded-3xl p-8 lg:p-10 text-cream flex flex-col items-center justify-center text-center space-y-6 h-[400px] md:h-[500px]">
               <div className="flex flex-col items-center space-y-4">
                 {/* SVG de Cumbucas */}
                 <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center">
@@ -504,17 +504,17 @@ export default function Home() {
           </div>
           
           {/* Caixa grande embaixo */}
-          <div className="bg-verde rounded-3xl p-8 lg:p-12 text-cream">
+          <div className="bg-verde rounded-3xl p-6 lg:p-8 text-cream h-[120px] md:h-[140px]">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-8">
               
               {/* SVG da Estrela */}
               <div className="flex-shrink-0 flex justify-center lg:justify-start">
-                <div className="w-24 h-24 lg:w-32 lg:h-32">
+                <div className="w-16 h-16 lg:w-20 lg:h-20">
                   <Image
                     src="/images/estrela.svg"
                     alt="Estrela dourada"
-                    width={128}
-                    height={128}
+                    width={80}
+                    height={80}
                     className="w-full h-full object-contain opacity-90"
                   />
                 </div>
