@@ -3,33 +3,10 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
-// Tipos para o calendário
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-// Interface para slots disponíveis
-interface AvailableSlot {
-  id: number;
-  date: string | null;
-  start_time: string | null;
-  end_time: string | null;
-  is_available: boolean;
-  max_capacity: number | null;
-  current_bookings: number | null;
-  experience_id: string | null;
-  created_at: string;
-  updated_at: string;
-}
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
-  
-  // Estados para o agendamento
-  const [selectedDate, setSelectedDate] = useState<Value>(null)
-  const [selectedTime, setSelectedTime] = useState<string>('')
-  const [selectedPeople, setSelectedPeople] = useState<number>(2)
-  const [availableSlots, setAvailableSlots] = useState<AvailableSlot[]>([])
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,26 +20,7 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Buscar dados do Supabase
-  useEffect(() => {
-    async function fetchAvailableSlots() {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/available-slots');
-        if (!response.ok) {
-          throw new Error('Erro ao buscar dados');
-        }
-        const data = await response.json();
-        setAvailableSlots(data);
-      } catch (err) {
-        console.error('Erro ao buscar slots:', err);
-      } finally {
-        setLoading(false);
-      }
-    }
 
-    fetchAvailableSlots();
-  }, []);
 
   const scrollToNextSection = () => {
     const nextSection = document.getElementById('next-section')
@@ -78,103 +36,7 @@ export default function Home() {
     }
   }
 
-  const scrollToBookingSection = () => {
-    const bookingSection = document.getElementById('booking-section')
-    if (bookingSection) {
-      bookingSection.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
 
-  // Funções auxiliares para o calendário
-  const formatTime = (timeString: string | null) => {
-    if (!timeString) return '';
-    try {
-      const [hours, minutes] = timeString.split(':');
-      const hour = parseInt(hours);
-      const ampm = hour >= 12 ? 'PM' : 'AM';
-      const displayHour = hour % 12 || 12;
-      return `${displayHour}:${minutes} ${ampm}`;
-    } catch {
-      return timeString;
-    }
-  };
-
-  // ID da experiência de cerâmica
-  const CERAMICS_EXPERIENCE_ID = '22a8e6c4-23fb-4fe0-b64d-e229c981b449';
-
-  // Extrair datas que têm slots disponíveis para a experiência de cerâmica
-  const availableDates = availableSlots
-    .filter(slot => slot.experience_id === CERAMICS_EXPERIENCE_ID && slot.date && slot.is_available)
-    .map(slot => {
-      try {
-        return slot.date ? new Date(slot.date) : null;
-      } catch {
-        return null;
-      }
-    })
-    .filter(date => date !== null) as Date[];
-
-  // Verificar se uma data tem slots disponíveis
-  const hasAvailableSlots = (date: Date) => {
-    return availableDates.some(availableDate => 
-      date.getFullYear() === availableDate.getFullYear() &&
-      date.getMonth() === availableDate.getMonth() &&
-      date.getDate() === availableDate.getDate()
-    );
-  };
-
-  // Desabilitar datas passadas e sem slots disponíveis
-  const tileDisabled = ({ date, view }: { date: Date; view: string }) => {
-    if (view === 'month') {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      if (date < today) return true;
-      return !hasAvailableSlots(date);
-    }
-    return false;
-  };
-
-  // Classe CSS para datas disponíveis
-  const tileClassName = ({ date, view }: { date: Date; view: string }) => {
-    if (view === 'month' && hasAvailableSlots(date)) {
-      return 'available-date';
-    }
-    return null;
-  };
-
-  // Obter horários da data selecionada para a experiência de cerâmica
-  const getAvailableTimesForDate = () => {
-    if (!(selectedDate instanceof Date)) return [];
-    
-    return availableSlots.filter(slot => {
-      if (!slot.experience_id || slot.experience_id !== CERAMICS_EXPERIENCE_ID) return false;
-      if (!slot.date || !slot.is_available) return false;
-      try {
-        const slotDate = new Date(slot.date);
-        return slotDate.toDateString() === selectedDate.toDateString();
-      } catch {
-        return false;
-      }
-    });
-  };
-
-  // Calcular preço total
-  const totalPrice = selectedPeople * 200;
-
-  // Resetar seleções quando data ou horário mudarem
-  const handleDateChange = (value: Value) => {
-    setSelectedDate(value);
-    setSelectedTime(''); // Reset horário quando data muda
-    // Pessoas mantém o valor padrão (2)
-  };
-
-  const handleTimeChange = (time: string) => {
-    setSelectedTime(time);
-  };
-
-  // Obter horários da data selecionada com key único para forçar re-render
-  const currentDateKey = selectedDate instanceof Date ? selectedDate.toDateString() : 'no-date';
 
   return (
     <>
@@ -579,160 +441,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Estilos do Calendário */}
-      <style jsx global>{`
-        /* Estilização minimalista para o calendário */
-        .calendar-wrapper {
-          display: flex;
-          justify-content: center;
-        }
 
-        .minimal-calendar {
-          width: 100%;
-          max-width: 350px;
-          background: transparent;
-          border: none;
-          font-family: inherit;
-          line-height: 1.125em;
-        }
-
-        .minimal-calendar .react-calendar__navigation {
-          display: flex;
-          height: 50px;
-          margin-bottom: 1.5em;
-          background: transparent;
-          border: none;
-        }
-
-        .minimal-calendar .react-calendar__navigation button {
-          color: #40413E;
-          min-width: 44px;
-          background: none;
-          border: none;
-          font-size: 18px;
-          font-weight: 400;
-          cursor: pointer;
-          font-family: 'Instrument Serif', serif;
-        }
-
-        .minimal-calendar .react-calendar__navigation button:hover {
-          background-color: #f9fafb;
-          border-radius: 8px;
-        }
-
-        .minimal-calendar .react-calendar__navigation button:disabled {
-          background-color: transparent;
-          color: #d1d5db;
-          cursor: default;
-        }
-
-        .minimal-calendar .react-calendar__month-view__weekdays {
-          text-align: center;
-          text-transform: uppercase;
-          font-weight: 500;
-          font-size: 0.75em;
-          color: #6b7280;
-          padding: 0.75em 0 1em 0;
-          border-bottom: 1px solid #f3f4f6;
-          margin-bottom: 0.5em;
-        }
-
-        .minimal-calendar .react-calendar__month-view__weekdays__weekday {
-          padding: 0.5em;
-        }
-
-        .minimal-calendar .react-calendar__month-view__days__day {
-          position: relative;
-          padding: 0.75em;
-          background: none;
-          border: none;
-          cursor: pointer;
-          font-size: 0.9em;
-          color: #374151;
-          border-radius: 8px;
-          margin: 1px;
-          font-weight: 400;
-        }
-
-        .minimal-calendar .react-calendar__month-view__days__day:hover {
-          background-color: #f9fafb;
-        }
-
-                 .minimal-calendar .react-calendar__month-view__days__day--active {
-           background: #40413E !important;
-           color: white !important;
-           font-weight: 500;
-         }
-
-         .minimal-calendar .react-calendar__month-view__days__day--active:hover {
-           background: #40413E !important;
-         }
-
-         .minimal-calendar .react-calendar__tile--disabled {
-           background-color: transparent !important;
-           color: #e5e7eb !important;
-           cursor: not-allowed !important;
-         }
-
-         .minimal-calendar .react-calendar__tile--active {
-           background: #40413E !important;
-           color: white !important;
-         }
-
-         /* Data selecionada (diferente de ativa) */
-         .minimal-calendar .react-calendar__tile--now {
-           background: #f3f4f6 !important;
-           color: #40413E !important;
-           font-weight: 500;
-         }
-
-         .minimal-calendar .react-calendar__tile--now:hover {
-           background: #e5e7eb !important;
-         }
-
-         /* Data selecionada pelo usuário */
-         .minimal-calendar .react-calendar__tile--active.available-date {
-           background: #D59146 !important;
-           color: white !important;
-           font-weight: 600;
-         }
-
-         .minimal-calendar .react-calendar__tile--active.available-date:hover {
-           background: #D59146 !important;
-         }
-
-         .minimal-calendar .react-calendar__tile--active.available-date:after {
-           display: none;
-         }
-
-        /* Datas com horários disponíveis */
-        .minimal-calendar .available-date {
-          background-color: #fef3c7 !important;
-          color: #92400e !important;
-          font-weight: 500;
-          position: relative;
-        }
-
-        .minimal-calendar .available-date:hover {
-          background-color: #fde68a !important;
-        }
-
-        .minimal-calendar .available-date:after {
-          content: '';
-          position: absolute;
-          bottom: 4px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 4px;
-          height: 4px;
-          background-color: #D59146;
-          border-radius: 50%;
-        }
-
-        .minimal-calendar .react-calendar__month-view__days__day--neighboringMonth {
-          color: #e5e7eb;
-        }
-      `}</style>
     </>
   )
 } 
