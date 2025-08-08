@@ -32,7 +32,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   
   // Estados para o FAQ
-  const [openFAQ, setOpenFAQ] = useState<number | null>(0)
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -576,24 +576,19 @@ export default function Home() {
             <div className="space-y-10">
               
               {/* Título decorativo */}
-              <div className="relative">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 flex items-center justify-center">
-                    <Image
-                      src="/images/estrela.svg"
-                      alt="Estrela decorativa"
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-contain opacity-80"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <h2 className="font-junyper text-3xl sm:text-4xl lg:text-5xl text-cinza font-normal leading-tight">
-                      O espaço é só<br />
-                      de vocês!
-                    </h2>
-                    <div className="w-16 h-1 bg-amarelo mt-2"></div>
-                  </div>
+              <div className="relative mb-6">
+                <h2 className="font-junyper text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-verde font-normal leading-[70%] -rotate-[6.5deg] relative z-10 pl-14">
+                  O espaço é só<br />
+                  de vocês!
+                </h2>
+                <div className="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 pointer-events-none z-0">
+                  <Image
+                    src="/images/estrela.svg"
+                    alt="Estrela decorativa"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-contain opacity-80"
+                  />
                 </div>
               </div>
               
@@ -614,7 +609,15 @@ export default function Home() {
               {/* Lista de características */}
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-terracotta rounded-full flex-shrink-0"></div>
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check-terracota.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
+                  </div>
                   <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
                     ESPAÇO ACOLHEDOR E INSPIRADOR
                   </span>
@@ -623,7 +626,15 @@ export default function Home() {
                 <div className="w-full h-px bg-cinza/20"></div>
                 
                 <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-verde rounded-full flex-shrink-0"></div>
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
+                  </div>
                   <span className="text-verde font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
                     AMBIENTE CRIATIVO NO HUMAITÁ
                   </span>
@@ -632,7 +643,15 @@ export default function Home() {
                 <div className="w-full h-px bg-cinza/20"></div>
                 
                 <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-amarelo rounded-full flex-shrink-0"></div>
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check-amarelo.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
+                  </div>
                   <span className="text-amarelo font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
                     GRUPOS PEQUENOS E INTIMISTAS
                   </span>
@@ -655,8 +674,8 @@ export default function Home() {
             <div className="relative order-first lg:order-last">
               <div className="relative rounded-3xl overflow-hidden">
                 <Image
-                  src="/images/experience-1.png"
-                  alt="Casal fazendo cerâmica no ateliê Casa Alvite"
+                  src="/images/experience-5.png"
+                  alt="Experiência de cerâmica no espaço Casa Alvite"
                   width={600}
                   height={800}
                   className="w-full h-[400px] lg:h-[600px] object-cover"
@@ -683,73 +702,87 @@ export default function Home() {
           
           <div className="relative z-10">
             
-            {/* Grid de imagens - Desktop */}
-            <div className="hidden lg:grid grid-cols-12 gap-4 h-[600px]">
+            {/* Grid de imagens - Desktop - Grade 6x6 Sem Sobreposição */}
+            <div className="hidden lg:grid grid-cols-6 grid-rows-6 gap-4 h-[600px]">
               
-              {/* Imagem 1 - Grande à esquerda */}
-              <div className="col-span-4 row-span-2">
+              {/* Imagem 1 - Posição [1,1] 2x2 */}
+              <div className="col-start-1 col-span-2 row-start-1 row-span-2">
                 <div className="relative h-full rounded-3xl overflow-hidden group">
                   <Image
                     src="/images/experience-1.png"
                     alt="Experiência de cerâmica Casa Alvite"
                     width={400}
-                    height={600}
+                    height={200}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </div>
               
-              {/* Imagem 2 - Média superior centro */}
-              <div className="col-span-4 row-span-1">
+              {/* Imagem 2 - Posição [3,1] 2x4 */}
+              <div className="col-start-3 col-span-2 row-start-1 row-span-4">
                 <div className="relative h-full rounded-3xl overflow-hidden group">
                   <Image
                     src="/images/experience-2.png"
-                    alt="Pessoas fazendo cerâmica"
+                    alt="Experiência de cerâmica Casa Alvite"
                     width={400}
-                    height={290}
+                    height={400}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </div>
               
-              {/* Imagem 3 - Pequena superior direita */}
-              <div className="col-span-4 row-span-1">
+              {/* Imagem 3 - Posição [5,1] 2x2 */}
+              <div className="col-start-5 col-span-2 row-start-1 row-span-2">
                 <div className="relative h-full rounded-3xl overflow-hidden group">
                   <Image
-                    src="/images/background-home.png"
-                    alt="Ambiente Casa Alvite"
+                    src="/images/experience-3.png"
+                    alt="Experiência de cerâmica Casa Alvite"
                     width={400}
-                    height={290}
+                    height={200}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </div>
               
-              {/* Imagem 4 - Pequena inferior centro */}
-              <div className="col-span-3 row-span-1">
+              {/* Imagem 4 - Posição [1,3] 2x2 */}
+              <div className="col-start-1 col-span-2 row-start-3 row-span-2">
                 <div className="relative h-full rounded-3xl overflow-hidden group">
                   <Image
-                    src="/images/footer-ceramics.png"
-                    alt="Cerâmicas produzidas"
-                    width={300}
-                    height={290}
+                    src="/images/experience-4.png"
+                    alt="Experiência de cerâmica Casa Alvite"
+                    width={400}
+                    height={200}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </div>
               
-              {/* Imagem 5 - Média inferior centro-direita */}
-              <div className="col-span-5 row-span-1">
+              {/* Imagem 5 - Posição [5,3] 2x4 */}
+              <div className="col-start-5 col-span-2 row-start-3 row-span-4">
                 <div className="relative h-full rounded-3xl overflow-hidden group">
                   <Image
-                    src="/images/experience-1.png"
-                    alt="Grupo fazendo cerâmica"
-                    width={500}
-                    height={290}
+                    src="/images/experience-5.png"
+                    alt="Experiência de cerâmica Casa Alvite"
+                    width={400}
+                    height={400}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              </div>
+              
+              {/* Imagem 6 - Posição [1,5] 4x2 */}
+              <div className="col-start-1 col-span-4 row-start-5 row-span-2">
+                <div className="relative h-full rounded-3xl overflow-hidden group">
+                  <Image
+                    src="/images/experience-6.png"
+                    alt="Experiência de cerâmica Casa Alvite"
+                    width={800}
+                    height={200}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -765,7 +798,7 @@ export default function Home() {
               <div className="row-span-2">
                 <div className="relative h-full rounded-3xl overflow-hidden">
                   <Image
-                    src="/images/experience-1.png"
+                    src="/images/experience-6.png"
                     alt="Experiência de cerâmica Casa Alvite"
                     width={400}
                     height={500}
@@ -791,8 +824,8 @@ export default function Home() {
               <div className="row-span-1">
                 <div className="relative h-full rounded-3xl overflow-hidden">
                   <Image
-                    src="/images/background-home.png"
-                    alt="Ambiente Casa Alvite"
+                    src="/images/experience-3.png"
+                    alt="Experiência de cerâmica Casa Alvite"
                     width={400}
                     height={240}
                     className="w-full h-full object-cover"
@@ -809,7 +842,7 @@ export default function Home() {
               <div className="h-[300px]">
                 <div className="relative h-full rounded-3xl overflow-hidden">
                   <Image
-                    src="/images/experience-1.png"
+                    src="/images/experience-4.png"
                     alt="Experiência de cerâmica Casa Alvite"
                     width={400}
                     height={300}
@@ -822,8 +855,8 @@ export default function Home() {
               <div className="h-[300px]">
                 <div className="relative h-full rounded-3xl overflow-hidden">
                   <Image
-                    src="/images/experience-2.png"
-                    alt="Pessoas fazendo cerâmica"
+                    src="/images/experience-3.png"
+                    alt="Experiência de cerâmica Casa Alvite"
                     width={400}
                     height={300}
                     className="w-full h-full object-cover"
@@ -936,10 +969,10 @@ export default function Home() {
                 <div className="px-6 pb-6">
                   <div className="space-y-4 text-cinza text-base lg:text-lg leading-relaxed font-instrument">
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                      Sim! Celebramos aniversários, happy hours corporativos, despedidas de solteiro, festas infantis e muito mais.
                     </p>
                     <p>
-                      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+                      Realizamos eventos tanto no nosso espaço acolhedor no Humaitá quanto no local de sua preferência, adaptando nossa experiência cerâmica às suas necessidades especiais.
                     </p>
                   </div>
                 </div>
@@ -971,10 +1004,10 @@ export default function Home() {
                 <div className="px-6 pb-6">
                   <div className="space-y-4 text-cinza text-base lg:text-lg leading-relaxed font-instrument">
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida.
+                      Temos um calendário completo de disponibilidade na nossa página de agendamento, onde você pode visualizar todos os horários livres em tempo real.
                     </p>
                     <p>
-                      At varius vel pharetra vel turpis nunc eget lorem dolor. Consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat.
+                      Acesse a seção de agendamento para reservar o horário de sua preferência e garantir sua experiência única na Casa Alvite.
                     </p>
                   </div>
                 </div>
@@ -1006,50 +1039,17 @@ export default function Home() {
                 <div className="px-6 pb-6">
                   <div className="space-y-4 text-cinza text-base lg:text-lg leading-relaxed font-instrument">
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                      Não fornecemos bebidas e comidas, mas vocês são muito bem-vindos para levar e criar um momento ainda mais agradável durante a experiência.
                     </p>
                     <p>
-                      Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+                      A experiência já inclui todo o barro, as tintas e as queimas profissionais. Vocês só precisam trazer a criatividade e o que desejarem para beber e beliscar!
                     </p>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* FAQ 5 */}
-            <div className="bg-cream border border-cinza/20 rounded-2xl overflow-hidden">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === 4 ? null : 4)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-cinza/5 transition-colors duration-200"
-              >
-                <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide pr-4">
-                  PRECISO TER FEITO CERÂMICA ANTES?
-                </span>
-                <div className="flex-shrink-0">
-                  {openFAQ === 4 ? (
-                    <svg className="w-6 h-6 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                    </svg>
-                  ) : (
-                    <svg className="w-6 h-6 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  )}
-                </div>
-              </button>
-              {openFAQ === 4 && (
-                <div className="px-6 pb-6">
-                  <div className="space-y-4 text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel magna sed nunc tempor imperdiet. Aenean congue, risus ut cursus consectetur, tortor mauris.
-                    </p>
-                    <p>
-                      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
+
 
           </div>
           
@@ -1086,12 +1086,6 @@ export default function Home() {
                   rel="noopener noreferrer"
                 >
                   📞 (21) 99179-2065
-                </a>
-                <a 
-                  href="mailto:contato@alvite.com.br" 
-                  className="text-cream/90 hover:text-amarelo transition-colors flex items-center gap-1"
-                >
-                  📧 contato@alvite.com.br
                 </a>
               </div>
               
