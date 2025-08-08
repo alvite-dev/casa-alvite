@@ -3,33 +3,10 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
-// Tipos para o calendário
-type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-// Interface para slots disponíveis
-interface AvailableSlot {
-  id: number;
-  date: string | null;
-  start_time: string | null;
-  end_time: string | null;
-  is_available: boolean;
-  max_capacity: number | null;
-  current_bookings: number | null;
-  experience_id: string | null;
-  created_at: string;
-  updated_at: string;
-}
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
-  
-  // Estados para o agendamento
-  const [selectedDate, setSelectedDate] = useState<Value>(null)
-  const [selectedTime, setSelectedTime] = useState<string>('')
-  const [selectedPeople, setSelectedPeople] = useState<number>(2)
-  const [availableSlots, setAvailableSlots] = useState<AvailableSlot[]>([])
-  const [loading, setLoading] = useState(false)
   
   // Estados para o FAQ
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
@@ -46,26 +23,7 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Buscar dados do Supabase - COMENTADO PARA LANDING PAGE
-  // useEffect(() => {
-  //   async function fetchAvailableSlots() {
-  //     try {
-  //       setLoading(true);
-  //       const response = await fetch('/api/available-slots');
-  //       if (!response.ok) {
-  //         throw new Error('Erro ao buscar dados');
-  //       }
-  //       const data = await response.json();
-  //       setAvailableSlots(data);
-  //     } catch (err) {
-  //       console.error('Erro ao buscar slots:', err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
 
-  //   fetchAvailableSlots();
-  // }, []);
 
   const scrollToNextSection = () => {
     const nextSection = document.getElementById('next-section')
@@ -102,82 +60,8 @@ export default function Home() {
     }
   };
 
-  // ID da experiência de cerâmica
-  const CERAMICS_EXPERIENCE_ID = '22a8e6c4-23fb-4fe0-b64d-e229c981b449';
 
-  // Extrair datas que têm slots disponíveis para a experiência de cerâmica
-  const availableDates = availableSlots
-    .filter(slot => slot.experience_id === CERAMICS_EXPERIENCE_ID && slot.date && slot.is_available)
-    .map(slot => {
-      try {
-        return slot.date ? new Date(slot.date) : null;
-      } catch {
-        return null;
-      }
-    })
-    .filter(date => date !== null) as Date[];
 
-  // Verificar se uma data tem slots disponíveis
-  const hasAvailableSlots = (date: Date) => {
-    return availableDates.some(availableDate => 
-      date.getFullYear() === availableDate.getFullYear() &&
-      date.getMonth() === availableDate.getMonth() &&
-      date.getDate() === availableDate.getDate()
-    );
-  };
-
-  // Desabilitar datas passadas e sem slots disponíveis
-  const tileDisabled = ({ date, view }: { date: Date; view: string }) => {
-    if (view === 'month') {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      if (date < today) return true;
-      return !hasAvailableSlots(date);
-    }
-    return false;
-  };
-
-  // Classe CSS para datas disponíveis
-  const tileClassName = ({ date, view }: { date: Date; view: string }) => {
-    if (view === 'month' && hasAvailableSlots(date)) {
-      return 'available-date';
-    }
-    return null;
-  };
-
-  // Obter horários da data selecionada para a experiência de cerâmica
-  const getAvailableTimesForDate = () => {
-    if (!(selectedDate instanceof Date)) return [];
-    
-    return availableSlots.filter(slot => {
-      if (!slot.experience_id || slot.experience_id !== CERAMICS_EXPERIENCE_ID) return false;
-      if (!slot.date || !slot.is_available) return false;
-      try {
-        const slotDate = new Date(slot.date);
-        return slotDate.toDateString() === selectedDate.toDateString();
-      } catch {
-        return false;
-      }
-    });
-  };
-
-  // Calcular preço total
-  const totalPrice = selectedPeople * 200;
-
-  // Resetar seleções quando data ou horário mudarem
-  const handleDateChange = (value: Value) => {
-    setSelectedDate(value);
-    setSelectedTime(''); // Reset horário quando data muda
-    // Pessoas mantém o valor padrão (2)
-  };
-
-  const handleTimeChange = (time: string) => {
-    setSelectedTime(time);
-  };
-
-  // Obter horários da data selecionada com key único para forçar re-render
-  const currentDateKey = selectedDate instanceof Date ? selectedDate.toDateString() : 'no-date';
 
   return (
     <>
@@ -1007,7 +891,7 @@ export default function Home() {
                       Temos um calendário completo de disponibilidade na nossa página de agendamento, onde você pode visualizar todos os horários livres em tempo real.
                     </p>
                     <p>
-                      Acesse a seção de agendamento para reservar o horário de sua preferência e garantir sua experiência única na Casa Alvite.
+                      Acesse nossa página de agendamento para escolher o horário de sua preferência e garantir sua experiência única na Casa Alvite.
                     </p>
                   </div>
                 </div>
