@@ -20,6 +20,15 @@ interface AvailableSlot {
   experience_id?: string;
 }
 
+interface Experience {
+  id: string;
+  name: string;
+  duration: string;
+  price: number;
+  created_at: string;
+  updated_at?: string;
+}
+
 export default function AgendamentoSection() {
   const router = useRouter();
   const [selectedDate, setSelectedDate] = useState<Value>(null);
@@ -27,6 +36,18 @@ export default function AgendamentoSection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<AvailableSlot | null>(null);
+  const [numberOfPeople, setNumberOfPeople] = useState<number>(2);
+  const [experience, setExperience] = useState<Experience | null>(null);
+  const [experienceLoading, setExperienceLoading] = useState(true);
+  const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookingMessage, setBookingMessage] = useState<string | null>(null);
+  const [activeAccordion, setActiveAccordion] = useState<number>(1);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [personalInfo, setPersonalInfo] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
 
   const handleVoltar = () => {
     router.back();
@@ -53,6 +74,35 @@ export default function AgendamentoSection() {
       setLoading(false);
     }
   };
+
+  // Buscar dados da experiência
+  useEffect(() => {
+    async function fetchExperience() {
+      try {
+        setExperienceLoading(true);
+        const response = await fetch('/api/experiences', {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Erro ao buscar dados da experiência');
+        }
+        const data = await response.json();
+        // Pega a primeira experiência por enquanto (pode ser modificado depois)
+        if (data && data.length > 0) {
+          setExperience(data[0]);
+        }
+      } catch (err) {
+        console.error('Erro ao buscar experiência:', err);
+      } finally {
+        setExperienceLoading(false);
+      }
+    }
+
+    fetchExperience();
+  }, []);
 
   // Buscar dados do Supabase quando o componente carregar
   useEffect(() => {
@@ -125,9 +175,20 @@ export default function AgendamentoSection() {
   // Função para adicionar classes CSS customizadas
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
+      const classes = [];
+      
+      // Adiciona classe para dias com horários disponíveis
       if (hasAvailableSlots(date)) {
-        return 'available-date';
+        classes.push('available-date');
       }
+      
+      // Mantém o dia selecionado sempre destacado
+      if (selectedDate instanceof Date && 
+          date.toDateString() === selectedDate.toDateString()) {
+        classes.push('selected-date');
+      }
+      
+      return classes.join(' ') || null;
     }
     return null;
   };
@@ -135,6 +196,33 @@ export default function AgendamentoSection() {
   const formatTime = (timeString: string | null | undefined) => {
     if (!timeString) return '--:--';
     return timeString.slice(0, 5); // Remove os segundos
+  };
+
+  const formatTimeRange = (startTime: string | null | undefined) => {
+    if (!startTime) return '--:-- - --:--';
+    const start = startTime.slice(0, 5);
+    
+    // Adiciona 2 horas ao horário de início
+    const [hours, minutes] = start.split(':').map(Number);
+    const endHours = (hours + 2) % 24;
+    const end = `${endHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    
+    return `${start} - ${end}`;
+  };
+
+  const formatDuration = (durationInMinutes: string | number | undefined) => {
+    if (!durationInMinutes) return 'Carregando...';
+    const minutes = typeof durationInMinutes === 'string' ? parseInt(durationInMinutes) : durationInMinutes;
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    
+    if (hours === 0) {
+      return `${remainingMinutes} minutos de duração`;
+    } else if (remainingMinutes === 0) {
+      return `${hours} ${hours === 1 ? 'hora' : 'horas'} de duração`;
+    } else {
+      return `${hours}h${remainingMinutes}min de duração`;
+    }
   };
 
   // Obter slots da data selecionada
@@ -153,15 +241,127 @@ export default function AgendamentoSection() {
     setSelectedSlot(slot);
   };
 
+  const handlePeopleChange = (count: number) => {
+    setNumberOfPeople(count);
+  };
+
   const handleDateChange = (date: Value) => {
     setSelectedDate(date);
     setSelectedSlot(null); // Limpa o slot selecionado quando muda a data
+    setNumberOfPeople(2); // Reset para 2 pessoas quando muda a data
+    // Remove step 1 from completed if changing date
+    setCompletedSteps(prev => prev.filter(step => step !== 1));
   };
 
-  const handleBooking = () => {
-    if (selectedSlot && selectedDate instanceof Date) {
-      // Aqui você pode implementar a lógica de reserva
-      alert(`Agendamento selecionado:\nData: ${selectedDate.toLocaleDateString('pt-BR')}\nHorário: ${formatTime(selectedSlot.start_time)} - ${formatTime(selectedSlot.end_time)}`);
+  const handleSlotSelectionWithAccordion = (slot: AvailableSlot) => {
+    setSelectedSlot(slot);
+  };
+
+  const handlePeopleChangeWithAccordion = (count: number) => {
+    setNumberOfPeople(count);
+  };
+
+  const handleContinueStep1 = () => {
+    if (selectedDate && selectedSlot) {
+      if (!completedSteps.includes(1)) {
+        setCompletedSteps(prev => [...prev, 1]);
+      }
+      setActiveAccordion(2);
+    }
+  };
+
+  const handleContinueStep2 = () => {
+    if (numberOfPeople >= 2) {
+      if (!completedSteps.includes(2)) {
+        setCompletedSteps(prev => [...prev, 2]);
+      }
+      setActiveAccordion(3);
+    }
+  };
+
+  const handleContinueStep3 = () => {
+    if (personalInfo.name && personalInfo.email && personalInfo.phone) {
+      if (!completedSteps.includes(3)) {
+        setCompletedSteps(prev => [...prev, 3]);
+      }
+      setActiveAccordion(0); // Close all accordions when done
+    }
+  };
+
+  const handlePersonalInfoChange = (field: string, value: string) => {
+    setPersonalInfo(prev => ({ ...prev, [field]: value }));
+  };
+
+  const toggleAccordion = (stepNumber: number) => {
+    setActiveAccordion(activeAccordion === stepNumber ? 0 : stepNumber);
+  };
+
+  // Check if a step can be accessed
+  const canAccessStep = (stepNumber: number) => {
+    if (stepNumber === 1) return true;
+    if (stepNumber === 2) return completedSteps.includes(1);
+    if (stepNumber === 3) return completedSteps.includes(2);
+    return false;
+  };
+
+  // Check if all steps are completed
+  const allStepsCompleted = completedSteps.includes(1) && completedSteps.includes(2) && completedSteps.includes(3);
+
+  const handleBooking = async () => {
+    if (!selectedSlot || !(selectedDate instanceof Date)) return;
+    
+    setBookingLoading(true);
+    setBookingMessage(null);
+    
+    try {
+      // Verificar se o horário ainda está disponível
+      const response = await fetch('/api/available-slots', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error('Erro ao verificar disponibilidade');
+      }
+      
+      const currentSlots = await response.json();
+      
+      // Buscar o slot específico para verificar se ainda está disponível
+      const currentSlot = currentSlots.find((slot: AvailableSlot) => slot.id === selectedSlot.id);
+      
+      if (!currentSlot) {
+        setBookingMessage('❌ Este horário não está mais disponível. Por favor, escolha outro horário.');
+        // Atualizar a lista de slots disponíveis
+        setAvailableSlots(currentSlots);
+        setSelectedSlot(null);
+        return;
+      }
+      
+      if (!currentSlot.is_available) {
+        setBookingMessage('❌ Este horário foi reservado por outra pessoa. Por favor, escolha outro horário.');
+        // Atualizar a lista de slots disponíveis
+        setAvailableSlots(currentSlots);
+        setSelectedSlot(null);
+        return;
+      }
+      
+      // Se chegou até aqui, o horário ainda está disponível
+      const totalValue = (experience?.price || 120) * numberOfPeople;
+      setBookingMessage('✅ Horário confirmado como disponível! Prosseguindo com o agendamento...');
+      
+      // Aqui você pode implementar a lógica real de reserva
+      setTimeout(() => {
+        alert(`Agendamento confirmado!\nData: ${selectedDate.toLocaleDateString('pt-BR')}\nHorário: ${formatTimeRange(selectedSlot.start_time)}\nPessoas: ${numberOfPeople}\nValor Total: R$ ${totalValue.toLocaleString('pt-BR')}`);
+        setBookingMessage(null);
+      }, 1500);
+      
+    } catch (error) {
+      console.error('Erro ao verificar disponibilidade:', error);
+      setBookingMessage('❌ Erro ao verificar disponibilidade. Tente novamente.');
+    } finally {
+      setBookingLoading(false);
     }
   };
 
@@ -200,7 +400,6 @@ export default function AgendamentoSection() {
             </h1>
             <p className="text-lg text-cinza font-instrument leading-relaxed">
               Escolha a data e horário perfeitos para sua experiência única na Casa Alvite. 
-              Nossos artesãos estão prontos para guiá-lo em uma jornada criativa inesquecível.
             </p>
           </div>
         </div>
@@ -221,67 +420,322 @@ export default function AgendamentoSection() {
 
           {!loading && !error && (
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-              {/* Área Principal - Calendário e Horários */}
+              {/* Área Principal - Accordion de Agendamento */}
               <div className="flex-1 lg:max-w-2xl">
-                {/* Calendário Minimalista */}
-                <div className="mb-8">
-                  <h3 className="text-xl font-medium text-cinza mb-6">
-                    Escolha sua Data
-                  </h3>
-                  <div className="calendar-wrapper">
-                    <Calendar
-                      onChange={handleDateChange}
-                      value={selectedDate}
-                      locale="pt-BR"
-                      tileDisabled={tileDisabled}
-                      tileClassName={tileClassName}
-                      className="minimal-calendar"
-                      minDate={new Date()}
-                      showNeighboringMonth={false}
-                      formatShortWeekday={(locale, date) => ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'][date.getDay()]}
-                    />
-                  </div>
-                </div>
-
-                {/* Horários Minimalistas - Só aparece após selecionar data */}
-                {selectedDate instanceof Date && hasAvailableSlots(selectedDate) && (
-                  <div>
-                    <h3 className="text-xl font-medium text-cinza mb-6">
-                      Horários Disponíveis para {selectedDate.toLocaleDateString('pt-BR', { 
-                        weekday: 'long', 
-                        day: 'numeric', 
-                        month: 'long' 
-                      })}
-                    </h3>
-                    
-                    {slotsForSelectedDate.length > 0 ? (
-                      <div className="space-y-3">
-                        {slotsForSelectedDate.map(slot => (
-                          <button
-                            key={slot.id}
-                            onClick={() => handleSlotSelection(slot)}
-                            className={`inline-block px-5 py-2.5 mr-2 mb-2 rounded-md border transition-all duration-200 text-sm font-medium ${
-                              selectedSlot?.id === slot.id
-                                ? 'border-cinza bg-cinza text-cream'
-                                : 'border-cream bg-cream/30 text-cinza hover:border-cinza/50 hover:bg-cream/60'
-                            }`}
-                          >
-                            {formatTime(slot.start_time)}
-                          </button>
-                        ))}
+                <div className="space-y-4">
+                  {/* Accordion 1: Data e Horário */}
+                  <div className="border border-cinza bg-cream/20 rounded-xl overflow-hidden">
+                    <button
+                      onClick={() => toggleAccordion(1)}
+                      className="w-full px-6 py-4 text-left flex items-center justify-between bg-cream/30 hover:bg-cream/50 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        {completedSteps.includes(1) ? (
+                          <div className="w-6 h-6 bg-verde rounded-full flex items-center justify-center">
+                            <svg className="w-4 h-4 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                        ) : (
+                          <div className="w-6 h-6 bg-cream border border-cinza/40 rounded-full flex items-center justify-center text-cinza text-sm font-semibold">
+                            1
+                          </div>
+                        )}
+                        <span className="text-lg font-medium text-cinza">Data e Horário</span>
                       </div>
-                    ) : (
-                      <div className="py-8">
-                        <p className="text-gray-500">
-                          Nenhum horário disponível para esta data
-                        </p>
-                        <p className="text-gray-400 text-sm mt-1">
-                          Escolha outra data no calendário
-                        </p>
+                      <svg 
+                        className={`w-5 h-5 text-cinza/60 transition-transform duration-200 ${
+                          activeAccordion === 1 ? 'rotate-180' : ''
+                        }`} 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    
+                    {activeAccordion === 1 && (
+                      <div className="px-6 py-6 border-t border-cinza/20 accordion-content">
+                        {/* Calendário Minimalista */}
+                        <div className="mb-8">
+                          <h4 className="text-base font-medium text-cinza mb-4">
+                            Escolha sua Data
+                          </h4>
+                          <div className="calendar-wrapper">
+                            <Calendar
+                              onChange={handleDateChange}
+                              value={selectedDate}
+                              locale="pt-BR"
+                              tileDisabled={tileDisabled}
+                              tileClassName={tileClassName}
+                              className="minimal-calendar"
+                              minDate={new Date()}
+                              showNeighboringMonth={false}
+                              formatShortWeekday={(locale, date) => {
+                                // Padrão: Domingo=0, Segunda=1, Terça=2, Quarta=3, Quinta=4, Sexta=5, Sábado=6
+                                const days = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']; // Dom, Seg, Ter, Qua, Qui, Sex, Sab
+                                return days[date.getDay()];
+                              }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Horários Minimalistas - Só aparece após selecionar data */}
+                        {selectedDate instanceof Date && hasAvailableSlots(selectedDate) && (
+                          <div>
+                            <h4 className="text-base font-medium text-cinza mb-4">
+                              Escolha seu Horário
+                            </h4>
+                            
+                            {slotsForSelectedDate.length > 0 ? (
+                              <div className="space-y-3">
+                                {slotsForSelectedDate.map(slot => (
+                                  <button
+                                    key={slot.id}
+                                    onClick={() => handleSlotSelectionWithAccordion(slot)}
+                                    className={`inline-block px-5 py-2.5 mr-2 mb-2 rounded-md border transition-all duration-200 text-sm font-medium ${
+                                      selectedSlot?.id === slot.id
+                                        ? 'border-cinza bg-cinza text-cream'
+                                        : 'border-cream bg-cream/30 text-cinza hover:border-cinza/50 hover:bg-cream/60'
+                                    }`}
+                                  >
+                                    {formatTime(slot.start_time)}
+                                  </button>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="py-8">
+                                <p className="text-gray-500">
+                                  Nenhum horário disponível para esta data
+                                </p>
+                                <p className="text-gray-400 text-sm mt-1">
+                                  Escolha outra data no calendário
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        
+                        {/* Botão Continuar */}
+                        {selectedDate && selectedSlot && (
+                          <div className="mt-8 pt-6 border-t border-cinza/20">
+                            <button
+                              onClick={handleContinueStep1}
+                              className="w-full py-3 px-4 bg-verde text-cream font-medium rounded-md hover:bg-verde/90 transition-colors text-sm"
+                            >
+                              Continuar para Participantes
+                            </button>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
-                )}
+
+                  {/* Accordion 2: Número de Participantes */}
+                  <div className={`border rounded-xl overflow-hidden ${
+                    canAccessStep(2) ? 'border-cinza bg-cream/20' : 'border-cinza/50 bg-cream/10'
+                  }`}>
+                    <button
+                      onClick={() => canAccessStep(2) && toggleAccordion(2)}
+                      className={`w-full px-6 py-4 text-left flex items-center justify-between transition-colors ${
+                        canAccessStep(2) 
+                          ? 'bg-cream/30 hover:bg-cream/50 cursor-pointer' 
+                          : 'bg-cream/15 cursor-not-allowed opacity-60'
+                      }`}
+                      disabled={!canAccessStep(2)}
+                    >
+                      <div className="flex items-center gap-3">
+                        {completedSteps.includes(2) ? (
+                          <div className="w-6 h-6 bg-verde rounded-full flex items-center justify-center">
+                            <svg className="w-4 h-4 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                        ) : (
+                          <div className={`w-6 h-6 rounded-full border flex items-center justify-center text-sm font-semibold ${
+                            canAccessStep(2) 
+                              ? 'bg-cream border-cinza/40 text-cinza' 
+                              : 'bg-cream/50 border-cinza/20 text-cinza/40'
+                          }`}>
+                            2
+                          </div>
+                        )}
+                        <span className={`text-lg font-medium ${canAccessStep(2) ? 'text-cinza' : 'text-cinza/40'}`}>
+                          Número de Participantes
+                        </span>
+                      </div>
+                      {canAccessStep(2) && (
+                        <svg 
+                          className={`w-5 h-5 text-cinza/60 transition-transform duration-200 ${
+                            activeAccordion === 2 ? 'rotate-180' : ''
+                          }`} 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      )}
+                    </button>
+                    
+                    {activeAccordion === 2 && canAccessStep(2) && (
+                      <div className="px-6 py-6 border-t border-cinza/20 accordion-content">
+                        <h4 className="text-base font-medium text-cinza mb-4">
+                          Quantas Pessoas?
+                        </h4>
+                        
+                        <div className="flex items-center gap-4">
+                          <span className="text-sm text-gray-600">Pessoas:</span>
+                          <div className="flex items-center border border-gray-300 rounded-lg">
+                            <button
+                              onClick={() => handlePeopleChangeWithAccordion(Math.max(2, numberOfPeople - 1))}
+                              className="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-l-lg transition-colors"
+                              disabled={numberOfPeople <= 2}
+                            >
+                              -
+                            </button>
+                            <span className="px-4 py-2 min-w-[50px] text-center font-medium text-cinza">
+                              {numberOfPeople}
+                            </span>
+                            <button
+                              onClick={() => handlePeopleChangeWithAccordion(Math.min(6, numberOfPeople + 1))}
+                              className="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-r-lg transition-colors"
+                              disabled={numberOfPeople >= 6}
+                            >
+                              +
+                            </button>
+                          </div>
+                          <span className="text-xs text-gray-500">(mínimo 2, máximo 6 pessoas)</span>
+                        </div>
+                        
+                        {/* Botão Continuar */}
+                        <div className="mt-8 pt-6 border-t border-cinza/20">
+                          <button
+                            onClick={handleContinueStep2}
+                            className="w-full py-3 px-4 bg-verde text-cream font-medium rounded-md hover:bg-verde/90 transition-colors text-sm"
+                          >
+                            Continuar para Informações
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Accordion 3: Informações Pessoais */}
+                  <div className={`border rounded-xl overflow-hidden ${
+                    canAccessStep(3) ? 'border-cinza bg-cream/20' : 'border-cinza/50 bg-cream/10'
+                  }`}>
+                    <button
+                      onClick={() => canAccessStep(3) && toggleAccordion(3)}
+                      className={`w-full px-6 py-4 text-left flex items-center justify-between transition-colors ${
+                        canAccessStep(3) 
+                          ? 'bg-cream/30 hover:bg-cream/50 cursor-pointer' 
+                          : 'bg-cream/15 cursor-not-allowed opacity-60'
+                      }`}
+                      disabled={!canAccessStep(3)}
+                    >
+                      <div className="flex items-center gap-3">
+                        {completedSteps.includes(3) ? (
+                          <div className="w-6 h-6 bg-verde rounded-full flex items-center justify-center">
+                            <svg className="w-4 h-4 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                        ) : (
+                          <div className={`w-6 h-6 rounded-full border flex items-center justify-center text-sm font-semibold ${
+                            canAccessStep(3) 
+                              ? 'bg-cream border-cinza/40 text-cinza' 
+                              : 'bg-cream/50 border-cinza/20 text-cinza/40'
+                          }`}>
+                            3
+                          </div>
+                        )}
+                        <span className={`text-lg font-medium ${canAccessStep(3) ? 'text-cinza' : 'text-cinza/40'}`}>
+                          Informações Pessoais
+                        </span>
+                      </div>
+                      {canAccessStep(3) && (
+                        <svg 
+                          className={`w-5 h-5 text-cinza/60 transition-transform duration-200 ${
+                            activeAccordion === 3 ? 'rotate-180' : ''
+                          }`} 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      )}
+                    </button>
+                    
+                    {activeAccordion === 3 && canAccessStep(3) && (
+                      <div className="px-6 py-6 border-t border-cinza/20 accordion-content">
+                        <div className="space-y-4">
+                          <div>
+                            <label htmlFor="name" className="block text-sm font-medium text-cinza mb-1">
+                              Nome Completo*
+                            </label>
+                            <input
+                              type="text"
+                              id="name"
+                              value={personalInfo.name}
+                              onChange={(e) => handlePersonalInfoChange('name', e.target.value)}
+                              className="w-full px-3 py-2 border border-cinza/30 bg-cream/30 rounded-md focus:outline-none focus:ring-2 focus:ring-verde focus:border-verde text-cinza placeholder-cinza/60"
+                              placeholder="Digite seu nome completo"
+                              required
+                            />
+                          </div>
+                          
+                          <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-cinza mb-1">
+                              E-mail*
+                            </label>
+                            <input
+                              type="email"
+                              id="email"
+                              value={personalInfo.email}
+                              onChange={(e) => handlePersonalInfoChange('email', e.target.value)}
+                              className="w-full px-3 py-2 border border-cinza/30 bg-cream/30 rounded-md focus:outline-none focus:ring-2 focus:ring-verde focus:border-verde text-cinza placeholder-cinza/60"
+                              placeholder="Digite seu e-mail"
+                              required
+                            />
+                          </div>
+                          
+                          <div>
+                            <label htmlFor="phone" className="block text-sm font-medium text-cinza mb-1">
+                              Telefone*
+                            </label>
+                            <input
+                              type="tel"
+                              id="phone"
+                              value={personalInfo.phone}
+                              onChange={(e) => handlePersonalInfoChange('phone', e.target.value)}
+                              className="w-full px-3 py-2 border border-cinza/30 bg-cream/30 rounded-md focus:outline-none focus:ring-2 focus:ring-verde focus:border-verde text-cinza placeholder-cinza/60"
+                              placeholder="Digite seu telefone"
+                              required
+                            />
+                          </div>
+                        </div>
+                        
+                        {/* Botão Continuar */}
+                        <div className="mt-8 pt-6 border-t border-cinza/20">
+                          <button
+                            onClick={handleContinueStep3}
+                            disabled={!personalInfo.name || !personalInfo.email || !personalInfo.phone}
+                            className={`w-full py-3 px-4 font-medium rounded-md transition-colors text-sm ${
+                              personalInfo.name && personalInfo.email && personalInfo.phone
+                                ? 'bg-verde text-cream hover:bg-verde/90'
+                                : 'bg-cream/50 text-cinza/40 cursor-not-allowed border border-cinza/30'
+                            }`}
+                          >
+                            Finalizar Informações
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
 
               {/* Card de Resumo - Desktop */}
@@ -297,8 +751,8 @@ export default function AgendamentoSection() {
                       {/* Nome da Experiência */}
                       <div className="pb-3 border-b border-cream/30">
                         <p className="text-sm text-cream/70 mb-1">Experiência</p>
-                        <p className="text-base font-medium text-cream">Cerâmica Criativa</p>
-                        <p className="text-xs text-cream/60 mt-1">2-3 horas de duração</p>
+                        <p className="text-base font-medium text-cream">{experience?.name || 'Carregando...'}</p>
+                        <p className="text-xs text-cream/60 mt-1">{formatDuration(experience?.duration)}</p>
                       </div>
 
                       {/* Data */}
@@ -323,28 +777,82 @@ export default function AgendamentoSection() {
                         <p className="text-sm text-cream/70 mb-1">Horário</p>
                         {selectedSlot ? (
                           <p className="text-base font-medium text-cream">
-                            {formatTime(selectedSlot.start_time)} - {formatTime(selectedSlot.end_time)}
+                            {formatTimeRange(selectedSlot.start_time)}
                           </p>
                         ) : (
                           <p className="text-sm text-cream/50 italic">Selecione um horário</p>
                         )}
                       </div>
 
+                      {/* Quantidade de Pessoas */}
+                      {completedSteps.includes(2) && (
+                        <div className="pb-3 border-b border-cream/30">
+                          <p className="text-sm text-cream/70 mb-1">Pessoas</p>
+                          <p className="text-base font-medium text-cream">
+                            {numberOfPeople} {numberOfPeople === 1 ? 'pessoa' : 'pessoas'}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Informações Pessoais */}
+                      {completedSteps.includes(3) && (
+                        <div className="pb-3 border-b border-cream/30">
+                          <p className="text-sm text-cream/70 mb-1">Contato</p>
+                          <p className="text-base font-medium text-cream">{personalInfo.name}</p>
+                          <p className="text-xs text-cream/60 mt-1">{personalInfo.email}</p>
+                          <p className="text-xs text-cream/60">{personalInfo.phone}</p>
+                        </div>
+                      )}
+
                       {/* Valor */}
                       <div className="pb-3 border-b border-cream/30">
-                        <p className="text-sm text-cream/70 mb-1">Investimento</p>
-                        <p className="text-xl font-semibold text-cream">R$ 120</p>
-                        <p className="text-xs text-cream/60">por pessoa</p>
+                        <p className="text-sm text-cream/70 mb-1">Valor</p>
+                        {completedSteps.includes(2) ? (
+                          <>
+                            <p className="text-xl font-semibold text-cream">R$ {((experience?.price || 120) * numberOfPeople).toLocaleString('pt-BR')}</p>
+                            <p className="text-xs text-cream/60">
+                              R$ {experience?.price || 120} × {numberOfPeople} {numberOfPeople === 1 ? 'pessoa' : 'pessoas'}
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <p className="text-xl font-semibold text-cream">R$ {experience?.price || 120}</p>
+                            <p className="text-xs text-cream/60">por pessoa</p>
+                          </>
+                        )}
                       </div>
 
+                      {/* Mensagem de Status */}
+                      {bookingMessage && (
+                        <div className={`p-3 rounded-md text-sm font-medium ${
+                          bookingMessage.includes('✅') 
+                            ? 'bg-green-100 text-green-800 border border-green-200' 
+                            : 'bg-red-100 text-red-800 border border-red-200'
+                        }`}>
+                          {bookingMessage}
+                        </div>
+                      )}
+
                       {/* Botão de Confirmação */}
-                      {selectedSlot && selectedDate && (
+                      {allStepsCompleted && (
                         <div className="pt-2">
                           <button
                             onClick={handleBooking}
-                            className="w-full bg-amarelo text-cream py-3 px-6 rounded-md font-medium hover:bg-amarelo/90 transition-colors text-sm shadow-sm"
+                            disabled={bookingLoading}
+                            className={`w-full py-3 px-6 rounded-md font-medium transition-colors text-sm shadow-sm ${
+                              bookingLoading 
+                                ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+                                : 'bg-amarelo text-cream hover:bg-amarelo/90'
+                            }`}
                           >
-                            Confirmar Agendamento
+                            {bookingLoading ? (
+                              <div className="flex items-center justify-center gap-2">
+                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-cream"></div>
+                                Verificando...
+                              </div>
+                            ) : (
+                              'Confirmar Agendamento'
+                            )}
                           </button>
                         </div>
                       )}
@@ -367,8 +875,8 @@ export default function AgendamentoSection() {
                 {/* Nome da Experiência */}
                 <div className="pb-3 border-b border-cream/50">
                                           <p className="text-sm text-cream/70 mb-1">Experiência</p>
-                        <p className="text-base font-medium text-cream">Cerâmica Criativa</p>
-                        <p className="text-xs text-cream/60 mt-1">2-3 horas de duração</p>
+                        <p className="text-base font-medium text-cream">{experience?.name || 'Carregando...'}</p>
+                        <p className="text-xs text-cream/60 mt-1">{formatDuration(experience?.duration)}</p>
                 </div>
 
                 {/* Data */}
@@ -393,28 +901,82 @@ export default function AgendamentoSection() {
                                           <p className="text-sm text-cream/70 mb-1">Horário</p>
                         {selectedSlot ? (
                           <p className="text-base font-medium text-cream">
-                      {formatTime(selectedSlot.start_time)} - {formatTime(selectedSlot.end_time)}
+                      {formatTimeRange(selectedSlot.start_time)}
                     </p>
                                           ) : (
                           <p className="text-sm text-cream/50 italic">Selecione um horário</p>
                         )}
                 </div>
 
+                {/* Quantidade de Pessoas */}
+                {completedSteps.includes(2) && (
+                  <div className="pb-3 border-b border-cream/50">
+                    <p className="text-sm text-cream/70 mb-1">Pessoas</p>
+                    <p className="text-base font-medium text-cream">
+                      {numberOfPeople} {numberOfPeople === 1 ? 'pessoa' : 'pessoas'}
+                    </p>
+                  </div>
+                )}
+
+                {/* Informações Pessoais */}
+                {completedSteps.includes(3) && (
+                  <div className="pb-3 border-b border-cream/50">
+                    <p className="text-sm text-cream/70 mb-1">Contato</p>
+                    <p className="text-base font-medium text-cream">{personalInfo.name}</p>
+                    <p className="text-xs text-cream/60 mt-1">{personalInfo.email}</p>
+                    <p className="text-xs text-cream/60">{personalInfo.phone}</p>
+                  </div>
+                )}
+
                 {/* Valor */}
                 <div className="pb-3 border-b border-cream/50">
-                                          <p className="text-sm text-cream/70 mb-1">Investimento</p>
-                        <p className="text-xl font-semibold text-cream">R$ 120</p>
-                        <p className="text-xs text-cream/60">por pessoa</p>
+                                          <p className="text-sm text-cream/70 mb-1">Valor</p>
+                        {completedSteps.includes(2) ? (
+                          <>
+                            <p className="text-xl font-semibold text-cream">R$ {((experience?.price || 120) * numberOfPeople).toLocaleString('pt-BR')}</p>
+                            <p className="text-xs text-cream/60">
+                              R$ {experience?.price || 120} × {numberOfPeople} {numberOfPeople === 1 ? 'pessoa' : 'pessoas'}
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <p className="text-xl font-semibold text-cream">R$ {experience?.price || 120}</p>
+                            <p className="text-xs text-cream/60">por pessoa</p>
+                          </>
+                        )}
                 </div>
 
+                {/* Mensagem de Status */}
+                {bookingMessage && (
+                  <div className={`p-3 rounded-md text-sm font-medium ${
+                    bookingMessage.includes('✅') 
+                      ? 'bg-green-100 text-green-800 border border-green-200' 
+                      : 'bg-red-100 text-red-800 border border-red-200'
+                  }`}>
+                    {bookingMessage}
+                  </div>
+                )}
+
                 {/* Botão de Confirmação */}
-                {selectedSlot && selectedDate && (
+                {allStepsCompleted && (
                   <div className="pt-2">
                     <button
                       onClick={handleBooking}
-                      className="w-full bg-amarelo text-cream py-3 px-6 rounded-md font-medium hover:bg-amarelo/90 transition-colors text-sm shadow-sm"
+                      disabled={bookingLoading}
+                      className={`w-full py-3 px-6 rounded-md font-medium transition-colors text-sm shadow-sm ${
+                        bookingLoading 
+                          ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+                          : 'bg-amarelo text-cream hover:bg-amarelo/90'
+                      }`}
                     >
-                      Confirmar Agendamento
+                      {bookingLoading ? (
+                        <div className="flex items-center justify-center gap-2">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-cream"></div>
+                          Verificando...
+                        </div>
+                      ) : (
+                        'Confirmar Agendamento'
+                      )}
                     </button>
                   </div>
                 )}
@@ -427,6 +989,22 @@ export default function AgendamentoSection() {
       </div>
 
       <style jsx global>{`
+        /* Estilos para acordeão */
+        .accordion-content {
+          animation: accordionOpen 0.3s ease-out;
+        }
+        
+        @keyframes accordionOpen {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
         /* Calendário ultra-minimalista integrado com a página */
         .calendar-wrapper {
           display: flex;
@@ -485,45 +1063,106 @@ export default function AgendamentoSection() {
         }
 
         .minimal-calendar .react-calendar__month-view__weekdays__weekday {
-          padding: 0.4em;
+          padding: 0.4em 0.2em;
+          flex: 1 1 14.285714%;
+          max-width: 14.285714%;
+          text-align: center;
+          box-sizing: border-box;
+          margin: 0;
+        }
+
+        /* Grid dos dias - manter estrutura flex mas forçar larguras iguais */
+        .minimal-calendar .react-calendar__month-view__days {
+          display: flex !important;
+          flex-wrap: wrap !important;
+          width: 100% !important;
+        }
+
+        .minimal-calendar .react-calendar__month-view__weekdays {
+          display: flex !important;
+          width: 100% !important;
         }
 
         .minimal-calendar .react-calendar__month-view__days__day {
           position: relative;
-          padding: 0.8em 0.5em;
+          padding: 0.8em 0.2em;
           background: none;
           border: none;
           cursor: pointer;
           font-size: 0.9em;
           color: #40413E;
           border-radius: 8px;
-          margin: 2px;
+          margin: 1px;
           min-height: 44px;
           display: flex;
           align-items: center;
           justify-content: center;
+          flex: 1 1 calc(14.285714% - 2px); /* 100% / 7 colunas - margin */
+          max-width: calc(14.285714% - 2px);
+          box-sizing: border-box;
+        }
+
+        /* Dias de hoje em diante - cor mais escura e destacada */
+        .minimal-calendar .react-calendar__month-view__days__day:not(.react-calendar__tile--disabled) {
+          color: #2d2e2b;
+          font-weight: 500;
+        }
+
+        .minimal-calendar .react-calendar__month-view__days__day:not(.react-calendar__tile--disabled):hover {
+          background-color: rgba(244, 232, 218, 0.8);
+          color: #1f201d;
         }
 
         .minimal-calendar .react-calendar__month-view__days__day:hover {
           background-color: rgba(244, 232, 218, 0.7);
         }
 
-        .minimal-calendar .react-calendar__month-view__days__day--active {
+        /* Dia selecionado - cor cinza igual ao horário - múltiplos seletores */
+        .minimal-calendar .react-calendar__tile--active,
+        .minimal-calendar .react-calendar__month-view__days__day--active,
+        .minimal-calendar .react-calendar__tile--hasActive,
+        .minimal-calendar .react-calendar__tile--active:enabled:hover,
+        .minimal-calendar .react-calendar__tile--active:enabled:focus {
           background: #40413E !important;
+          background-color: #40413E !important;
           color: #F4E8DA !important;
-          border-radius: 8px;
+          border-radius: 8px !important;
+          font-weight: 600 !important;
         }
 
+        /* Classe customizada para dia selecionado - alta especificidade */
+        .minimal-calendar .react-calendar__month-view__days .selected-date,
+        .minimal-calendar .react-calendar__month-view__days__day.selected-date,
+        .minimal-calendar .selected-date {
+          background: #40413E !important;
+          background-color: #40413E !important;
+          color: #F4E8DA !important;
+          border-radius: 8px !important;
+          font-weight: 600 !important;
+        }
+
+        /* Manter o dia selecionado destacado sempre - todos os estados */
+        .minimal-calendar .selected-date:hover,
+        .minimal-calendar .selected-date:focus,
+        .minimal-calendar .selected-date:active {
+          background: #40413E !important;
+          background-color: #40413E !important;
+          color: #F4E8DA !important;
+        }
+
+        /* Dias do passado - estilo mais sutil */
         .minimal-calendar .react-calendar__tile--disabled {
-          background-color: transparent !important;
-          color: rgba(64, 65, 62, 0.3) !important;
+          background-color: rgba(244, 232, 218, 0.6) !important;
+          color: rgba(64, 65, 62, 0.4) !important;
           cursor: not-allowed !important;
+          opacity: 0.7;
         }
 
-        .minimal-calendar .react-calendar__tile--active {
-          background: #40413E !important;
-          color: #F4E8DA !important;
-          border-radius: 8px;
+        .minimal-calendar .react-calendar__month-view__days__day:disabled {
+          background-color: rgba(244, 232, 218, 0.6) !important;
+          color: rgba(64, 65, 62, 0.4) !important;
+          cursor: not-allowed !important;
+          opacity: 0.7;
         }
 
         /* Datas com horários disponíveis - estilo delicado */
