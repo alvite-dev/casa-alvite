@@ -79,8 +79,8 @@ export default function Home() {
             {/* Botões de Ação */}
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full sm:w-auto">
               <button 
-                onClick={scrollToHowItWorks}
-                className="w-full sm:w-auto bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 sm:h-16 rounded-2xl sm:rounded-[28px] transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
+                onClick={scrollToNextSection}
+                className="w-full sm:w-auto bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
                 type="button"
               >
                 COMO FUNCIONA?
@@ -88,7 +88,7 @@ export default function Home() {
               
               <a 
                 href="/agendamento"
-                className="w-full sm:w-auto bg-transparent border-2 border-cream hover:bg-cream hover:text-verde text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 sm:h-16 rounded-2xl sm:rounded-[28px] transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
+                className="w-full sm:w-auto bg-transparent border-2 border-cream hover:bg-cream hover:text-verde text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
               >
                 AGENDAR EXPERIÊNCIA
               </a>
@@ -149,12 +149,12 @@ export default function Home() {
                 <div className="space-y-4">
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                     <span className="font-instrument font-semibold text-xl">SEGUNDA À SEXTA</span>
-                                        <span className="font-instrument text-xl font-medium text-roxo">18H ÀS 20H</span>
+                                        <span className="font-instrument text-xl font-medium text-cinza">18H ÀS 20H</span>
                   </div>
                   <div className="w-full h-px bg-cream/30"></div>
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                     <span className="font-instrument font-semibold text-xl">SÁBADO E DOMINGO</span>
-                                        <span className="font-instrument text-xl font-medium italic text-roxo">A combinar</span>
+                                        <span className="font-instrument text-xl font-medium italic text-cinza">A combinar</span>
                   </div>
                 </div>
               </div>

@@ -349,13 +349,9 @@ export default function AgendamentoSection() {
       
       // Se chegou até aqui, o horário ainda está disponível
       const totalValue = (experience?.price || 120) * numberOfPeople;
-      setBookingMessage('✅ Horário confirmado como disponível! Prosseguindo com o agendamento...');
       
       // Aqui você pode implementar a lógica real de reserva
-      setTimeout(() => {
-        alert(`Agendamento confirmado!\nData: ${selectedDate.toLocaleDateString('pt-BR')}\nHorário: ${formatTimeRange(selectedSlot.start_time)}\nPessoas: ${numberOfPeople}\nValor Total: R$ ${totalValue.toLocaleString('pt-BR')}`);
-        setBookingMessage(null);
-      }, 1500);
+      alert(`Agendamento confirmado!\nData: ${selectedDate.toLocaleDateString('pt-BR')}\nHorário: ${formatTimeRange(selectedSlot.start_time)}\nPessoas: ${numberOfPeople}\nValor Total: R$ ${totalValue.toLocaleString('pt-BR')}`);
       
     } catch (error) {
       console.error('Erro ao verificar disponibilidade:', error);
@@ -380,16 +376,6 @@ export default function AgendamentoSection() {
             VOLTAR
           </button>
           
-          <button
-            onClick={refreshData}
-            disabled={loading}
-            className="flex items-center gap-2 bg-amarelo text-cream font-instrument font-semibold text-xs px-3 py-1 rounded hover:bg-amarelo/90 transition-all duration-200 uppercase tracking-wide disabled:opacity-50"
-          >
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            {loading ? 'ATUALIZANDO...' : 'ATUALIZAR'}
-          </button>
         </div>
 
         {/* Header com título e texto à esquerda */}
@@ -586,27 +572,21 @@ export default function AgendamentoSection() {
                         </h4>
                         
                         <div className="flex items-center gap-4">
-                          <span className="text-sm text-gray-600">Pessoas:</span>
-                          <div className="flex items-center border border-gray-300 rounded-lg">
-                            <button
-                              onClick={() => handlePeopleChangeWithAccordion(Math.max(2, numberOfPeople - 1))}
-                              className="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-l-lg transition-colors"
-                              disabled={numberOfPeople <= 2}
-                            >
-                              -
-                            </button>
-                            <span className="px-4 py-2 min-w-[50px] text-center font-medium text-cinza">
-                              {numberOfPeople}
-                            </span>
-                            <button
-                              onClick={() => handlePeopleChangeWithAccordion(Math.min(6, numberOfPeople + 1))}
-                              className="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-r-lg transition-colors"
-                              disabled={numberOfPeople >= 6}
-                            >
-                              +
-                            </button>
-                          </div>
-                          <span className="text-xs text-gray-500">(mínimo 2, máximo 6 pessoas)</span>
+                          <label htmlFor="numberOfPeople" className="text-sm text-gray-600">
+                            Pessoas:
+                          </label>
+                          <select
+                            id="numberOfPeople"
+                            value={numberOfPeople}
+                            onChange={(e) => handlePeopleChangeWithAccordion(Number(e.target.value))}
+                            className="px-3 py-2 border border-gray-300 bg-cream/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-verde focus:border-verde text-cinza font-medium"
+                          >
+                            <option value={2}>2 pessoas</option>
+                            <option value={3}>3 pessoas</option>
+                            <option value={4}>4 pessoas</option>
+                            <option value={5}>5 pessoas</option>
+                            <option value={6}>6 pessoas</option>
+                          </select>
                         </div>
                         
                         {/* Botão Continuar */}
@@ -1100,6 +1080,36 @@ export default function AgendamentoSection() {
           flex: 1 1 calc(14.285714% - 2px); /* 100% / 7 colunas - margin */
           max-width: calc(14.285714% - 2px);
           box-sizing: border-box;
+        }
+
+        /* Espaçamento melhorado para mobile */
+        @media (max-width: 640px) {
+          .minimal-calendar .react-calendar__month-view__days__day {
+            padding: 1em 0.3em;
+            margin: 2px;
+            min-height: 48px;
+            font-size: 1em;
+            flex: 1 1 calc(14.285714% - 4px); /* Ajusta para margin maior */
+            max-width: calc(14.285714% - 4px);
+          }
+
+          .minimal-calendar .react-calendar__month-view__weekdays__weekday {
+            padding: 0.6em 0.3em;
+            font-size: 0.8em;
+          }
+
+          .minimal-calendar {
+            max-width: 100%;
+          }
+
+          .minimal-calendar .react-calendar__navigation {
+            height: 52px;
+          }
+
+          .minimal-calendar .react-calendar__navigation button {
+            font-size: 16px;
+            min-width: 44px;
+          }
         }
 
         /* Dias de hoje em diante - cor mais escura e destacada */
