@@ -122,138 +122,257 @@ export default function AgendamentoSection() {
 
   return (
     <section className="py-12 bg-cream min-h-screen">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h1 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-6">
-            Agende sua Experiência
-          </h1>
-          <p className="text-lg text-cinza max-w-3xl mx-auto font-instrument leading-relaxed">
-            Escolha a data e horário perfeitos para sua experiência única na Casa Alvite. 
-            Nossos artesãos estão prontos para guiá-lo em uma jornada criativa inesquecível.
-          </p>
+      <div className="container mx-auto px-8">
+        {/* Header com título e texto à esquerda */}
+        <div className="mb-16">
+          <div className="max-w-2xl">
+            <h1 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-6">
+              Agende sua Experiência
+            </h1>
+            <p className="text-lg text-cinza font-instrument leading-relaxed">
+              Escolha a data e horário perfeitos para sua experiência única na Casa Alvite. 
+              Nossos artesãos estão prontos para guiá-lo em uma jornada criativa inesquecível.
+            </p>
+          </div>
         </div>
 
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-5xl">
           {loading && (
-            <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-verde"></div>
-              <span className="ml-4 text-gray-600 text-lg">Carregando horários disponíveis...</span>
+            <div className="flex items-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-verde"></div>
+              <span className="ml-4 text-gray-600">Carregando horários disponíveis...</span>
             </div>
           )}
 
           {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-lg mb-8 text-center">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-lg mb-8">
               <strong>Ops!</strong> Houve um problema ao carregar os horários. Tente novamente mais tarde.
             </div>
           )}
 
           {!loading && !error && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Calendário */}
-              <div className="bg-white rounded-3xl shadow-xl p-8">
-                <h3 className="text-2xl font-semibold text-verde mb-6 text-center">
-                  📅 Escolha sua Data
-                </h3>
-                <div className="calendar-wrapper">
-                  <Calendar
-                    onChange={setSelectedDate}
-                    value={selectedDate}
-                    locale="pt-BR"
-                    tileDisabled={tileDisabled}
-                    tileClassName={tileClassName}
-                    className="custom-calendar-booking"
-                    minDate={new Date()}
-                    showNeighboringMonth={false}
-                  />
-                </div>
-                
-                {selectedDate instanceof Date && (
-                  <div className="mt-6 p-4 bg-verde/5 rounded-xl">
-                    <p className="text-sm text-gray-600 mb-2">
-                      <strong>Data selecionada:</strong>
-                    </p>
-                    <p className="text-xl font-semibold text-verde">
-                      {selectedDate.toLocaleDateString('pt-BR', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      })}
-                    </p>
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+              {/* Área Principal - Calendário e Horários */}
+              <div className="flex-1 lg:max-w-2xl">
+                {/* Calendário Minimalista */}
+                <div className="mb-8">
+                  <h3 className="text-xl font-medium text-cinza mb-6">
+                    Escolha sua Data
+                  </h3>
+                  <div className="calendar-wrapper">
+                    <Calendar
+                      onChange={setSelectedDate}
+                      value={selectedDate}
+                      locale="pt-BR"
+                      tileDisabled={tileDisabled}
+                      tileClassName={tileClassName}
+                      className="minimal-calendar"
+                      minDate={new Date()}
+                      showNeighboringMonth={false}
+                      formatShortWeekday={(locale, date) => ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'][date.getDay()]}
+                    />
                   </div>
-                )}
+                  
+                  {selectedDate instanceof Date && (
+                    <div className="mt-6 p-3 bg-cream/50 rounded-lg border border-cream">
+                      <p className="text-sm text-cinza/70 mb-1">Data selecionada</p>
+                      <p className="text-base font-medium text-cinza">
+                        {selectedDate.toLocaleDateString('pt-BR', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Horários Minimalistas */}
+                <div>
+                  <h3 className="text-xl font-medium text-cinza mb-6">
+                    Horários Disponíveis
+                  </h3>
+                  
+                  {selectedDate instanceof Date ? (
+                    <>
+                      {slotsForSelectedDate.length > 0 ? (
+                        <div className="space-y-3">
+                          {slotsForSelectedDate.map(slot => (
+                            <button
+                              key={slot.id}
+                              onClick={() => handleSlotSelection(slot)}
+                              className={`inline-block px-5 py-2.5 mr-2 mb-2 rounded-md border transition-all duration-200 text-sm font-medium ${
+                                selectedSlot?.id === slot.id
+                                  ? 'border-cinza bg-cinza text-cream'
+                                  : 'border-cream bg-cream/30 text-cinza hover:border-cinza/50 hover:bg-cream/60'
+                              }`}
+                            >
+                              {formatTime(slot.start_time)}
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="py-8">
+                          <p className="text-gray-500">
+                            Nenhum horário disponível para esta data
+                          </p>
+                          <p className="text-gray-400 text-sm mt-1">
+                            Escolha outra data no calendário
+                          </p>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="py-8">
+                      <p className="text-gray-500">
+                        Selecione uma data no calendário
+                      </p>
+                      <p className="text-gray-400 text-sm mt-1">
+                        para ver os horários disponíveis
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              {/* Horários Disponíveis */}
-              <div className="bg-white rounded-3xl shadow-xl p-8">
-                <h3 className="text-2xl font-semibold text-verde mb-6 text-center">
-                  ⏰ Horários Disponíveis
-                </h3>
-                
-                {selectedDate instanceof Date ? (
-                  <>
-                    {slotsForSelectedDate.length > 0 ? (
-                      <div className="space-y-3">
-                        {slotsForSelectedDate.map(slot => (
-                          <button
-                            key={slot.id}
-                            onClick={() => handleSlotSelection(slot)}
-                            className={`w-full p-4 rounded-xl border-2 transition-all duration-200 ${
-                              selectedSlot?.id === slot.id
-                                ? 'border-verde bg-verde text-white shadow-lg'
-                                : 'border-gray-200 bg-gray-50 hover:border-verde/50 hover:bg-verde/5'
-                            }`}
-                          >
-                            <div className="flex justify-between items-center">
-                              <span className="text-lg font-medium">
-                                {formatTime(slot.start_time)} - {formatTime(slot.end_time)}
-                              </span>
-                              <span className={`text-sm px-3 py-1 rounded-full ${
-                                selectedSlot?.id === slot.id
-                                  ? 'bg-white/20 text-white'
-                                  : 'bg-green-100 text-green-700'
-                              }`}>
-                                Disponível
-                              </span>
-                            </div>
-                          </button>
-                        ))}
-                        
-                        {selectedSlot && (
+              {/* Card de Resumo - Desktop */}
+              <div className="hidden lg:block">
+                <div className="sticky top-32 w-80">
+                  <div className="bg-cream/40 border border-cream/60 rounded-lg p-6 backdrop-blur-sm">
+                    <h3 className="text-lg font-medium text-cinza mb-4 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-amarelo rounded-full"></span>
+                      Resumo da Experiência
+                    </h3>
+                    
+                    <div className="space-y-4">
+                      {/* Nome da Experiência */}
+                      <div className="pb-3 border-b border-cream/50">
+                        <p className="text-sm text-cinza/70 mb-1">Experiência</p>
+                        <p className="text-base font-medium text-cinza">Cerâmica Criativa</p>
+                        <p className="text-xs text-cinza/60 mt-1">2-3 horas de duração</p>
+                      </div>
+
+                      {/* Data */}
+                      <div className="pb-3 border-b border-cream/50">
+                        <p className="text-sm text-cinza/70 mb-1">Data</p>
+                        {selectedDate instanceof Date ? (
+                          <p className="text-base font-medium text-cinza">
+                            {selectedDate.toLocaleDateString('pt-BR', { 
+                              weekday: 'short', 
+                              day: 'numeric', 
+                              month: 'short',
+                              year: 'numeric'
+                            })}
+                          </p>
+                        ) : (
+                          <p className="text-sm text-cinza/50 italic">Selecione uma data</p>
+                        )}
+                      </div>
+
+                      {/* Horário */}
+                      <div className="pb-3 border-b border-cream/50">
+                        <p className="text-sm text-cinza/70 mb-1">Horário</p>
+                        {selectedSlot ? (
+                          <p className="text-base font-medium text-cinza">
+                            {formatTime(selectedSlot.start_time)} - {formatTime(selectedSlot.end_time)}
+                          </p>
+                        ) : (
+                          <p className="text-sm text-cinza/50 italic">Selecione um horário</p>
+                        )}
+                      </div>
+
+                      {/* Valor */}
+                      <div className="pb-3 border-b border-cream/50">
+                        <p className="text-sm text-cinza/70 mb-1">Investimento</p>
+                        <p className="text-xl font-semibold text-cinza">R$ 120</p>
+                        <p className="text-xs text-cinza/60">por pessoa</p>
+                      </div>
+
+                      {/* Botão de Confirmação */}
+                      {selectedSlot && selectedDate && (
+                        <div className="pt-2">
                           <button
                             onClick={handleBooking}
-                            className="w-full mt-6 bg-amarelo text-white py-4 px-6 rounded-xl text-lg font-semibold hover:bg-amarelo/90 transition-colors shadow-lg"
+                            className="w-full bg-amarelo text-cream py-3 px-6 rounded-md font-medium hover:bg-amarelo/90 transition-colors text-sm shadow-sm"
                           >
                             Confirmar Agendamento
                           </button>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="text-center py-12">
-                        <div className="text-6xl mb-4">📅</div>
-                        <p className="text-gray-500 text-lg">
-                          Nenhum horário disponível para esta data
-                        </p>
-                        <p className="text-gray-400 text-sm mt-2">
-                          Escolha outra data no calendário
-                        </p>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="text-center py-12">
-                    <div className="text-6xl mb-4">👆</div>
-                    <p className="text-gray-500 text-lg">
-                      Selecione uma data no calendário
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Card de Resumo - Mobile */}
+          <div className="lg:hidden mt-12">
+            <div className="bg-cream/40 border border-cream/60 rounded-lg p-6 backdrop-blur-sm">
+              <h3 className="text-lg font-medium text-cinza mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-amarelo rounded-full"></span>
+                Resumo da Experiência
+              </h3>
+              
+              <div className="space-y-4">
+                {/* Nome da Experiência */}
+                <div className="pb-3 border-b border-cream/50">
+                  <p className="text-sm text-cinza/70 mb-1">Experiência</p>
+                  <p className="text-base font-medium text-cinza">Cerâmica Criativa</p>
+                  <p className="text-xs text-cinza/60 mt-1">2-3 horas de duração</p>
+                </div>
+
+                {/* Data */}
+                <div className="pb-3 border-b border-cream/50">
+                  <p className="text-sm text-cinza/70 mb-1">Data</p>
+                  {selectedDate instanceof Date ? (
+                    <p className="text-base font-medium text-cinza">
+                      {selectedDate.toLocaleDateString('pt-BR', { 
+                        weekday: 'short', 
+                        day: 'numeric', 
+                        month: 'short',
+                        year: 'numeric'
+                      })}
                     </p>
-                    <p className="text-gray-400 text-sm mt-2">
-                      para ver os horários disponíveis
+                  ) : (
+                    <p className="text-sm text-cinza/50 italic">Selecione uma data</p>
+                  )}
+                </div>
+
+                {/* Horário */}
+                <div className="pb-3 border-b border-cream/50">
+                  <p className="text-sm text-cinza/70 mb-1">Horário</p>
+                  {selectedSlot ? (
+                    <p className="text-base font-medium text-cinza">
+                      {formatTime(selectedSlot.start_time)} - {formatTime(selectedSlot.end_time)}
                     </p>
+                  ) : (
+                    <p className="text-sm text-cinza/50 italic">Selecione um horário</p>
+                  )}
+                </div>
+
+                {/* Valor */}
+                <div className="pb-3 border-b border-cream/50">
+                  <p className="text-sm text-cinza/70 mb-1">Investimento</p>
+                  <p className="text-xl font-semibold text-cinza">R$ 120</p>
+                  <p className="text-xs text-cinza/60">por pessoa</p>
+                </div>
+
+                {/* Botão de Confirmação */}
+                {selectedSlot && selectedDate && (
+                  <div className="pt-2">
+                    <button
+                      onClick={handleBooking}
+                      className="w-full bg-amarelo text-cream py-3 px-6 rounded-md font-medium hover:bg-amarelo/90 transition-colors text-sm shadow-sm"
+                    >
+                      Confirmar Agendamento
+                    </button>
                   </div>
                 )}
               </div>
             </div>
-          )}
+          </div>
         </div>
 
         {/* Grid com Informações e Contato */}
@@ -357,131 +476,136 @@ export default function AgendamentoSection() {
       </div>
 
       <style jsx global>{`
-        /* Estilização customizada para o calendário de agendamento */
+        /* Calendário ultra-minimalista integrado com a página */
         .calendar-wrapper {
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
         }
 
-        .custom-calendar-booking {
+        .minimal-calendar {
           width: 100%;
-          max-width: 400px;
-          background: white;
-          border: 1px solid #e5e7eb;
-          border-radius: 16px;
+          max-width: 320px;
+          background: #F4E8DA;
+          border: 1px solid rgba(244, 232, 218, 0.5);
+          border-radius: 6px;
           font-family: inherit;
           line-height: 1.125em;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .custom-calendar-booking .react-calendar__navigation {
+        .minimal-calendar .react-calendar__navigation {
           display: flex;
-          height: 50px;
-          margin-bottom: 1em;
-          background: #7c9885;
-          border-radius: 16px 16px 0 0;
+          height: 40px;
+          margin-bottom: 0;
+          background: transparent;
+          border-bottom: 1px solid rgba(244, 232, 218, 0.8);
         }
 
-        .custom-calendar-booking .react-calendar__navigation button {
-          color: #fff;
-          min-width: 50px;
+        .minimal-calendar .react-calendar__navigation button {
+          color: #40413E;
+          min-width: 40px;
           background: none;
           border: none;
-          font-size: 18px;
-          font-weight: bold;
+          font-size: 14px;
+          font-weight: 500;
           cursor: pointer;
         }
 
-        .custom-calendar-booking .react-calendar__navigation button:hover {
-          background-color: rgba(255, 255, 255, 0.15);
-          border-radius: 8px;
+        .minimal-calendar .react-calendar__navigation button:hover {
+          background-color: rgba(244, 232, 218, 0.6);
+          border-radius: 4px;
         }
 
-        .custom-calendar-booking .react-calendar__navigation button:disabled {
+        .minimal-calendar .react-calendar__navigation button:disabled {
           background-color: transparent;
-          color: rgba(255, 255, 255, 0.5);
+          color: rgba(64, 65, 62, 0.4);
           cursor: default;
         }
 
-        .custom-calendar-booking .react-calendar__month-view__weekdays {
+        .minimal-calendar .react-calendar__month-view__weekdays {
           text-align: center;
           text-transform: uppercase;
-          font-weight: bold;
-          font-size: 0.8em;
-          color: #7c9885;
-          padding: 0.75em 0;
-          background: #f8fffe;
+          font-weight: 500;
+          font-size: 0.7em;
+          color: rgba(64, 65, 62, 0.7);
+          padding: 0.6em 0;
+          background: transparent;
         }
 
-        .custom-calendar-booking .react-calendar__month-view__weekdays__weekday {
-          padding: 0.5em;
+        .minimal-calendar .react-calendar__month-view__weekdays__weekday {
+          padding: 0.4em;
         }
 
-        .custom-calendar-booking .react-calendar__month-view__days__day {
+        .minimal-calendar .react-calendar__month-view__days__day {
           position: relative;
-          padding: 1em 0.5em;
+          padding: 0.6em 0.4em;
           background: none;
           border: none;
           cursor: pointer;
-          font-size: 1em;
-          color: #374151;
-          border-radius: 8px;
-          margin: 2px;
+          font-size: 0.85em;
+          color: #40413E;
+          border-radius: 3px;
+          margin: 1px;
         }
 
-        .custom-calendar-booking .react-calendar__month-view__days__day:hover {
-          background-color: #f3f4f6;
+        .minimal-calendar .react-calendar__month-view__days__day:hover {
+          background-color: rgba(244, 232, 218, 0.7);
         }
 
-        .custom-calendar-booking .react-calendar__month-view__days__day--active {
-          background: #D4A853 !important;
-          color: white !important;
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(212, 168, 83, 0.3);
+        .minimal-calendar .react-calendar__month-view__days__day--active {
+          background: #40413E !important;
+          color: #F4E8DA !important;
+          border-radius: 3px;
         }
 
-        .custom-calendar-booking .react-calendar__month-view__days__day--active:hover {
-          background: #c49a4a !important;
-        }
-
-        .custom-calendar-booking .react-calendar__tile--disabled {
-          background-color: #f9fafb !important;
-          color: #d1d5db !important;
+        .minimal-calendar .react-calendar__tile--disabled {
+          background-color: transparent !important;
+          color: rgba(64, 65, 62, 0.3) !important;
           cursor: not-allowed !important;
         }
 
-        .custom-calendar-booking .react-calendar__tile--active {
-          background: #7c9885 !important;
-          color: white !important;
-          border-radius: 8px;
+        .minimal-calendar .react-calendar__tile--active {
+          background: #40413E !important;
+          color: #F4E8DA !important;
+          border-radius: 3px;
         }
 
-        /* Datas com horários disponíveis */
-        .custom-calendar-booking .available-date {
-          background-color: #dcfce7 !important;
-          color: #15803d !important;
-          border-radius: 8px;
-          font-weight: 600;
-          border: 2px solid #bbf7d0;
+        /* Datas com horários disponíveis - estilo delicado */
+        .minimal-calendar .available-date {
+          background-color: rgba(106, 109, 81, 0.1) !important;
+          color: #6A6D51 !important;
+          border-radius: 3px;
+          font-weight: 500;
+          position: relative;
         }
 
-        .custom-calendar-booking .available-date:hover {
-          background-color: #bbf7d0 !important;
-          transform: scale(1.05);
-          transition: all 0.2s ease;
+        .minimal-calendar .available-date:hover {
+          background-color: rgba(106, 109, 81, 0.2) !important;
         }
 
-        .custom-calendar-booking .react-calendar__month-view__days__day--neighboringMonth {
-          color: #d1d5db;
+        .minimal-calendar .available-date::after {
+          content: '';
+          position: absolute;
+          bottom: 2px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 4px;
+          height: 4px;
+          background-color: #6A6D51;
+          border-radius: 50%;
+          opacity: 0.6;
         }
 
-        /* Animações suaves */
-        .custom-calendar-booking .react-calendar__month-view__days__day {
-          transition: all 0.2s ease;
+        .minimal-calendar .react-calendar__month-view__days__day--neighboringMonth {
+          color: rgba(64, 65, 62, 0.25);
         }
 
-        .custom-calendar-booking .react-calendar__navigation button {
-          transition: all 0.2s ease;
+        /* Transições delicadas */
+        .minimal-calendar .react-calendar__month-view__days__day {
+          transition: all 0.12s ease;
+        }
+
+        .minimal-calendar .react-calendar__navigation button {
+          transition: all 0.12s ease;
         }
       `}</style>
     </section>
