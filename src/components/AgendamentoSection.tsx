@@ -132,7 +132,19 @@ export default function AgendamentoSection() {
     fetchAvailableSlots();
   }, []);
 
-  // Extrair datas que têm slots disponíveis
+  // Extrair todas as datas que têm slots (disponíveis ou não)
+  const allDatesWithSlots = availableSlots
+    .filter(slot => slot.date)
+    .map(slot => {
+      try {
+        return new Date(slot.date!);
+      } catch {
+        return null;
+      }
+    })
+    .filter(date => date !== null) as Date[];
+
+  // Extrair apenas datas que têm slots disponíveis
   const availableDates = availableSlots
     .filter(slot => slot.date && slot.is_available)
     .map(slot => {
@@ -145,8 +157,18 @@ export default function AgendamentoSection() {
     .filter(date => date !== null) as Date[];
 
   // Log para debug
-  console.log('Slots disponíveis:', availableSlots.length);
-  console.log('Datas disponíveis processadas:', availableDates.map(d => d.toISOString().split('T')[0]));
+  console.log('Total de slots:', availableSlots.length);
+  console.log('Datas com slots:', allDatesWithSlots.map(d => d.toISOString().split('T')[0]));
+  console.log('Datas disponíveis:', availableDates.map(d => d.toISOString().split('T')[0]));
+
+  // Função para verificar se uma data tem algum slot (disponível ou não)
+  const hasAnySlots = (date: Date) => {
+    return allDatesWithSlots.some(slotDate => 
+      date.getFullYear() === slotDate.getFullYear() &&
+      date.getMonth() === slotDate.getMonth() &&
+      date.getDate() === slotDate.getDate()
+    );
+  };
 
   // Função para verificar se uma data tem slots disponíveis
   const hasAvailableSlots = (date: Date) => {
@@ -157,7 +179,7 @@ export default function AgendamentoSection() {
     );
   };
 
-  // Função para desabilitar datas passadas e sem slots disponíveis
+  // Função para desabilitar apenas datas passadas e datas sem nenhum slot
   const tileDisabled = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
       // Desabilitar datas passadas
@@ -166,8 +188,8 @@ export default function AgendamentoSection() {
       
       if (date < today) return true;
       
-      // Desabilitar se não tem slots disponíveis
-      return !hasAvailableSlots(date);
+      // Desabilitar se não tem nenhum slot (nem disponível nem indisponível)
+      return !hasAnySlots(date);
     }
     return false;
   };
@@ -180,6 +202,10 @@ export default function AgendamentoSection() {
       // Adiciona classe para dias com horários disponíveis
       if (hasAvailableSlots(date)) {
         classes.push('available-date');
+      }
+      // Adiciona classe para dias com todos os horários indisponíveis
+      else if (hasAnySlots(date) && !hasAvailableSlots(date)) {
+        classes.push('unavailable-date');
       }
       
       // Mantém o dia selecionado sempre destacado
@@ -225,10 +251,10 @@ export default function AgendamentoSection() {
     }
   };
 
-  // Obter slots da data selecionada
-  const slotsForSelectedDate = selectedDate instanceof Date ? 
+  // Obter todos os slots da data selecionada (disponíveis e indisponíveis)
+  const allSlotsForSelectedDate = selectedDate instanceof Date ? 
     availableSlots.filter(slot => {
-      if (!slot.date || !slot.is_available) return false;
+      if (!slot.date) return false;
       try {
         const slotDate = new Date(slot.date);
         return slotDate.toDateString() === selectedDate.toDateString();
@@ -236,6 +262,9 @@ export default function AgendamentoSection() {
         return false;
       }
     }) : [];
+
+  // Obter apenas slots disponíveis da data selecionada
+  const slotsForSelectedDate = allSlotsForSelectedDate.filter(slot => slot.is_available);
 
   const handleSlotSelection = (slot: AvailableSlot) => {
     setSelectedSlot(slot);
@@ -308,54 +337,61 @@ export default function AgendamentoSection() {
   const allStepsCompleted = completedSteps.includes(1) && completedSteps.includes(2) && completedSteps.includes(3);
 
   const handleBooking = async () => {
-    if (!selectedSlot || !(selectedDate instanceof Date)) return;
+    if (!selectedSlot || !(selectedDate instanceof Date) || !experience) return;
     
     setBookingLoading(true);
     setBookingMessage(null);
     
     try {
       // Verificar se o horário ainda está disponível
-      const response = await fetch('/api/available-slots', {
+      const checkResponse = await fetch('/api/available-slots', {
         cache: 'no-store',
-        headers: {
-          'Cache-Control': 'no-cache',
-        },
+        headers: { 'Cache-Control': 'no-cache' },
       });
       
-      if (!response.ok) {
+      if (!checkResponse.ok) {
         throw new Error('Erro ao verificar disponibilidade');
       }
       
-      const currentSlots = await response.json();
-      
-      // Buscar o slot específico para verificar se ainda está disponível
+      const currentSlots = await checkResponse.json();
       const currentSlot = currentSlots.find((slot: AvailableSlot) => slot.id === selectedSlot.id);
       
-      if (!currentSlot) {
+      if (!currentSlot || !currentSlot.is_available) {
         setBookingMessage('❌ Este horário não está mais disponível. Por favor, escolha outro horário.');
-        // Atualizar a lista de slots disponíveis
         setAvailableSlots(currentSlots);
         setSelectedSlot(null);
         return;
       }
       
-      if (!currentSlot.is_available) {
-        setBookingMessage('❌ Este horário foi reservado por outra pessoa. Por favor, escolha outro horário.');
-        // Atualizar a lista de slots disponíveis
-        setAvailableSlots(currentSlots);
-        setSelectedSlot(null);
-        return;
+      // Criar a reserva
+      const bookingData = {
+        slot_id: selectedSlot.id,
+        name: personalInfo.name,
+        email: personalInfo.email,
+        phone: personalInfo.phone,
+        number_of_people: numberOfPeople
+      };
+      
+      const bookingResponse = await fetch('/api/booking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookingData),
+      });
+      
+      const result = await bookingResponse.json();
+      
+      if (!bookingResponse.ok) {
+        throw new Error(result.error || 'Erro ao criar reserva');
       }
       
-      // Se chegou até aqui, o horário ainda está disponível
-      const totalValue = (experience?.price || 120) * numberOfPeople;
-      
-      // Aqui você pode implementar a lógica real de reserva
-      alert(`Agendamento confirmado!\nData: ${selectedDate.toLocaleDateString('pt-BR')}\nHorário: ${formatTimeRange(selectedSlot.start_time)}\nPessoas: ${numberOfPeople}\nValor Total: R$ ${totalValue.toLocaleString('pt-BR')}`);
+      // Sucesso! Redirecionar para página de confirmação
+      router.push(`/confirmacao/${result.booking_id}`);
       
     } catch (error) {
-      console.error('Erro ao verificar disponibilidade:', error);
-      setBookingMessage('❌ Erro ao verificar disponibilidade. Tente novamente.');
+      console.error('Erro ao criar reserva:', error);
+      setBookingMessage(`❌ ${error instanceof Error ? error.message : 'Erro ao processar reserva. Tente novamente.'}`);
     } finally {
       setBookingLoading(false);
     }
@@ -468,25 +504,30 @@ export default function AgendamentoSection() {
                         </div>
 
                         {/* Horários Minimalistas - Só aparece após selecionar data */}
-                        {selectedDate instanceof Date && hasAvailableSlots(selectedDate) && (
+                        {selectedDate instanceof Date && hasAnySlots(selectedDate) && (
                           <div>
                             <h4 className="text-base font-medium text-cinza mb-4">
                               Escolha seu Horário
                             </h4>
                             
-                            {slotsForSelectedDate.length > 0 ? (
+                            {allSlotsForSelectedDate.length > 0 ? (
                               <div className="space-y-3">
-                                {slotsForSelectedDate.map(slot => (
+                                {allSlotsForSelectedDate.map(slot => (
                                   <button
                                     key={slot.id}
-                                    onClick={() => handleSlotSelectionWithAccordion(slot)}
+                                    onClick={() => slot.is_available ? handleSlotSelectionWithAccordion(slot) : null}
+                                    disabled={!slot.is_available}
                                     className={`inline-block px-5 py-2.5 mr-2 mb-2 rounded-md border transition-all duration-200 text-sm font-medium ${
-                                      selectedSlot?.id === slot.id
+                                      !slot.is_available
+                                        ? 'border-cinza/30 bg-cinza/10 text-cinza/50 cursor-not-allowed'
+                                        : selectedSlot?.id === slot.id
                                         ? 'border-cinza bg-cinza text-cream'
                                         : 'border-cream bg-cream/30 text-cinza hover:border-cinza/50 hover:bg-cream/60'
                                     }`}
                                   >
-                                    {formatTime(slot.start_time)}
+                                    <span className={!slot.is_available ? 'line-through' : ''}>
+                                      {formatTime(slot.start_time)}
+                                    </span>
                                   </button>
                                 ))}
                               </div>
@@ -1199,6 +1240,32 @@ export default function AgendamentoSection() {
           background-color: #6A6D51;
           border-radius: 50%;
           opacity: 0.6;
+        }
+
+        /* Datas com todos os horários indisponíveis - estilo sutil */
+        .minimal-calendar .unavailable-date {
+          background-color: rgba(64, 65, 62, 0.05) !important;
+          color: rgba(64, 65, 62, 0.7) !important;
+          border-radius: 8px;
+          font-weight: 400;
+          position: relative;
+        }
+
+        .minimal-calendar .unavailable-date:hover {
+          background-color: rgba(64, 65, 62, 0.1) !important;
+        }
+
+        .minimal-calendar .unavailable-date::after {
+          content: '';
+          position: absolute;
+          bottom: 2px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 4px;
+          height: 4px;
+          background-color: rgba(64, 65, 62, 0.4);
+          border-radius: 50%;
+          opacity: 0.5;
         }
 
         .minimal-calendar .react-calendar__month-view__days__day--neighboringMonth {
