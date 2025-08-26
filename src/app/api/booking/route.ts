@@ -1,5 +1,6 @@
 import { createServerClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
 interface BookingRequest {
   slot_id: string;
@@ -93,7 +94,52 @@ export async function POST(request: Request) {
       );
     }
 
-    // 5. Retornar sucesso com ID da reserva
+    // 5. Enviar email de notificação
+    try {
+      const apiKey = process.env.RESEND_API_KEY;
+      console.log('Chave Resend carregada:', apiKey ? 'Sim (***' + apiKey.slice(-4) + ')' : 'Não encontrada');
+      
+      if (!apiKey) {
+        throw new Error('RESEND_API_KEY não configurada');
+      }
+      
+      const resend = new Resend(apiKey);
+      
+      const emailData = {
+        from: 'Casa Alvite <onboarding@resend.dev>',
+        to: ['admin@alvite.com.br'],
+        subject: `Nova Reserva - ${booking.name}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #40413E;">Nova Reserva Confirmada</h2>
+            
+            <div style="background-color: #f4e8da; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="color: #40413E; margin-top: 0;">Detalhes da Reserva</h3>
+              
+              <p><strong>Cliente:</strong> ${booking.name}</p>
+              <p><strong>Email:</strong> ${booking.email}</p>
+              <p><strong>Telefone:</strong> ${booking.phone}</p>
+              <p><strong>Número de Pessoas:</strong> ${booking.number_of_people}</p>
+              <p><strong>Data:</strong> ${slot.date}</p>
+              <p><strong>Horário:</strong> ${slot.start_time}</p>
+              <p><strong>Valor Total:</strong> R$ ${total_value.toFixed(2)}</p>
+              <p><strong>ID da Reserva:</strong> ${booking.id}</p>
+            </div>
+            
+            <p style="color: #6a6d51;">Esta reserva foi criada através do sistema de agendamento da Casa Alvite.</p>
+          </div>
+        `
+      };
+
+      const result = await resend.emails.send(emailData);
+      console.log('Email de notificação enviado com sucesso:', result);
+    } catch (emailError) {
+      console.error('Erro ao enviar email de notificação:', emailError);
+      console.error('Detalhes do erro:', JSON.stringify(emailError, null, 2));
+      // Não falha o processo se o email não for enviado
+    }
+
+    // 6. Retornar sucesso com ID da reserva
     console.log('Booking criado com sucesso:', booking.id);
     return NextResponse.json({
       success: true,
