@@ -176,7 +176,7 @@ export default function Home() {
       */}
 
       {/* Seção O Espaço Casa Alvite */}
-      <section id="espaco-casa-alvite-section" className="bg-cream w-full pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-20 lg:pb-12 relative overflow-hidden">
+      <section id="espaco-casa-alvite-section" className="bg-cream w-full pt-24 sm:pt-28 lg:pt-20 relative overflow-hidden">
         
         {/* Blob amarelo decorativo */}
         <div className="absolute -right-16 bottom-20 w-80 h-80 lg:w-96 lg:h-96 z-0 pointer-events-none">
@@ -251,35 +251,14 @@ export default function Home() {
       </section>
 
       {/* Seção Como Funciona */}
-      <section id="como-funciona-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24">
+      <section id="como-funciona-section" className="bg-cream w-full pt-16 sm:pt-20 lg:pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          {/* Header - Título e texto explicativo */}
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-12 mb-12 lg:mb-16">
+          {/* Grid de 4 caixas */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             
-            {/* Título */}
-            <div className="lg:flex-shrink-0">
-              <h2 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal">
-                Como funciona
-              </h2>
-            </div>
-            
-            {/* Texto explicativo */}
-            <div className="lg:max-w-lg lg:pt-4">
-              <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                2 horas de criatividade e conexão em um ateliê acolhedor no Humaitá
-              </p>
-            </div>
-          </div>
-          
-          {/* Linha divisória */}
-          <div className="w-full h-px bg-cinza/20 mb-12 lg:mb-16"></div>
-          
-          {/* Grid de 3 caixas no topo */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12 lg:mb-16">
-            
-            {/* Caixa 1 - Verde */}
-            <div className="bg-verde rounded-3xl p-4 lg:p-8 text-cream h-[150px] md:h-[380px]">
+            {/* Caixa 1 - Vinho */}
+            <div id="card-oficina-amados" className="bg-roxo rounded-3xl p-4 lg:p-8 text-cream h-[120px] md:h-[250px]">
               {/* Layout Mobile - Horizontal */}
               <div className="flex md:hidden items-center justify-center gap-4 h-full">
                 <div className="w-[80px] h-[80px] flex items-center justify-center flex-shrink-0">
@@ -293,7 +272,7 @@ export default function Home() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-instrument font-semibold text-base uppercase tracking-wide leading-tight text-left">
-                    BARRO, TINTAS E<br />QUEIMAS INCLUSOS
+                    2 HORAS DE OFICINA<br />COM SEUS AMADOS
                   </h3>
                 </div>
               </div>
@@ -301,26 +280,26 @@ export default function Home() {
               {/* Layout Desktop - Vertical */}
               <div className="hidden md:flex flex-col items-center justify-center text-center space-y-4 h-full">
                 <div className="flex flex-col items-center space-y-3">
-                  <div className="w-[200px] h-[200px] flex items-center justify-center">
+                  <div className="w-[120px] h-[120px] flex items-center justify-center">
                     <Image
                       src="/images/vaso.svg"
                       alt="Vaso de cerâmica"
-                      width={300}
-                      height={300}
+                      width={180}
+                      height={180}
                       className="w-full h-full object-contain opacity-90"
                     />
                   </div>
                 </div>
                 <div>
                   <h3 className="font-instrument font-semibold text-xl uppercase tracking-wide leading-tight">
-                    BARRO, TINTAS E<br />QUEIMAS INCLUSOS
+                    2 HORAS DE OFICINA<br />COM SEUS AMADOS
                   </h3>
                 </div>
               </div>
             </div>
             
             {/* Caixa 2 - Amarela */}
-            <div className="bg-amarelo rounded-3xl p-4 lg:p-8 text-cream h-[150px] md:h-[380px]">
+            <div id="card-musica-bebidas" className="bg-amarelo rounded-3xl p-4 lg:p-8 text-cream h-[120px] md:h-[250px]">
               {/* Layout Mobile - Horizontal */}
               <div className="flex md:hidden items-center justify-center gap-4 h-full">
                 <div className="w-[90px] h-[90px] flex items-center justify-center flex-shrink-0">
@@ -334,7 +313,7 @@ export default function Home() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-instrument font-semibold text-base uppercase tracking-wide leading-tight text-left">
-                    2 HORAS DE OFICINA<br />COM SEUS AMADOS
+                    MÚSICA BOA, BEBIDINHA<br />E BELISQUETES
                   </h3>
                 </div>
               </div>
@@ -342,26 +321,26 @@ export default function Home() {
               {/* Layout Desktop - Vertical */}
               <div className="hidden md:flex flex-col items-center justify-center text-center space-y-4 h-full">
                 <div className="flex flex-col items-center space-y-3">
-                  <div className="w-[220px] h-[220px] flex items-center justify-center">
+                  <div className="w-[130px] h-[130px] flex items-center justify-center">
                     <Image
                       src="/images/ferramentas.svg"
                       alt="Ferramentas de cerâmica"
-                      width={350}
-                      height={350}
+                      width={200}
+                      height={200}
                       className="w-full h-full object-contain opacity-90"
                     />
                   </div>
                 </div>
                 <div>
                   <h3 className="font-instrument font-semibold text-xl uppercase tracking-wide leading-tight">
-                    2 HORAS DE OFICINA<br />COM SEUS AMADOS
+                    MÚSICA BOA, BEBIDINHA<br />E BELISQUETES
                   </h3>
                 </div>
               </div>
             </div>
             
             {/* Caixa 3 - Terracota */}
-            <div className="bg-terracotta rounded-3xl p-4 lg:p-8 text-cream h-[150px] md:h-[380px]">
+            <div id="card-barro-tintas" className="bg-terracotta rounded-3xl p-4 lg:p-8 text-cream h-[120px] md:h-[250px]">
               {/* Layout Mobile - Horizontal */}
               <div className="flex md:hidden items-center justify-center gap-4 h-full">
                 <div className="w-[80px] h-[80px] flex items-center justify-center flex-shrink-0">
@@ -375,7 +354,7 @@ export default function Home() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-instrument font-semibold text-base uppercase tracking-wide leading-tight text-left">
-                    MÚSICA BOA, BEBIDINHA<br />E BELISQUETES
+                    BARRO, TINTAS E<br />QUEIMAS INCLUSOS
                   </h3>
                 </div>
               </div>
@@ -383,101 +362,26 @@ export default function Home() {
               {/* Layout Desktop - Vertical */}
               <div className="hidden md:flex flex-col items-center justify-center text-center space-y-4 h-full">
                 <div className="flex flex-col items-center space-y-3">
-                  <div className="w-[200px] h-[200px] flex items-center justify-center">
+                  <div className="w-[120px] h-[120px] flex items-center justify-center">
                     <Image
                       src="/images/cumbucas.svg"
                       alt="Cumbucas de cerâmica"
-                      width={300}
-                      height={300}
+                      width={180}
+                      height={180}
                       className="w-full h-full object-contain opacity-90"
                     />
                   </div>
                 </div>
                 <div>
                   <h3 className="font-instrument font-semibold text-xl uppercase tracking-wide leading-tight">
-                    MÚSICA BOA, BEBIDINHA<br />E BELISQUETES
+                    BARRO, TINTAS E<br />QUEIMAS INCLUSOS
                   </h3>
                 </div>
               </div>
             </div>
-          </div>
-          
-          {/* Caixa grande embaixo */}
-          <div className="bg-verde rounded-3xl p-4 lg:p-6 text-cream h-[120px] md:h-[140px]">
             
-            {/* Layout Mobile - Apenas texto */}
-            <div className="flex md:hidden items-center justify-center h-full">
-              <p className="font-instrument font-semibold text-sm uppercase tracking-wide leading-tight text-center">
-                SUA ARTE PRONTA EM 30 DIAS COM QUEIMA E ESMALTAÇÃO PROFISSIONAL.<br />
-                NO FINAL, COMBINAMOS A MELHOR FORMA DE ENTREGA
-              </p>
-            </div>
-            
-            {/* Layout Desktop - Com estrela */}
-            <div className="hidden md:flex lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8 h-full">
-              
-              {/* SVG da Estrela */}
-              <div className="flex-shrink-0 flex justify-center lg:justify-start">
-                <div className="w-[60px] h-[60px]">
-                  <Image
-                    src="/images/estrela.svg"
-                    alt="Estrela dourada"
-                    width={80}
-                    height={80}
-                    className="w-full h-full object-contain opacity-90"
-                  />
-                </div>
-              </div>
-              
-              {/* Texto */}
-              <div className="flex-1 text-center lg:text-left flex items-center">
-                <p className="font-instrument font-semibold text-lg lg:text-xl uppercase tracking-wide leading-tight">
-                  SUA ARTE PRONTA EM 30 DIAS COM QUEIMA E ESMALTAÇÃO PROFISSIONAL.<br />
-                  NO FINAL, COMBINAMOS A MELHOR FORMA DE ENTREGA
-                </p>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-
-      {/* Seção Quem Somos */}
-      <section id="quem-somos-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Layout com título e colunas */}
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
-            
-            {/* Coluna Esquerda - Título, Texto e Contato */}
-            <div className="space-y-6 lg:col-span-3">
-              
-              {/* Título da seção */}
-              <div className="text-left">
-                <h2 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-12">
-                  Quem somos?
-                </h2>
-              </div>
-              
-              {/* Caixa com texto principal */}
-              <div className="bg-cream rounded-3xl p-6 lg:p-8 space-y-4 border border-cinza/10">
-                <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-                  Aqui você vive uma experiência exclusiva de modelagem e pintura em cerâmica, em um ambiente reservado só para o seu grupo. Traga quem ama, seus petiscos e bebidas, e aproveite duas horas de criatividade e muita conversa.
-                </p>
-                
-                <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-                  Aqui, não há certo ou errado: cada peça é única. Nossa equipe garante que você leve para casa uma lembrança cheia de significado.
-                </p>
-              </div>
-              
-
-            </div>
-            
-            {/* Coluna Direita - Horários e Botão */}
-            <div className="lg:col-span-2 space-y-6">
-              
-              {/* Cartão de Horários */}
-              <div className="bg-verde rounded-3xl p-8 lg:p-12 text-cream">
+            {/* Caixa 4 - Horários */}
+            <div id="card-horarios" className="bg-verde rounded-3xl p-8 lg:p-12 text-cream">
                 
                 {/* Título com ícone */}
                 <div className="flex items-center gap-4 mb-8">
@@ -503,197 +407,44 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              
-              {/* Botão de Agendamento */}
-              <div className="flex justify-center lg:justify-start">
-                <a 
-                  href="/agendamento"
-                  className="w-full bg-amarelo border-2 border-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-base lg:text-lg px-6 lg:px-8 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
-                >
-                  AGENDAR EXPERIÊNCIA
-                </a>
-              </div>
-              
-            </div>
-            
           </div>
+          
         </div>
       </section>
-
-      {/* Seção Galeria */}
-      <section id="galeria-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24 overflow-hidden">
+      {/* Seção Quem Somos */}
+      <section id="quem-somos-section" className="bg-cream w-full pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Decorações de fundo */}
-          
-          <div className="relative z-10">
+
+          {/* Layout simplificado */}
+          <div className="max-w-4xl mx-auto">
             
-            {/* Grid de imagens - Desktop - Grade 6x6 Sem Sobreposição */}
-            <div className="hidden lg:grid grid-cols-6 grid-rows-6 gap-4 h-[600px]">
+            {/* Conteúdo centralizado */}
+            <div className="space-y-6">
               
-              {/* Imagem 1 - Posição [1,1] 2x2 */}
-              <div className="col-start-1 col-span-2 row-start-1 row-span-2">
-                <div className="relative h-full rounded-3xl overflow-hidden group">
-                  <Image
-                    src="/images/experience-1.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={400}
-                    height={200}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
+              {/* Título da seção */}
+              <div className="text-left">
+                <h2 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-12">
+                  Quem somos?
+                </h2>
               </div>
               
-              {/* Imagem 2 - Posição [3,1] 2x4 */}
-              <div className="col-start-3 col-span-2 row-start-1 row-span-4">
-                <div className="relative h-full rounded-3xl overflow-hidden group">
-                  <Image
-                    src="/images/experience-2.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
+              {/* Caixa com texto principal */}
+              <div className="bg-cream rounded-3xl p-6 lg:p-8 space-y-4 border border-cinza/10">
+                <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
+                  Aqui você vive uma experiência exclusiva de modelagem e pintura em cerâmica, em um ambiente reservado só para o seu grupo. Traga quem ama, seus petiscos e bebidas, e aproveite duas horas de criatividade e muita conversa.
+                </p>
+                
+                <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
+                  Aqui, não há certo ou errado: cada peça é única. Nossa equipe garante que você leve para casa uma lembrança cheia de significado.
+                </p>
               </div>
               
-              {/* Imagem 3 - Posição [5,1] 2x2 */}
-              <div className="col-start-5 col-span-2 row-start-1 row-span-2">
-                <div className="relative h-full rounded-3xl overflow-hidden group">
-                  <Image
-                    src="/images/experience-3.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={400}
-                    height={200}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </div>
-              
-              {/* Imagem 4 - Posição [1,3] 2x2 */}
-              <div className="col-start-1 col-span-2 row-start-3 row-span-2">
-                <div className="relative h-full rounded-3xl overflow-hidden group">
-                  <Image
-                    src="/images/experience-4.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={400}
-                    height={200}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </div>
-              
-              {/* Imagem 5 - Posição [5,3] 2x4 */}
-              <div className="col-start-5 col-span-2 row-start-3 row-span-4">
-                <div className="relative h-full rounded-3xl overflow-hidden group">
-                  <Image
-                    src="/images/experience-5.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </div>
-              
-              {/* Imagem 6 - Posição [1,5] 4x2 */}
-              <div className="col-start-1 col-span-4 row-start-5 row-span-2">
-                <div className="relative h-full rounded-3xl overflow-hidden group">
-                  <Image
-                    src="/images/experience-6.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={800}
-                    height={200}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </div>
-              
+
             </div>
             
-            {/* Grid simplificado - Tablet */}
-            <div className="hidden md:grid lg:hidden grid-cols-2 gap-4 h-[500px]">
-              
-              {/* Imagem 1 - Grande à esquerda */}
-              <div className="row-span-2">
-                <div className="relative h-full rounded-3xl overflow-hidden">
-                  <Image
-                    src="/images/experience-6.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={400}
-                    height={500}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-              
-              {/* Imagem 2 - Superior direita */}
-              <div className="row-span-1">
-                <div className="relative h-full rounded-3xl overflow-hidden">
-                  <Image
-                    src="/images/experience-2.png"
-                    alt="Pessoas fazendo cerâmica"
-                    width={400}
-                    height={240}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-              
-              {/* Imagem 3 - Inferior direita */}
-              <div className="row-span-1">
-                <div className="relative h-full rounded-3xl overflow-hidden">
-                  <Image
-                    src="/images/experience-3.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={400}
-                    height={240}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-              
-            </div>
-            
-            {/* Grid simplificado - Mobile (apenas 2 imagens) */}
-            <div className="grid md:hidden grid-cols-1 gap-4 space-y-4">
-              
-              {/* Imagem 1 - Mobile */}
-              <div className="h-[300px]">
-                <div className="relative h-full rounded-3xl overflow-hidden">
-                  <Image
-                    src="/images/experience-4.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={400}
-                    height={300}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-              
-              {/* Imagem 2 - Mobile */}
-              <div className="h-[300px]">
-                <div className="relative h-full rounded-3xl overflow-hidden">
-                  <Image
-                    src="/images/experience-3.png"
-                    alt="Experiência de cerâmica Casa Alvite"
-                    width={400}
-                    height={300}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-              
-            </div>
+
             
           </div>
-          
         </div>
       </section>
 
