@@ -412,7 +412,7 @@ export default function Home() {
         </div>
       </section>
       {/* Seção Quem Somos */}
-      <section id="quem-somos-section" className="bg-cream w-full pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24">
+      <section id="quem-somos-section" className="bg-cream w-full pt-20 sm:pt-24 lg:pt-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Layout simplificado */}
@@ -423,20 +423,40 @@ export default function Home() {
               
               {/* Título da seção */}
               <div className="text-left">
-                <h2 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-12">
-                  Quem somos?
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-12">
+                  <span className="font-instrument-serif italic">Prazer, </span>
+                  <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Júlia</span>
+                  <span className="font-instrument-serif italic"> e </span>
+                  <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Bernardo</span>
                 </h2>
               </div>
               
-              {/* Caixa com texto principal */}
-              <div className="bg-cream rounded-3xl p-6 lg:p-8 space-y-4 border border-cinza/10">
-                <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-                  Aqui você vive uma experiência exclusiva de modelagem e pintura em cerâmica, em um ambiente reservado só para o seu grupo. Traga quem ama, seus petiscos e bebidas, e aproveite duas horas de criatividade e muita conversa.
+              {/* Imagem dos fundadores */}
+              <div className="flex justify-center">
+                <div className="w-full max-w-md">
+                  <Image
+                    src="/images/ju-be.png"
+                    alt="Júlia e Bernardo - Fundadores Casa Alvite"
+                    width={400}
+                    height={240}
+                    className="w-full h-[340px] sm:h-[280px] lg:h-[520px] rounded-3xl object-cover object-center"
+                  />
+                </div>
+              </div>
+
+              {/* Frases explicativas */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                
+                {/* Frase 1 */}
+                <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
                 </p>
                 
-                <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-                  Aqui, não há certo ou errado: cada peça é única. Nossa equipe garante que você leve para casa uma lembrança cheia de significado.
+                {/* Frase 2 */}
+                <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
+                  Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
                 </p>
+                
               </div>
               
 
@@ -474,9 +494,6 @@ export default function Home() {
             
             {/* Subtítulo */}
             <div className="space-y-2">
-              <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-                Aqui algumas perguntas frequentes.
-              </p>
               <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
                 Caso tenha mais dúvidas, entre em contato conosco!
               </p>
