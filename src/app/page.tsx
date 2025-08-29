@@ -14,14 +14,14 @@ export default function Home() {
 
 
   const scrollToNextSection = () => {
-    const nextSection = document.getElementById('next-section')
+    const nextSection = document.getElementById('espaco-casa-alvite-section')
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
   const scrollToHowItWorks = () => {
-    const howItWorksSection = document.getElementById('how-it-works-section')
+    const howItWorksSection = document.getElementById('como-funciona-section')
     if (howItWorksSection) {
       howItWorksSection.scrollIntoView({ behavior: 'smooth' })
     }
@@ -55,7 +55,7 @@ export default function Home() {
     <>
       <Header transparent={true} />
 
-      <main className="relative h-screen w-full overflow-hidden">
+      <main id="hero-section" className="relative h-screen w-full overflow-hidden">
         {/* Imagem de fundo que ocupa toda a viewport */}
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -71,99 +71,131 @@ export default function Home() {
         <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 pt-20 sm:pt-24">
           <div className="text-center space-y-16 sm:space-y-20 lg:space-y-28">
             {/* Título principal */}
-            <h1 className="text-cream font-instrument-serif italic text-5xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-wide leading-tight">
-              Barro, Bebidas e<br className="sm:hidden" />
-              <span className="sm:block">Belisquetes</span>
+            <h1 className="text-cream font-junyper text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-medium tracking-wide leading-tight">
+              Bebidinhas<br />
+              Belisquetes<br />
+              Barro
             </h1>
 
             {/* Botões de Ação */}
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full sm:w-auto">
+              <a 
+                href="/agendamento"
+                className="w-full sm:w-auto bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
+              >
+                AGENDAR EXPERIÊNCIA
+              </a>
+              
               <button 
                 onClick={scrollToNextSection}
-                className="w-full sm:w-auto bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
+                className="w-full sm:w-auto bg-transparent border-2 border-cream hover:bg-cream hover:text-verde text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
                 type="button"
               >
                 COMO FUNCIONA?
               </button>
-              
-              <a 
-                href="/agendamento"
-                className="w-full sm:w-auto bg-transparent border-2 border-cream hover:bg-cream hover:text-verde text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
-              >
-                AGENDAR EXPERIÊNCIA
-              </a>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Seção Quem Somos */}
-      <section id="next-section" className="bg-cream w-full pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-20 lg:pb-12">
+      {/* Seção O Espaço Casa Alvite */}
+      <section id="espaco-casa-alvite-section" className="bg-cream w-full pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-20 lg:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Layout com título e colunas */}
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
+          
+          {/* Layout com duas colunas */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             
-            {/* Coluna Esquerda - Título, Texto e Contato */}
-            <div className="space-y-6 lg:col-span-3">
+            {/* Coluna Esquerda - Conteúdo */}
+            <div className="space-y-10">
+              
+              {/* Título decorativo */}
+              <div className="relative mb-6">
+                <h2 className="font-junyper text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-verde font-normal leading-[70%] -rotate-[6.5deg] relative z-10 pl-14">
+                  O espaço é só<br />
+                  de vocês!
+                </h2>
+                <div className="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 pointer-events-none z-0">
+                  <Image
+                    src="/images/estrela.svg"
+                    alt="Estrela decorativa"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-contain opacity-80"
+                  />
+                </div>
+              </div>
               
               {/* Título da seção */}
-              <div className="text-left">
-                <h2 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-12">
-                  Quem somos?
-                </h2>
+              <div>
+                <h3 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4">
+                  O espaço Casa Alvite
+                </h3>
               </div>
               
-              {/* Caixa com texto principal */}
-              <div className="bg-cream rounded-3xl p-6 lg:p-8 space-y-4 border border-cinza/10">
+              {/* Texto principal */}
+              <div className="space-y-4">
                 <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-                  Aqui você vive uma experiência exclusiva de modelagem e pintura em cerâmica, em um ambiente reservado só para o seu grupo. Traga quem ama, seus petiscos e bebidas, e aproveite duas horas de criatividade e muita conversa.
-                </p>
-                
-                <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-                  Aqui, não há certo ou errado: cada peça é única. Nossa equipe garante que você leve para casa uma lembrança cheia de significado.
+                  Se vocês curtem animais, nossas cachorras estarão presentes. Quem vem diz que elas deixam tudo ainda mais terapêutico e divertido.
                 </p>
               </div>
               
-
-            </div>
-            
-            {/* Coluna Direita - Horários e Botão */}
-            <div className="lg:col-span-2 space-y-6">
-              
-              {/* Cartão de Horários */}
-              <div className="bg-verde rounded-3xl p-8 lg:p-12 text-cream">
-                
-                {/* Título com ícone */}
-                <div className="flex items-center gap-4 mb-8">
-                  <svg className="w-10 h-10 lg:w-12 lg:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12,6 12,12 16,14"/>
-                  </svg>
-                  <h3 className="text-4xl lg:text-5xl font-normal font-junyper leading-tight">
-                    Horários
-                  </h3>
+              {/* Lista de características */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check-terracota.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
+                    ESPAÇO ACOLHEDOR E INSPIRADOR
+                  </span>
                 </div>
                 
-                {/* Lista de horários simplificada */}
-                <div className="space-y-4">
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                    <span className="font-instrument font-semibold text-xl">SEGUNDA À SEXTA</span>
-                                        <span className="font-instrument text-xl font-medium text-cinza">18H ÀS 20H</span>
+                <div className="w-full h-px bg-cinza/20"></div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
                   </div>
-                  <div className="w-full h-px bg-cream/30"></div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                    <span className="font-instrument font-semibold text-xl">SÁBADO E DOMINGO</span>
-                                        <span className="font-instrument text-xl font-medium italic text-cinza">A combinar</span>
+                  <span className="text-verde font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
+                    AMBIENTE CRIATIVO NO HUMAITÁ
+                  </span>
+                </div>
+                
+                <div className="w-full h-px bg-cinza/20"></div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check-amarelo.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
                   </div>
+                  <span className="text-amarelo font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
+                    GRUPOS PEQUENOS E INTIMISTAS
+                  </span>
                 </div>
               </div>
               
-              {/* Botão de Agendamento */}
-              <div className="flex justify-center lg:justify-start">
+              {/* Botão */}
+              <div className="pt-4">
                 <a 
                   href="/agendamento"
-                  className="w-full bg-amarelo border-2 border-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-base lg:text-lg px-6 lg:px-8 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
+                  className="inline-flex items-center justify-center bg-amarelo border-2 border-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-base lg:text-lg px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide"
                 >
                   AGENDAR EXPERIÊNCIA
                 </a>
@@ -171,12 +203,31 @@ export default function Home() {
               
             </div>
             
+            {/* Coluna Direita - Imagem */}
+            <div className="relative order-first lg:order-last">
+              <div className="relative rounded-3xl overflow-hidden">
+                <Image
+                  src="/images/experience-5.png"
+                  alt="Experiência de cerâmica no espaço Casa Alvite"
+                  width={600}
+                  height={800}
+                  className="w-full h-[400px] lg:h-[600px] object-cover"
+                  priority
+                />
+                
+                {/* Decoração com forma orgânica */}
+                <div className="absolute -bottom-6 -left-6 w-16 h-16 lg:w-20 lg:h-20">
+                  <div className="w-full h-full bg-terracotta/20 rounded-full transform -rotate-12"></div>
+                </div>
+              </div>
+            </div>
+            
           </div>
         </div>
       </section>
 
       {/* Seção Como Funciona */}
-      <section id="how-it-works-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24">
+      <section id="como-funciona-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header - Título e texto explicativo */}
@@ -367,104 +418,73 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Seção O Espaço Casa Alvite */}
-      <section className="bg-cream w-full py-16 sm:py-20 lg:py-24">
+      {/* Seção Quem Somos */}
+      <section id="quem-somos-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Layout com duas colunas */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+
+          {/* Layout com título e colunas */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
             
-            {/* Coluna Esquerda - Conteúdo */}
-            <div className="space-y-10">
-              
-              {/* Título decorativo */}
-              <div className="relative mb-6">
-                <h2 className="font-junyper text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-verde font-normal leading-[70%] -rotate-[6.5deg] relative z-10 pl-14">
-                  O espaço é só<br />
-                  de vocês!
-                </h2>
-                <div className="absolute left-0 top-0 w-10 h-10 sm:w-12 sm:h-12 pointer-events-none z-0">
-                  <Image
-                    src="/images/estrela.svg"
-                    alt="Estrela decorativa"
-                    width={48}
-                    height={48}
-                    className="w-full h-full object-contain opacity-80"
-                  />
-                </div>
-              </div>
+            {/* Coluna Esquerda - Título, Texto e Contato */}
+            <div className="space-y-6 lg:col-span-3">
               
               {/* Título da seção */}
-              <div>
-                <h3 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4">
-                  O espaço Casa Alvite
-                </h3>
+              <div className="text-left">
+                <h2 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-12">
+                  Quem somos?
+                </h2>
               </div>
               
-              {/* Texto principal */}
-              <div className="space-y-4">
+              {/* Caixa com texto principal */}
+              <div className="bg-cream rounded-3xl p-6 lg:p-8 space-y-4 border border-cinza/10">
                 <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-                  Se vocês curtem animais, nossas cachorras estarão presentes. Quem vem diz que elas deixam tudo ainda mais terapêutico e divertido.
+                  Aqui você vive uma experiência exclusiva de modelagem e pintura em cerâmica, em um ambiente reservado só para o seu grupo. Traga quem ama, seus petiscos e bebidas, e aproveite duas horas de criatividade e muita conversa.
+                </p>
+                
+                <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
+                  Aqui, não há certo ou errado: cada peça é única. Nossa equipe garante que você leve para casa uma lembrança cheia de significado.
                 </p>
               </div>
               
-              {/* Lista de características */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                    <Image
-                      src="/images/check-terracota.svg"
-                      alt="Check"
-                      width={20}
-                      height={20}
-                      className="w-full h-full"
-                    />
-                  </div>
-                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                    ESPAÇO ACOLHEDOR E INSPIRADOR
-                  </span>
+
+            </div>
+            
+            {/* Coluna Direita - Horários e Botão */}
+            <div className="lg:col-span-2 space-y-6">
+              
+              {/* Cartão de Horários */}
+              <div className="bg-verde rounded-3xl p-8 lg:p-12 text-cream">
+                
+                {/* Título com ícone */}
+                <div className="flex items-center gap-4 mb-8">
+                  <svg className="w-10 h-10 lg:w-12 lg:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                  </svg>
+                  <h3 className="text-4xl lg:text-5xl font-normal font-junyper leading-tight">
+                    Horários
+                  </h3>
                 </div>
                 
-                <div className="w-full h-px bg-cinza/20"></div>
-                
-                <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                    <Image
-                      src="/images/check.svg"
-                      alt="Check"
-                      width={20}
-                      height={20}
-                      className="w-full h-full"
-                    />
+                {/* Lista de horários simplificada */}
+                <div className="space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                    <span className="font-instrument font-semibold text-xl">SEGUNDA À SEXTA</span>
+                                        <span className="font-instrument text-xl font-medium text-cinza">18H ÀS 20H</span>
                   </div>
-                  <span className="text-verde font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                    AMBIENTE CRIATIVO NO HUMAITÁ
-                  </span>
-                </div>
-                
-                <div className="w-full h-px bg-cinza/20"></div>
-                
-                <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                    <Image
-                      src="/images/check-amarelo.svg"
-                      alt="Check"
-                      width={20}
-                      height={20}
-                      className="w-full h-full"
-                    />
+                  <div className="w-full h-px bg-cream/30"></div>
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                    <span className="font-instrument font-semibold text-xl">SÁBADO E DOMINGO</span>
+                                        <span className="font-instrument text-xl font-medium italic text-cinza">A combinar</span>
                   </div>
-                  <span className="text-amarelo font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                    GRUPOS PEQUENOS E INTIMISTAS
-                  </span>
                 </div>
               </div>
               
-              {/* Botão */}
-              <div className="pt-4">
+              {/* Botão de Agendamento */}
+              <div className="flex justify-center lg:justify-start">
                 <a 
                   href="/agendamento"
-                  className="inline-flex items-center justify-center bg-amarelo border-2 border-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-base lg:text-lg px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide"
+                  className="w-full bg-amarelo border-2 border-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-base lg:text-lg px-6 lg:px-8 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
                 >
                   AGENDAR EXPERIÊNCIA
                 </a>
@@ -472,32 +492,12 @@ export default function Home() {
               
             </div>
             
-            {/* Coluna Direita - Imagem */}
-            <div className="relative order-first lg:order-last">
-              <div className="relative rounded-3xl overflow-hidden">
-                <Image
-                  src="/images/experience-5.png"
-                  alt="Experiência de cerâmica no espaço Casa Alvite"
-                  width={600}
-                  height={800}
-                  className="w-full h-[400px] lg:h-[600px] object-cover"
-                  priority
-                />
-                
-                {/* Decoração com forma orgânica */}
-                <div className="absolute -bottom-6 -left-6 w-16 h-16 lg:w-20 lg:h-20">
-                  <div className="w-full h-full bg-terracotta/20 rounded-full transform -rotate-12"></div>
-                </div>
-              </div>
-            </div>
-            
           </div>
-          
         </div>
       </section>
 
       {/* Seção Galeria */}
-      <section className="bg-cream w-full py-16 sm:py-20 lg:py-24 overflow-hidden">
+      <section id="galeria-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Decorações de fundo */}
@@ -674,7 +674,7 @@ export default function Home() {
       </section>
 
       {/* Seção FAQ */}
-      <section className="bg-cream w-full py-16 sm:py-20 lg:py-24">
+      <section id="faq-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header do FAQ */}
