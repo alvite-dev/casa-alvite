@@ -175,8 +175,8 @@ export default function Home() {
         </div>
       */}
 
-      {/* Seção O Espaço Casa Alvite */}
-      <section id="espaco-casa-alvite-section" className="bg-cream w-full pt-24 sm:pt-28 lg:pt-20 relative overflow-hidden">
+      {/* Container para layout de duas colunas no desktop */}
+      <section className="bg-cream w-full pt-24 sm:pt-28 lg:pt-20 relative overflow-hidden">
         
         {/* Blob amarelo decorativo */}
         <div className="absolute -right-16 bottom-20 w-80 h-80 lg:w-96 lg:h-96 z-0 pointer-events-none">
@@ -191,222 +191,224 @@ export default function Home() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          {/* Layout simplificado - Apenas imagem */}
-          <div className="flex justify-center">
+          {/* Layout responsivo: empilhado no mobile, duas colunas no desktop */}
+          <div className="flex flex-col lg:flex-row lg:gap-12 xl:gap-16">
             
-            {/* Imagem centralizada */}
-            <div className="relative w-full max-w-lg">
+            {/* Coluna Esquerda - Espaço Casa Alvite */}
+            <div id="espaco-casa-alvite-section" className="lg:w-1/2">
               
-              {/* Título decorativo */}
-              <div id="titulo-decorativo-rotacionado" className="relative mb-6 z-20 -mb-8">
-                <h2 className="font-junyper text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-verde font-normal leading-[70%] -rotate-[6.5deg] relative z-10 pl-14 -translate-y-2">
-                  Experiencia só do<br />
-                  seu grupo!
-                </h2>
-                <div className="absolute left-0 top-3 w-12 h-12 sm:w-16 sm:h-16 pointer-events-none z-0">
-                  <Image
-                    src="/images/estrela.svg"
-                    alt="Estrela decorativa"
-                    width={64}
-                    height={64}
-                    className="w-full h-full object-contain"
-                  />
+              {/* Layout simplificado - Apenas imagem */}
+              <div className="flex justify-center">
+                
+                {/* Imagem centralizada */}
+                <div className="relative w-full max-w-lg">
+                  
+                  {/* Título decorativo */}
+                  <div id="titulo-decorativo-rotacionado" className="relative mb-6 z-20 -mb-8">
+                    <h2 className="font-junyper text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-verde font-normal leading-[70%] -rotate-[6.5deg] relative z-10 pl-14 -translate-y-2">
+                      Experiencia só do<br />
+                      seu grupo!
+                    </h2>
+                    <div className="absolute left-0 top-3 w-12 h-12 sm:w-16 sm:h-16 pointer-events-none z-0">
+                      <Image
+                        src="/images/estrela.svg"
+                        alt="Estrela decorativa"
+                        width={64}
+                        height={64}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div id="imagem-espaco-casa-alvite" className="relative rounded-3xl overflow-hidden">
+                    <Image
+                      src="/images/experience-5.png"
+                      alt="Experiência de cerâmica no espaço Casa Alvite"
+                      width={600}
+                      height={800}
+                      className="w-full h-[400px] lg:h-[600px] object-cover object-top"
+                      priority
+                    />
+                    
+                    {/* Decoração com forma orgânica */}
+                    <div className="absolute -bottom-6 -left-6 w-16 h-16 lg:w-20 lg:h-20">
+                      <div className="w-full h-full bg-terracotta/20 rounded-full transform -rotate-12"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Frases explicativas */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8 mt-8">
+                    
+                    {/* Frase 1 */}
+                    <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+                    </p>
+                    
+                    {/* Frase 2 */}
+                    <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
+                      Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                    </p>
+                    
+                  </div>
                 </div>
-              </div>
-              
-              <div id="imagem-espaco-casa-alvite" className="relative rounded-3xl overflow-hidden">
-                <Image
-                  src="/images/experience-5.png"
-                  alt="Experiência de cerâmica no espaço Casa Alvite"
-                  width={600}
-                  height={800}
-                  className="w-full h-[400px] lg:h-[600px] object-cover object-top"
-                  priority
-                />
-                
-                {/* Decoração com forma orgânica */}
-                <div className="absolute -bottom-6 -left-6 w-16 h-16 lg:w-20 lg:h-20">
-                  <div className="w-full h-full bg-terracotta/20 rounded-full transform -rotate-12"></div>
-                </div>
-              </div>
-              
-              {/* Frases explicativas */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                
-                {/* Frase 1 */}
-                <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-                </p>
-                
-                {/* Frase 2 */}
-                <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                  Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
                 
               </div>
             </div>
-            
-          </div>
-        </div>
-      </section>
 
-      {/* Seção Como Funciona */}
-      <section id="como-funciona-section" className="bg-cream w-full pt-16 sm:pt-20 lg:pt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Grid de 4 caixas */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            
-            {/* Caixa 1 - Vinho */}
-            <div id="card-oficina-amados" className="bg-roxo rounded-3xl p-4 lg:p-8 text-cream h-[120px] md:h-[250px]">
-              {/* Layout Mobile - Horizontal */}
-              <div className="flex md:hidden items-center justify-center gap-4 h-full">
-                <div className="w-[80px] h-[80px] flex items-center justify-center flex-shrink-0">
-                  <Image
-                    src="/images/vaso.svg"
-                    alt="Vaso de cerâmica"
-                    width={80}
-                    height={80}
-                    className="w-full h-full object-contain opacity-90"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-instrument font-semibold text-base uppercase tracking-wide leading-tight text-left">
-                    2 HORAS DE OFICINA<br />COM SEUS AMADOS
-                  </h3>
-                </div>
-              </div>
+            {/* Coluna Direita - Como Funciona */}
+            <div id="como-funciona-section" className="lg:w-1/2 pt-16 lg:pt-32">
               
-              {/* Layout Desktop - Vertical */}
-              <div className="hidden md:flex flex-col items-center justify-center text-center space-y-4 h-full">
-                <div className="flex flex-col items-center space-y-3">
-                  <div className="w-[120px] h-[120px] flex items-center justify-center">
-                    <Image
-                      src="/images/vaso.svg"
-                      alt="Vaso de cerâmica"
-                      width={180}
-                      height={180}
-                      className="w-full h-full object-contain opacity-90"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <h3 className="font-instrument font-semibold text-xl uppercase tracking-wide leading-tight">
-                    2 HORAS DE OFICINA<br />COM SEUS AMADOS
-                  </h3>
-                </div>
-              </div>
-            </div>
-            
-            {/* Caixa 2 - Amarela */}
-            <div id="card-musica-bebidas" className="bg-amarelo rounded-3xl p-4 lg:p-8 text-cream h-[120px] md:h-[250px]">
-              {/* Layout Mobile - Horizontal */}
-              <div className="flex md:hidden items-center justify-center gap-4 h-full">
-                <div className="w-[90px] h-[90px] flex items-center justify-center flex-shrink-0">
-                  <Image
-                    src="/images/ferramentas.svg"
-                    alt="Ferramentas de cerâmica"
-                    width={90}
-                    height={90}
-                    className="w-full h-full object-contain opacity-90"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-instrument font-semibold text-base uppercase tracking-wide leading-tight text-left">
-                    MÚSICA BOA, BEBIDINHA<br />E BELISQUETES
-                  </h3>
-                </div>
-              </div>
-              
-              {/* Layout Desktop - Vertical */}
-              <div className="hidden md:flex flex-col items-center justify-center text-center space-y-4 h-full">
-                <div className="flex flex-col items-center space-y-3">
-                  <div className="w-[130px] h-[130px] flex items-center justify-center">
-                    <Image
-                      src="/images/ferramentas.svg"
-                      alt="Ferramentas de cerâmica"
-                      width={200}
-                      height={200}
-                      className="w-full h-full object-contain opacity-90"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <h3 className="font-instrument font-semibold text-xl uppercase tracking-wide leading-tight">
-                    MÚSICA BOA, BEBIDINHA<br />E BELISQUETES
-                  </h3>
-                </div>
-              </div>
-            </div>
-            
-            {/* Caixa 3 - Terracota */}
-            <div id="card-barro-tintas" className="bg-terracotta rounded-3xl p-4 lg:p-8 text-cream h-[120px] md:h-[250px]">
-              {/* Layout Mobile - Horizontal */}
-              <div className="flex md:hidden items-center justify-center gap-4 h-full">
-                <div className="w-[80px] h-[80px] flex items-center justify-center flex-shrink-0">
-                  <Image
-                    src="/images/cumbucas.svg"
-                    alt="Cumbucas de cerâmica"
-                    width={80}
-                    height={80}
-                    className="w-full h-full object-contain opacity-90"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-instrument font-semibold text-base uppercase tracking-wide leading-tight text-left">
-                    BARRO, TINTAS E<br />QUEIMAS INCLUSOS
-                  </h3>
-                </div>
-              </div>
-              
-              {/* Layout Desktop - Vertical */}
-              <div className="hidden md:flex flex-col items-center justify-center text-center space-y-4 h-full">
-                <div className="flex flex-col items-center space-y-3">
-                  <div className="w-[120px] h-[120px] flex items-center justify-center">
-                    <Image
-                      src="/images/cumbucas.svg"
-                      alt="Cumbucas de cerâmica"
-                      width={180}
-                      height={180}
-                      className="w-full h-full object-contain opacity-90"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <h3 className="font-instrument font-semibold text-xl uppercase tracking-wide leading-tight">
-                    BARRO, TINTAS E<br />QUEIMAS INCLUSOS
-                  </h3>
-                </div>
-              </div>
-            </div>
-            
-            {/* Caixa 4 - Horários */}
-            <div id="card-horarios" className="bg-verde rounded-3xl p-8 lg:p-12 text-cream">
+              {/* Grid de 4 caixas */}
+              <div className="grid grid-cols-1 gap-6 lg:gap-8">
                 
-                {/* Título com ícone */}
-                <div className="flex items-center gap-4 mb-8">
-                  <svg className="w-10 h-10 lg:w-12 lg:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12,6 12,12 16,14"/>
-                  </svg>
-                  <h3 className="text-4xl lg:text-5xl font-normal font-junyper leading-tight">
-                    Horários
-                  </h3>
+                {/* Caixa 1 - Vinho */}
+                <div id="card-oficina-amados" className="bg-roxo rounded-3xl p-4 lg:p-6 text-cream h-[120px] lg:h-[140px]">
+                  {/* Layout Mobile - Horizontal */}
+                  <div className="flex lg:hidden items-center justify-center gap-4 h-full">
+                    <div className="w-[80px] h-[80px] flex items-center justify-center flex-shrink-0">
+                      <Image
+                        src="/images/vaso.svg"
+                        alt="Vaso de cerâmica"
+                        width={80}
+                        height={80}
+                        className="w-full h-full object-contain opacity-90"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide leading-tight text-left">
+                        2 HORAS DE OFICINA COM SEUS AMADOS
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  {/* Layout Desktop - Horizontal (igual ao mobile) */}
+                  <div className="hidden lg:flex items-center justify-center gap-4 h-full">
+                    <div className="w-[80px] h-[80px] flex items-center justify-center flex-shrink-0">
+                      <Image
+                        src="/images/vaso.svg"
+                        alt="Vaso de cerâmica"
+                        width={80}
+                        height={80}
+                        className="w-full h-full object-contain opacity-90"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide leading-tight text-left">
+                        2 HORAS DE OFICINA COM SEUS AMADOS
+                      </h3>
+                    </div>
+                  </div>
                 </div>
                 
-                {/* Lista de horários simplificada */}
-                <div className="space-y-4">
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                    <span className="font-instrument font-semibold text-xl">SEGUNDA À SEXTA</span>
-                                        <span className="font-instrument text-xl font-medium text-cinza">18H ÀS 20H</span>
+                {/* Caixa 2 - Amarela */}
+                <div id="card-musica-bebidas" className="bg-amarelo rounded-3xl p-4 lg:p-6 text-cream h-[120px] lg:h-[140px]">
+                  {/* Layout Mobile - Horizontal */}
+                  <div className="flex lg:hidden items-center justify-center gap-4 h-full">
+                    <div className="w-[90px] h-[90px] flex items-center justify-center flex-shrink-0">
+                      <Image
+                        src="/images/ferramentas.svg"
+                        alt="Ferramentas de cerâmica"
+                        width={90}
+                        height={90}
+                        className="w-full h-full object-contain opacity-90"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide leading-tight text-left">
+                        MÚSICA BOA, BEBIDINHA E BELISQUETES
+                      </h3>
+                    </div>
                   </div>
-                  <div className="w-full h-px bg-cream/30"></div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                    <span className="font-instrument font-semibold text-xl">SÁBADO E DOMINGO</span>
-                                        <span className="font-instrument text-xl font-medium italic text-cinza">A combinar</span>
+                  
+                  {/* Layout Desktop - Horizontal (igual ao mobile) */}
+                  <div className="hidden lg:flex items-center justify-center gap-4 h-full">
+                    <div className="w-[90px] h-[90px] flex items-center justify-center flex-shrink-0">
+                      <Image
+                        src="/images/ferramentas.svg"
+                        alt="Ferramentas de cerâmica"
+                        width={90}
+                        height={90}
+                        className="w-full h-full object-contain opacity-90"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide leading-tight text-left">
+                        MÚSICA BOA, BEBIDINHA E BELISQUETES
+                      </h3>
+                    </div>
                   </div>
                 </div>
+                
+                {/* Caixa 3 - Terracota */}
+                <div id="card-barro-tintas" className="bg-terracotta rounded-3xl p-4 lg:p-6 text-cream h-[120px] lg:h-[140px]">
+                  {/* Layout Mobile - Horizontal */}
+                  <div className="flex lg:hidden items-center justify-center gap-4 h-full">
+                    <div className="w-[80px] h-[80px] flex items-center justify-center flex-shrink-0">
+                      <Image
+                        src="/images/cumbucas.svg"
+                        alt="Cumbucas de cerâmica"
+                        width={80}
+                        height={80}
+                        className="w-full h-full object-contain opacity-90"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide leading-tight text-left">
+                        BARRO, TINTAS E QUEIMAS INCLUSOS
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  {/* Layout Desktop - Horizontal (igual ao mobile) */}
+                  <div className="hidden lg:flex items-center justify-center gap-4 h-full">
+                    <div className="w-[80px] h-[80px] flex items-center justify-center flex-shrink-0">
+                      <Image
+                        src="/images/cumbucas.svg"
+                        alt="Cumbucas de cerâmica"
+                        width={80}
+                        height={80}
+                        className="w-full h-full object-contain opacity-90"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide leading-tight text-left">
+                        BARRO, TINTAS E QUEIMAS INCLUSOS
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Caixa 4 - Horários */}
+                <div id="card-horarios" className="bg-verde rounded-3xl p-8 lg:p-12 text-cream">
+                    
+                    {/* Título com ícone */}
+                    <div className="flex items-center gap-4 mb-8">
+                      <svg className="w-10 h-10 lg:w-12 lg:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12,6 12,12 16,14"/>
+                      </svg>
+                      <h3 className="text-4xl lg:text-5xl font-normal font-junyper leading-tight">
+                        Horários
+                      </h3>
+                    </div>
+                    
+                    {/* Lista de horários simplificada */}
+                    <div className="space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                        <span className="font-instrument font-semibold text-xl">SEGUNDA À SEXTA</span>
+                                            <span className="font-instrument text-xl font-medium text-cinza">18H ÀS 20H</span>
+                      </div>
+                      <div className="w-full h-px bg-cream/30"></div>
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                        <span className="font-instrument font-semibold text-xl">SÁBADO E DOMINGO</span>
+                                            <span className="font-instrument text-xl font-medium italic text-cinza">A combinar</span>
+                      </div>
+                    </div>
+                  </div>
               </div>
+              
+            </div>
+
           </div>
           
         </div>
@@ -416,23 +418,23 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Layout simplificado */}
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             
-            {/* Conteúdo centralizado */}
-            <div className="space-y-6">
-              
-              {/* Título da seção */}
-              <div className="text-left">
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-12">
-                  <span className="font-instrument-serif italic">Prazer, </span>
-                  <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Júlia</span>
-                  <span className="font-instrument-serif italic"> e </span>
-                  <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Bernardo</span>
-                </h2>
-              </div>
+            {/* Título da seção */}
+            <div className="text-left mb-8 lg:mb-12">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal">
+                <span className="font-instrument-serif italic">Prazer, </span>
+                <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Júlia</span>
+                <span className="font-instrument-serif italic"> e </span>
+                <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Bernardo</span>
+              </h2>
+            </div>
+            
+            {/* Layout responsivo: empilhado no mobile, lado a lado no desktop */}
+            <div className="flex flex-col lg:flex-row lg:gap-12 xl:gap-16 lg:items-start">
               
               {/* Imagem dos fundadores */}
-              <div className="flex justify-center">
+              <div className="lg:w-1/2 flex justify-center lg:justify-start">
                 <div className="w-full max-w-md">
                   <Image
                     src="/images/ju-be.png"
@@ -445,24 +447,23 @@ export default function Home() {
               </div>
 
               {/* Frases explicativas */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                
-                {/* Frase 1 */}
-                <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-                </p>
-                
-                {/* Frase 2 */}
-                <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                  Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                </p>
-                
+              <div className="lg:w-1/2 mt-8 lg:mt-0 lg:pt-8">
+                <div className="space-y-6 lg:space-y-8">
+                  
+                  {/* Frase 1 */}
+                  <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+                  </p>
+                  
+                  {/* Frase 2 */}
+                  <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
+                    Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                  </p>
+                  
+                </div>
               </div>
               
-
             </div>
-            
-
             
           </div>
         </div>
