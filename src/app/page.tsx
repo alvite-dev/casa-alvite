@@ -604,24 +604,18 @@ export default function Home() {
             {/* Coluna Direita - Imagem (Desktop) / Ordem 1 (Mobile) */}
             <div className="lg:w-1/2 order-1 lg:order-2 mb-8 lg:mb-0">
               
-              {/* Layout simplificado - Apenas imagem */}
-              <div className="flex justify-center lg:justify-end">
-                
-                {/* Imagem centralizada */}
-                <div className="relative w-full max-w-lg lg:max-w-sm">
-                  
-                  <div id="imagem-quem-somos" className="relative rounded-3xl overflow-hidden">
-                    <Image
-                      src="/images/ju-be.png"
-                      alt="Júlia e Bernardo - Fundadores Casa Alvite"
-                      width={600}
-                      height={800}
-                      className="w-full h-[400px] lg:h-[500px] object-cover object-top lg:object-[50%_40%]"
-                      priority
-                    />
-                  </div>
+              {/* Imagem dos fundadores */}
+              <div className="w-full lg:flex lg:justify-end">
+                <div className="w-full lg:max-w-sm aspect-[5/4] lg:aspect-auto">
+                  <Image
+                    src="/images/ju-be.png"
+                    alt="Júlia e Bernardo - Fundadores Casa Alvite"
+                    width={400}
+                    height={240}
+                    className="w-full h-full lg:h-[520px] rounded-3xl object-cover object-center"
+                    fill={false}
+                  />
                 </div>
-                
               </div>
             </div>
 
