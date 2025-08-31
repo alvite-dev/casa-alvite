@@ -134,7 +134,10 @@ export default function AgendamentoSection() {
     .filter(slot => slot.date)
     .map(slot => {
       try {
-        return new Date(slot.date!);
+        // Criar data local para evitar problemas de fuso horário
+        const dateStr = slot.date!;
+        const [year, month, day] = dateStr.split('-').map(Number);
+        return new Date(year, month - 1, day); // mês é 0-indexed
       } catch {
         return null;
       }
@@ -146,7 +149,10 @@ export default function AgendamentoSection() {
     .filter(slot => slot.date && slot.is_available)
     .map(slot => {
       try {
-        return new Date(slot.date!);
+        // Criar data local para evitar problemas de fuso horário
+        const dateStr = slot.date!;
+        const [year, month, day] = dateStr.split('-').map(Number);
+        return new Date(year, month - 1, day); // mês é 0-indexed
       } catch {
         return null;
       }
@@ -167,8 +173,20 @@ export default function AgendamentoSection() {
     );
   };
 
-  // Função para verificar se uma data tem slots disponíveis
+  // Função para verificar se uma data tem slots disponíveis (considerando 1 dia de antecedência)
   const hasAvailableSlots = (date: Date) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    // Bloquear hoje e amanhã completamente
+    if (date <= tomorrow) {
+      return false;
+    }
+    
+    // Para datas a partir de depois de amanhã, usar a lógica normal
     return availableDates.some(availableDate => 
       date.getFullYear() === availableDate.getFullYear() &&
       date.getMonth() === availableDate.getMonth() &&
@@ -176,14 +194,20 @@ export default function AgendamentoSection() {
     );
   };
 
-  // Função para desabilitar apenas datas passadas e datas sem nenhum slot
+  // Função para desabilitar datas passadas, hoje, amanhã e datas sem nenhum slot
   const tileDisabled = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
-      // Desabilitar datas passadas
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       
-      if (date < today) return true;
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      
+      const dayAfterTomorrow = new Date(today);
+      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+      
+      // Desabilitar datas passadas, hoje e amanhã
+      if (date < dayAfterTomorrow) return true;
       
       // Desabilitar se não tem nenhum slot (nem disponível nem indisponível)
       return !hasAnySlots(date);
@@ -253,15 +277,38 @@ export default function AgendamentoSection() {
     availableSlots.filter(slot => {
       if (!slot.date) return false;
       try {
-        const slotDate = new Date(slot.date);
+        // Criar data local para evitar problemas de fuso horário
+        const dateStr = slot.date;
+        const [year, month, day] = dateStr.split('-').map(Number);
+        const slotDate = new Date(year, month - 1, day); // mês é 0-indexed
         return slotDate.toDateString() === selectedDate.toDateString();
       } catch {
         return false;
       }
     }) : [];
 
-  // Obter apenas slots disponíveis da data selecionada
-  const slotsForSelectedDate = allSlotsForSelectedDate.filter(slot => slot.is_available);
+  // Obter apenas slots disponíveis da data selecionada (considerando 1 dia de antecedência)
+  const slotsForSelectedDate = allSlotsForSelectedDate.filter(slot => {
+    if (!slot.is_available) return false;
+    
+    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      
+      // Criar data local do slot
+      const dateStr = slot.date!;
+      const [year, month, day] = dateStr.split('-').map(Number);
+      const slotDate = new Date(year, month - 1, day);
+      
+      // Verificar se a data do slot é a partir de depois de amanhã
+      return slotDate > tomorrow;
+    } catch {
+      return false;
+    }
+  });
 
   const handleSlotSelection = (slot: AvailableSlot) => {
     setSelectedSlot(slot);
@@ -476,7 +523,7 @@ export default function AgendamentoSection() {
                               tileDisabled={tileDisabled}
                               tileClassName={tileClassName}
                               className="minimal-calendar"
-                              minDate={new Date()}
+                              minDate={new Date(new Date().setDate(new Date().getDate() + 2))}
                               showNeighboringMonth={false}
                               formatShortWeekday={(locale, date) => {
                                 // Padrão: Domingo=0, Segunda=1, Terça=2, Quarta=3, Quinta=4, Sexta=5, Sábado=6
@@ -496,24 +543,50 @@ export default function AgendamentoSection() {
                             
                             {allSlotsForSelectedDate.length > 0 ? (
                               <div className="space-y-3">
-                                {allSlotsForSelectedDate.map(slot => (
-                                  <button
-                                    key={slot.id}
-                                    onClick={() => slot.is_available ? handleSlotSelectionWithAccordion(slot) : null}
-                                    disabled={!slot.is_available}
-                                    className={`inline-block px-5 py-2.5 mr-2 mb-2 rounded-md border transition-all duration-200 text-sm font-medium ${
-                                      !slot.is_available
-                                        ? 'border-cinza/30 bg-cinza/10 text-cinza/50 cursor-not-allowed'
-                                        : selectedSlot?.id === slot.id
-                                        ? 'border-cinza bg-cinza text-cream'
-                                        : 'border-cream bg-cream/30 text-cinza hover:border-cinza/50 hover:bg-cream/60'
-                                    }`}
-                                  >
-                                    <span className={!slot.is_available ? 'line-through' : ''}>
+                                {allSlotsForSelectedDate.map(slot => {
+                                  // Verificar se o slot está disponível considerando 1 dia de antecedência
+                                  const today = new Date();
+                                  today.setHours(0, 0, 0, 0);
+                                  
+                                  const tomorrow = new Date(today);
+                                  tomorrow.setDate(tomorrow.getDate() + 1);
+                                  
+                                  let isSlotAvailable = slot.is_available;
+                                  
+                                  if (slot.is_available && slot.date) {
+                                    try {
+                                      const dateStr = slot.date;
+                                      const [year, month, day] = dateStr.split('-').map(Number);
+                                      const slotDate = new Date(year, month - 1, day);
+                                      
+                                      // Desabilitar se for hoje ou amanhã
+                                      if (slotDate <= tomorrow) {
+                                        isSlotAvailable = false;
+                                      }
+                                    } catch {
+                                      isSlotAvailable = false;
+                                    }
+                                  }
+                                  
+                                  return (
+                                    <button
+                                      key={slot.id}
+                                      onClick={() => isSlotAvailable ? handleSlotSelectionWithAccordion(slot) : null}
+                                      disabled={!isSlotAvailable}
+                                      className={`inline-block px-5 py-2.5 mr-2 mb-2 rounded-md border transition-all duration-200 text-sm font-medium ${
+                                        !isSlotAvailable
+                                          ? 'border-cinza/30 bg-cinza/10 text-cinza/50 cursor-not-allowed'
+                                          : selectedSlot?.id === slot.id
+                                          ? 'border-cinza bg-cinza text-cream'
+                                          : 'border-cream bg-cream/30 text-cinza hover:border-cinza/50 hover:bg-cream/60'
+                                      }`}
+                                    >
+                                    <span className={!isSlotAvailable ? 'line-through' : ''}>
                                       {formatTime(slot.start_time)}
                                     </span>
                                   </button>
-                                ))}
+                                  );
+                                })}
                               </div>
                             ) : (
                               <div className="py-8">

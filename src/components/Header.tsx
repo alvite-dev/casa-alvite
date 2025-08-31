@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 interface HeaderProps {
   transparent?: boolean
@@ -9,6 +10,7 @@ interface HeaderProps {
 
 export default function Header({ transparent = false }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +24,7 @@ export default function Header({ transparent = false }: HeaderProps) {
   }, [])
 
   const isTransparent = transparent && !isScrolled
+  const isAgendamentoPage = pathname === '/agendamento'
 
   return (
     <header 
@@ -60,14 +63,16 @@ export default function Header({ transparent = false }: HeaderProps) {
 
         {/* Conteúdo dinâmico baseado no scroll */}
         <div className="flex items-center">
-          {isTransparent ? (
-            /* Ícones de Redes Sociais - quando transparente */
+          {isTransparent || isAgendamentoPage ? (
+            /* Ícones de Redes Sociais - quando transparente ou na página de agendamento */
             <div className="flex items-center gap-1 sm:gap-4 lg:gap-4">
               <a 
                 href="https://wa.me/5521991792065" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 lg:w-9 lg:h-9 flex items-center justify-center transition-colors duration-300 cursor-pointer text-cream hover:text-cream/80"
+                className={`w-10 h-10 sm:w-12 sm:h-12 lg:w-9 lg:h-9 flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                  isTransparent ? 'text-cream hover:text-cream/80' : 'text-verde hover:text-verde/80'
+                }`}
                 title="WhatsApp"
               >
                 <svg className="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -79,7 +84,9 @@ export default function Header({ transparent = false }: HeaderProps) {
                 href="https://instagram.com/casa.alvite" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 sm:w-12 sm:h-12 lg:w-9 lg:h-9 flex items-center justify-center transition-colors duration-300 cursor-pointer text-cream hover:text-cream/80"
+                className={`w-10 h-10 sm:w-12 sm:h-12 lg:w-9 lg:h-9 flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                  isTransparent ? 'text-cream hover:text-cream/80' : 'text-verde hover:text-verde/80'
+                }`}
                 title="Instagram"
               >
                 <svg className="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6" fill="currentColor" viewBox="0 0 24 24">
