@@ -404,14 +404,14 @@ export default function Home() {
                     
                     {/* Lista de horários simplificada */}
                     <div className="space-y-4">
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <div className="flex justify-between items-center gap-2">
                         <span className="font-instrument font-semibold text-xl">SEGUNDA À SEXTA</span>
-                                            <span className="font-instrument text-xl font-medium text-cinza">19H ÀS 21H</span>
+                        <span className="font-instrument text-xl font-medium text-cinza">19:00</span>
                       </div>
                       <div className="w-full h-px bg-cream/30"></div>
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                      <div className="flex justify-between items-center gap-2">
                         <span className="font-instrument font-semibold text-xl">SÁBADO</span>
-                                            <span className="font-instrument text-xl font-medium italic text-cinza">A combinar</span>
+                        <span className="font-instrument text-xl font-medium text-cinza">11:00 | 16:00</span>
                       </div>
                     </div>
                   </div>
