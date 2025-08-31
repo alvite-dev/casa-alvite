@@ -199,16 +199,17 @@ export default function ConfirmacaoPage({ params }: { params: { id: string } }) 
           <div className="bg-verde px-8 py-6 flex justify-between items-center">
             <h2 className="text-xl font-semibold text-cream flex items-center gap-3">
               <span className="w-2 h-2 bg-amarelo rounded-full"></span>
-              Detalhes da sua Reserva
+              Sua Reserva
             </h2>
             <button
               onClick={generateReceipt}
-              className="flex items-center gap-2 bg-amarelo text-cream px-4 py-2 rounded-md hover:bg-amarelo/90 transition-colors font-medium text-sm"
+              className="flex items-center gap-2 bg-amarelo text-cream px-6 py-3 rounded-md hover:bg-amarelo/90 transition-colors font-medium text-base"
+              title="Baixar PDF"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              Baixar PDF
+              <span className="hidden sm:inline">Baixar PDF</span>
             </button>
           </div>
           

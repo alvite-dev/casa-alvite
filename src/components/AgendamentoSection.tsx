@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Calendar from 'react-calendar';
 
 type ValuePiece = Date | null;
@@ -505,9 +506,74 @@ export default function AgendamentoSection() {
             <h1 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-6">
               Agende sua Experiência
             </h1>
-            <p className="text-lg text-cinza font-instrument leading-relaxed">
-              Escolha a data e horário perfeitos para sua experiência única na Casa Alvite. 
-            </p>
+            
+            <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check-terracota.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
+                    ESPAÇO ACOLHEDOR E INSPIRADOR
+                  </span>
+                </div>
+                
+                <div className="w-full h-px bg-cinza/20"></div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check-terracota.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
+                    AMBIENTE CRIATIVO NO HUMAITÁ
+                  </span>
+                </div>
+                
+                <div className="w-full h-px bg-cinza/20"></div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check-terracota.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
+                    GRUPOS PEQUENOS E INTIMISTAS
+                  </span>
+                </div>
+                
+                <div className="w-full h-px bg-cinza/20"></div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check-terracota.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
+                    BARRO, TINTAS E QUEIMA INCLUSAS
+                  </span>
+                </div>
+              </div>
           </div>
         </div>
 
