@@ -616,7 +616,7 @@ export default function Home() {
                       alt="Júlia e Bernardo - Fundadores Casa Alvite"
                       width={600}
                       height={800}
-                      className="w-full h-[300px] lg:h-[500px] object-cover object-[50%_40%]"
+                      className="w-full h-[400px] lg:h-[500px] object-cover object-top lg:object-[50%_40%]"
                       priority
                     />
                   </div>
