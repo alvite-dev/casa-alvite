@@ -461,7 +461,7 @@ export default function Home() {
                 className="w-full flex items-center justify-between p-6 text-left hover:bg-cinza/5 transition-colors duration-200"
               >
                 <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide pr-4">
-                  A CASA ALVITE É UM ATELIÊ QUE DÁ AULAS DE CERÂMICA?
+                  VOCÊS TÊM AULAS RECORRENTES?
                 </span>
                 <div className="flex-shrink-0">
                   {openFAQ === 0 ? (
@@ -479,10 +479,7 @@ export default function Home() {
                 <div className="px-6 pb-6">
                   <div className="space-y-4 text-cinza text-base lg:text-lg leading-relaxed font-instrument">
                     <p>
-                      Não. Não somos um ateliê regular e nem damos aulas. Nosso foco são rolês com cerâmica + bebidas, belisquetes, música e conversa boa exclusivos para pequenos grupos.
-                    </p>
-                    <p>
-                      Celebramos aniversários, dates, Happy Hour etc. Aqui no espaço da Casa Alvite ou eventos maiores externos.
+                      Não! Não somos um ateliê padrão e nem damos aulas regulares. Proporcionamos rolês com cerâmica, bebidas, belisquetes, música e conversa boa.
                     </p>
                   </div>
                 </div>
@@ -514,10 +511,10 @@ export default function Home() {
                 <div className="px-6 pb-6">
                   <div className="space-y-4 text-cinza text-base lg:text-lg leading-relaxed font-instrument">
                     <p>
-                      Sim! Celebramos aniversários, happy hours corporativos, despedidas de solteiro, festas infantis e muito mais.
+                      SIM! Celebramos Aniversários, HH Corporativos, Despedidas de Solteiro, Festas Infantis etc.
                     </p>
                     <p>
-                      Realizamos eventos tanto no nosso espaço acolhedor no Humaitá quanto no local de sua preferência, adaptando nossa experiência cerâmica às suas necessidades especiais.
+                      Na nossa Casa no Humaitá ou aonde desejarem.
                     </p>
                   </div>
                 </div>
@@ -531,7 +528,7 @@ export default function Home() {
                 className="w-full flex items-center justify-between p-6 text-left hover:bg-cinza/5 transition-colors duration-200"
               >
                 <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide pr-4">
-                  QUAIS HORÁRIOS DISPONÍVEIS?
+                  POSSO IR COM QUANTAS PESSOAS?
                 </span>
                 <div className="flex-shrink-0">
                   {openFAQ === 2 ? (
@@ -549,10 +546,7 @@ export default function Home() {
                 <div className="px-6 pb-6">
                   <div className="space-y-4 text-cinza text-base lg:text-lg leading-relaxed font-instrument">
                     <p>
-                      Temos um calendário completo de disponibilidade na nossa página de agendamento, onde você pode visualizar todos os horários livres em tempo real.
-                    </p>
-                    <p>
-                      Acesse nossa página de agendamento para escolher o horário de sua preferência e garantir sua experiência única na Casa Alvite.
+                      De 2 a 6 pessoas na Casa Alvite. Em eventos externos, sem limite :)
                     </p>
                   </div>
                 </div>
@@ -566,7 +560,7 @@ export default function Home() {
                 className="w-full flex items-center justify-between p-6 text-left hover:bg-cinza/5 transition-colors duration-200"
               >
                 <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide pr-4">
-                  BEBIDAS E COMIDAS ESTÃO INCLUSOS?
+                  POSSO LEVAR BEBIDAS E COMIDAS?
                 </span>
                 <div className="flex-shrink-0">
                   {openFAQ === 3 ? (
@@ -584,10 +578,39 @@ export default function Home() {
                 <div className="px-6 pb-6">
                   <div className="space-y-4 text-cinza text-base lg:text-lg leading-relaxed font-instrument">
                     <p>
-                      Não fornecemos bebidas e comidas, mas vocês são muito bem-vindos para levar e criar um momento ainda mais agradável durante a experiência.
+                      Mil vezes sim! Fiquem à vontade! A experiência já inclui o barro, as tintas e as queimas.
                     </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* FAQ 5 */}
+            <div className="bg-cream border border-cinza/20 rounded-2xl overflow-hidden">
+              <button
+                onClick={() => setOpenFAQ(openFAQ === 4 ? null : 4)}
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-cinza/5 transition-colors duration-200"
+              >
+                <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide pr-4">
+                  PRECISO TER FEITO CERÂMICA ANTES?
+                </span>
+                <div className="flex-shrink-0">
+                  {openFAQ === 4 ? (
+                    <svg className="w-6 h-6 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                    </svg>
+                  ) : (
+                    <svg className="w-6 h-6 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  )}
+                </div>
+              </button>
+              {openFAQ === 4 && (
+                <div className="px-6 pb-6">
+                  <div className="space-y-4 text-cinza text-base lg:text-lg leading-relaxed font-instrument">
                     <p>
-                      A experiência já inclui todo o barro, as tintas e as queimas profissionais. Vocês só precisam trazer a criatividade e o que desejarem para beber e beliscar!
+                      Não. A maioria vem pela primeira vez. E de todas as idades! Desde crianças até idosos.
                     </p>
                   </div>
                 </div>
