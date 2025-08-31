@@ -130,6 +130,23 @@ export default function AgendamentoSection() {
     fetchAvailableSlots();
   }, []);
 
+  // useEffect para scroll automático quando a seção de horários aparecer
+  useEffect(() => {
+    if (selectedDate instanceof Date && hasAnySlots(selectedDate) && horariosRef.current) {
+      const timer = setTimeout(() => {
+        if (horariosRef.current) {
+          horariosRef.current.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center',
+            inline: 'nearest'
+          });
+        }
+      }, 300);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [selectedDate, availableSlots]);
+
   // Extrair todas as datas que têm slots (disponíveis ou não)
   const allDatesWithSlots = availableSlots
     .filter(slot => slot.date)
@@ -325,17 +342,6 @@ export default function AgendamentoSection() {
     setNumberOfPeople(2); // Reset para 2 pessoas quando muda a data
     // Remove step 1 from completed if changing date
     setCompletedSteps(prev => prev.filter(step => step !== 1));
-    
-    // Scroll para a seção de horários após selecionar data (especialmente útil no mobile)
-    if (date && horariosRef.current) {
-      setTimeout(() => {
-        horariosRef.current?.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'start',
-          inline: 'nearest'
-        });
-      }, 100); // Pequeno delay para garantir que o DOM seja atualizado
-    }
   };
 
   const handleSlotSelectionWithAccordion = (slot: AvailableSlot) => {
@@ -548,8 +554,8 @@ export default function AgendamentoSection() {
 
                         {/* Horários Minimalistas - Só aparece após selecionar data */}
                         {selectedDate instanceof Date && hasAnySlots(selectedDate) && (
-                          <div ref={horariosRef}>
-                            <h4 className="text-base font-medium text-cinza mb-4">
+                          <div>
+                            <h4 ref={horariosRef} className="text-base font-medium text-cinza mb-4">
                               Escolha seu Horário
                             </h4>
                             
