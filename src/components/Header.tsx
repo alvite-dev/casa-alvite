@@ -47,7 +47,7 @@ export default function Header({ transparent = false }: HeaderProps) {
               className={`w-full h-full transition-all duration-300 ${
                 isTransparent ? '' : 'brightness-0 saturate-100'
               }`}
-              style={!isTransparent ? { filter: 'brightness(0) saturate(100%) invert(38%) sepia(12%) saturate(1088%) hue-rotate(56deg) brightness(93%) contrast(89%)' } : {}}
+              style={!isTransparent ? { filter: 'brightness(0) saturate(100%) invert(42%) sepia(7%) saturate(1277%) hue-rotate(56deg) brightness(93%) contrast(93%)' } : {}}
               priority
             />
           </a>
