@@ -69,7 +69,7 @@ export default function Home() {
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat md:bg-[url('/images/background-home.JPG')] bg-[url('/images/background-home-mobile.JPG')]"
         >
           {/* Overlay opcional para melhorar legibilidade do texto */}
-          <div className="absolute inset-0 bg-black/60"></div>
+          <div className="absolute inset-0 bg-black/65"></div>
         </div>
 
         {/* Conteúdo centralizado */}
@@ -102,83 +102,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      {/* CONTEÚDO PRESERVADO - O Espaço Casa Alvite (Para uso futuro) */}
-      {/* 
-        <div className="space-y-10">
-          <div>
-            <h3 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4">
-              O espaço Casa Alvite
-            </h3>
-          </div>
-          
-          <div className="space-y-4">
-            <p className="text-cinza text-base lg:text-lg leading-relaxed font-instrument">
-              Se vocês curtem animais, nossas cachorras estarão presentes. Quem vem diz que elas deixam tudo ainda mais terapêutico e divertido.
-            </p>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                <Image
-                  src="/images/check-terracota.svg"
-                  alt="Check"
-                  width={20}
-                  height={20}
-                  className="w-full h-full"
-                />
-              </div>
-              <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                ESPAÇO ACOLHEDOR E INSPIRADOR
-              </span>
-            </div>
-            
-            <div className="w-full h-px bg-cinza/20"></div>
-            
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                <Image
-                  src="/images/check.svg"
-                  alt="Check"
-                  width={20}
-                  height={20}
-                  className="w-full h-full"
-                />
-              </div>
-              <span className="text-verde font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                AMBIENTE CRIATIVO NO HUMAITÁ
-              </span>
-            </div>
-            
-            <div className="w-full h-px bg-cinza/20"></div>
-            
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                <Image
-                  src="/images/check-amarelo.svg"
-                  alt="Check"
-                  width={20}
-                  height={20}
-                  className="w-full h-full"
-                />
-              </div>
-              <span className="text-amarelo font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                GRUPOS PEQUENOS E INTIMISTAS
-              </span>
-            </div>
-          </div>
-          
-          <div className="pt-4">
-            <a 
-              href="/agendamento"
-              className="inline-flex items-center justify-center bg-amarelo border-2 border-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-base lg:text-lg px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide"
-            >
-              AGENDAR EXPERIÊNCIA
-            </a>
-          </div>
-        </div>
-      */}
 
       {/* Container para layout de duas colunas no desktop */}
       <section className="bg-cream w-full pt-12 sm:pt-16 lg:pt-12 relative overflow-hidden">
@@ -630,37 +553,34 @@ export default function Home() {
       <section id="quem-somos-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Layout simplificado */}
-          <div className="max-w-4xl mx-auto">
+          {/* Título da seção - mobile apenas */}
+          <div className="text-left mb-8 lg:hidden">
+            <h2 className="text-4xl sm:text-5xl text-cinza font-normal mb-4">
+              <span className="font-instrument-serif italic">Prazer, </span>
+              <span className="font-junyper text-5xl sm:text-6xl text-roxo">Júlia</span>
+              <span className="font-instrument-serif italic"> e </span>
+              <span className="font-junyper text-5xl sm:text-6xl text-roxo">Bernardo</span>
+            </h2>
+          </div>
+
+          {/* Layout de duas colunas no desktop */}
+          <div className="flex flex-col lg:flex-row lg:gap-12 xl:gap-16 lg:items-start items-center">
             
-            {/* Conteúdo centralizado */}
-            <div className="space-y-6">
-              
-              {/* Título da seção */}
-              <div className="text-left">
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-12">
+            {/* Coluna Esquerda - Título + Texto (Desktop) / Ordem 2 (Mobile) */}
+            <div className="lg:w-1/2 order-2 lg:order-1">
+
+              {/* Título da seção - desktop apenas */}
+              <div className="hidden lg:block text-left mb-8">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-8">
                   <span className="font-instrument-serif italic">Prazer, </span>
                   <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Júlia</span>
                   <span className="font-instrument-serif italic"> e </span>
                   <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Bernardo</span>
                 </h2>
               </div>
-              
-              {/* Imagem dos fundadores */}
-              <div className="flex justify-center">
-                <div className="w-full max-w-md">
-                  <Image
-                    src="/images/ju-be.png"
-                    alt="Júlia e Bernardo - Fundadores Casa Alvite"
-                    width={400}
-                    height={240}
-                    className="w-full h-[340px] sm:h-[280px] lg:h-[520px] rounded-3xl object-cover object-center"
-                  />
-                </div>
-              </div>
 
               {/* Frases explicativas */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+              <div className="space-y-6">
                 
                 {/* Frase 1 */}
                 <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
@@ -678,12 +598,33 @@ export default function Home() {
                 </p>
                 
               </div>
-              
 
             </div>
             
+            {/* Coluna Direita - Imagem (Desktop) / Ordem 1 (Mobile) */}
+            <div className="lg:w-1/2 order-1 lg:order-2 mb-8 lg:mb-0">
+              
+              {/* Layout simplificado - Apenas imagem */}
+              <div className="flex justify-center lg:justify-end">
+                
+                {/* Imagem centralizada */}
+                <div className="relative w-full max-w-lg lg:max-w-sm">
+                  
+                  <div id="imagem-quem-somos" className="relative rounded-3xl overflow-hidden">
+                    <Image
+                      src="/images/ju-be.png"
+                      alt="Júlia e Bernardo - Fundadores Casa Alvite"
+                      width={600}
+                      height={800}
+                      className="w-full h-[300px] lg:h-[500px] object-cover object-[50%_40%]"
+                      priority
+                    />
+                  </div>
+                </div>
+                
+              </div>
+            </div>
 
-            
           </div>
         </div>
       </section>
