@@ -477,7 +477,7 @@ export default function AgendamentoSection() {
               <div className="flex-1 lg:max-w-2xl">
                 <div className="space-y-4">
                   {/* Accordion 1: Data e Horário */}
-                  <div className="border border-cinza bg-cream/20 rounded-xl overflow-hidden">
+                  <div id="card-calendario" className="border border-cinza bg-cream/20 rounded-xl overflow-hidden">
                     <button
                       onClick={() => toggleAccordion(1)}
                       className="w-full px-6 py-4 text-left flex items-center justify-between bg-cream/30 hover:bg-cream/50 transition-colors"
@@ -617,7 +617,7 @@ export default function AgendamentoSection() {
                   </div>
 
                   {/* Accordion 2: Número de Participantes */}
-                  <div className={`border rounded-xl overflow-hidden ${
+                  <div id="card-participantes" className={`border rounded-xl overflow-hidden ${
                     canAccessStep(2) ? 'border-cinza bg-cream/20' : 'border-cinza/50 bg-cream/10'
                   }`}>
                     <button
@@ -701,7 +701,7 @@ export default function AgendamentoSection() {
                   </div>
 
                   {/* Accordion 3: Informações Pessoais */}
-                  <div className={`border rounded-xl overflow-hidden ${
+                  <div id="card-informacoes" className={`border rounded-xl overflow-hidden ${
                     canAccessStep(3) ? 'border-cinza bg-cream/20' : 'border-cinza/50 bg-cream/10'
                   }`}>
                     <button
@@ -819,20 +819,13 @@ export default function AgendamentoSection() {
               {/* Card de Resumo - Desktop */}
               <div className="hidden lg:block">
                 <div className="sticky top-32 w-80">
-                  <div className="bg-verde border border-verde rounded-2xl p-6 backdrop-blur-sm shadow-lg">
+                  <div id="card-resumo-desktop" className="bg-verde border border-verde rounded-2xl p-6 backdrop-blur-sm shadow-lg">
                     <h3 className="text-lg font-medium text-cream mb-4 flex items-center gap-2">
                       <span className="w-2 h-2 bg-amarelo rounded-full"></span>
                       Resumo da Experiência
                     </h3>
                     
                     <div className="space-y-4">
-                      {/* Nome da Experiência */}
-                      <div className="pb-3 border-b border-cream/30">
-                        <p className="text-sm text-cream/70 mb-1">Experiência</p>
-                        <p className="text-base font-medium text-cream">{experience?.name || 'Carregando...'}</p>
-                        <p className="text-xs text-cream/60 mt-1">{formatDuration(experience?.duration)}</p>
-                      </div>
-
                       {/* Data */}
                       <div className="pb-3 border-b border-cream/30">
                         <p className="text-sm text-cream/70 mb-1">Data</p>
@@ -854,9 +847,12 @@ export default function AgendamentoSection() {
                       <div className="pb-3 border-b border-cream/30">
                         <p className="text-sm text-cream/70 mb-1">Horário</p>
                         {selectedSlot ? (
-                          <p className="text-base font-medium text-cream">
-                            {formatTimeRange(selectedSlot.start_time)}
-                          </p>
+                          <>
+                            <p className="text-base font-medium text-cream">
+                              {formatTimeRange(selectedSlot.start_time)}
+                            </p>
+                            <p className="text-xs text-cream/60 mt-1">{formatDuration(experience?.duration)}</p>
+                          </>
                         ) : (
                           <p className="text-sm text-cream/50 italic">Selecione um horário</p>
                         )}
@@ -943,20 +939,13 @@ export default function AgendamentoSection() {
 
           {/* Card de Resumo - Mobile */}
           <div className="lg:hidden mt-12">
-            <div className="bg-verde border border-verde rounded-2xl p-6 backdrop-blur-sm shadow-lg">
+            <div id="card-resumo-mobile" className="bg-verde border border-verde rounded-2xl p-6 backdrop-blur-sm shadow-lg">
                                   <h3 className="text-lg font-medium text-cream mb-4 flex items-center gap-2">
                       <span className="w-2 h-2 bg-amarelo rounded-full"></span>
                       Resumo da Experiência
                     </h3>
               
               <div className="space-y-4">
-                {/* Nome da Experiência */}
-                <div className="pb-3 border-b border-cream/50">
-                                          <p className="text-sm text-cream/70 mb-1">Experiência</p>
-                        <p className="text-base font-medium text-cream">{experience?.name || 'Carregando...'}</p>
-                        <p className="text-xs text-cream/60 mt-1">{formatDuration(experience?.duration)}</p>
-                </div>
-
                 {/* Data */}
                 <div className="pb-3 border-b border-cream/50">
                                           <p className="text-sm text-cream/70 mb-1">Data</p>
@@ -978,9 +967,12 @@ export default function AgendamentoSection() {
                 <div className="pb-3 border-b border-cream/50">
                                           <p className="text-sm text-cream/70 mb-1">Horário</p>
                         {selectedSlot ? (
-                          <p className="text-base font-medium text-cream">
+                          <>
+                            <p className="text-base font-medium text-cream">
                       {formatTimeRange(selectedSlot.start_time)}
                     </p>
+                            <p className="text-xs text-cream/60 mt-1">{formatDuration(experience?.duration)}</p>
+                          </>
                                           ) : (
                           <p className="text-sm text-cream/50 italic">Selecione um horário</p>
                         )}
