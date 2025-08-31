@@ -244,12 +244,13 @@ export default function Home() {
                     
                     {/* Frase 1 */}
                     <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+                      Proporcionamos experiências exclusivas de modelagem e pintura em cerâmica
                     </p>
                     
                     {/* Frase 2 */}
                     <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                      Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                      Você constrói algo único e somente seu, num rolê só do seu grupo! <br />
+                      Mais que bem-vindas comemorações de aniversários, dates etc. 🙂
                     </p>
                     
                   </div>
@@ -634,12 +635,13 @@ export default function Home() {
                 
                 {/* Frase 1 */}
                 <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+                  Sócios e parceiros, somos engenheiros de formação e ceramistas por paixão.
                 </p>
                 
                 {/* Frase 2 */}
                 <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                  Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                  Fundamos a Casa Alvite com o objetivo de apresentar a cerâmica de forma festiva, fora das aulas recorrentes dos ateliês tradicionais. <br />
+                  Nome em homenagem ao vovô da Ju, que dizia que para a casa ser um lar, precisava ter objetos feitos com as próprias mãos.
                 </p>
                 
               </div>
