@@ -49,9 +49,6 @@ export default function AgendamentoSection() {
     phone: ''
   });
 
-  const handleVoltar = () => {
-    router.back();
-  };
 
   const refreshData = async () => {
     setLoading(true);
@@ -398,21 +395,8 @@ export default function AgendamentoSection() {
   };
 
   return (
-    <section className="py-12 bg-cream min-h-screen">
+    <section className="pb-12 bg-cream min-h-screen">
       <div className="container mx-auto px-8">
-        {/* Botões de Navegação */}
-        <div className="mb-8 flex items-center gap-4">
-          <button
-            onClick={handleVoltar}
-            className="flex items-center gap-2 bg-transparent text-verde font-instrument font-semibold text-sm hover:text-verde/80 transition-all duration-200 uppercase tracking-wide"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            VOLTAR
-          </button>
-          
-        </div>
 
         {/* Header com título e texto à esquerda */}
         <div className="mb-16">
