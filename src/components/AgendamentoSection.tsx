@@ -32,6 +32,8 @@ interface Experience {
 export default function AgendamentoSection() {
   const router = useRouter();
   const horariosRef = useRef<HTMLDivElement>(null);
+  const participantesRef = useRef<HTMLDivElement>(null);
+  const informacoesRef = useRef<HTMLDivElement>(null);
   const [selectedDate, setSelectedDate] = useState<Value>(null);
   const [availableSlots, setAvailableSlots] = useState<AvailableSlot[]>([]);
   const [loading, setLoading] = useState(true);
@@ -130,16 +132,36 @@ export default function AgendamentoSection() {
     fetchAvailableSlots();
   }, []);
 
+  // Função para fazer scroll considerando o offset do header
+  const scrollToElementWithOffset = (element: HTMLElement, customOffset?: number) => {
+    // Calcula o offset baseado no tamanho da tela
+    const getResponsiveOffset = () => {
+      if (customOffset) return customOffset;
+      
+      // Mobile: header menor
+      if (window.innerWidth < 640) return 90;
+      // Tablet
+      if (window.innerWidth < 1024) return 110;
+      // Desktop: header padrão
+      return 120;
+    };
+    
+    const offsetTop = getResponsiveOffset();
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const scrollPosition = elementPosition - offsetTop;
+    
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth'
+    });
+  };
+
   // useEffect para scroll automático quando a seção de horários aparecer
   useEffect(() => {
     if (selectedDate instanceof Date && hasAnySlots(selectedDate) && horariosRef.current) {
       const timer = setTimeout(() => {
         if (horariosRef.current) {
-          horariosRef.current.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'center',
-            inline: 'nearest'
-          });
+          scrollToElementWithOffset(horariosRef.current);
         }
       }, 300);
       
@@ -358,6 +380,13 @@ export default function AgendamentoSection() {
         setCompletedSteps(prev => [...prev, 1]);
       }
       setActiveAccordion(2);
+      
+      // Scroll para o accordion de participantes após um pequeno delay
+      setTimeout(() => {
+        if (participantesRef.current) {
+          scrollToElementWithOffset(participantesRef.current);
+        }
+      }, 300);
     }
   };
 
@@ -367,6 +396,13 @@ export default function AgendamentoSection() {
         setCompletedSteps(prev => [...prev, 2]);
       }
       setActiveAccordion(3);
+      
+      // Scroll para o accordion de informações após um pequeno delay
+      setTimeout(() => {
+        if (informacoesRef.current) {
+          scrollToElementWithOffset(informacoesRef.current);
+        }
+      }, 300);
     }
   };
 
@@ -635,7 +671,7 @@ export default function AgendamentoSection() {
                   </div>
 
                   {/* Accordion 2: Número de Participantes */}
-                  <div id="card-participantes" className={`border rounded-xl overflow-hidden ${
+                  <div ref={participantesRef} id="card-participantes" className={`border rounded-xl overflow-hidden ${
                     canAccessStep(2) ? 'border-cinza bg-cream/20' : 'border-cinza/50 bg-cream/10'
                   }`}>
                     <button
@@ -719,7 +755,7 @@ export default function AgendamentoSection() {
                   </div>
 
                   {/* Accordion 3: Informações Pessoais */}
-                  <div id="card-informacoes" className={`border rounded-xl overflow-hidden ${
+                  <div ref={informacoesRef} id="card-informacoes" className={`border rounded-xl overflow-hidden ${
                     canAccessStep(3) ? 'border-cinza bg-cream/20' : 'border-cinza/50 bg-cream/10'
                   }`}>
                     <button
