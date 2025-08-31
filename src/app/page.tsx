@@ -181,7 +181,7 @@ export default function Home() {
       */}
 
       {/* Container para layout de duas colunas no desktop */}
-      <section className="bg-cream w-full pt-24 sm:pt-28 lg:pt-20 relative overflow-hidden">
+      <section className="bg-cream w-full pt-12 sm:pt-16 lg:pt-12 relative overflow-hidden">
         
         {/* Blob amarelo decorativo */}
         <div className="absolute -right-16 bottom-20 w-80 h-80 lg:w-96 lg:h-96 z-0 pointer-events-none">
