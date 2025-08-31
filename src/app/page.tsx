@@ -24,7 +24,7 @@ export default function Home() {
     const titleElement = document.getElementById('titulo-decorativo-rotacionado')
     if (titleElement) {
       const elementPosition = titleElement.offsetTop
-      const offsetPosition = elementPosition - 100 // Ajuste para o header
+      const offsetPosition = elementPosition - 150 // Ajuste para o header
       
       window.scrollTo({
         top: offsetPosition,
@@ -84,7 +84,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full sm:w-auto">
               <a 
                 href="/agendamento"
-                className="w-full sm:w-auto bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
+                className="w-full sm:w-auto bg-verde hover:bg-verde/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
               >
                 AGENDAR EXPERIÊNCIA
               </a>
