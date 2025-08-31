@@ -242,7 +242,7 @@ export default function Home() {
                   </div>
                   
                   {/* Frases explicativas */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8 mt-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 mt-4">
                     
                     {/* Frase 1 */}
                     <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
@@ -251,7 +251,11 @@ export default function Home() {
                     
                     {/* Frase 2 */}
                     <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                      Você constrói algo único e somente seu, num rolê só do seu grupo! <br />
+                      Você constrói algo único e somente seu, num rolê só do seu grupo!
+                    </p>
+                    
+                    {/* Frase 3 */}
+                    <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
                       Mais que bem-vindas comemorações de aniversários, dates etc. 🙂
                     </p>
                     
@@ -656,7 +660,7 @@ export default function Home() {
               </div>
 
               {/* Frases explicativas */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
                 
                 {/* Frase 1 */}
                 <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
