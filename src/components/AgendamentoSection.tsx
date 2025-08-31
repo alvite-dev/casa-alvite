@@ -511,15 +511,32 @@ export default function AgendamentoSection() {
                 <div className="flex items-center gap-3">
                   <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                     <Image
-                      src="/images/check-terracota.svg"
+                      src="/images/check-vinho.svg"
                       alt="Check"
                       width={20}
                       height={20}
                       className="w-full h-full"
                     />
                   </div>
-                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                    ESPAÇO ACOLHEDOR E INSPIRADOR
+                  <span className="text-roxo font-instrument font-semibold text-base lg:text-lg tracking-wide">
+                    Espaço acolhedor e inspirador
+                  </span>
+                </div>
+                
+                <div className="w-full h-px bg-cinza/20"></div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/check-amarelo.svg"
+                      alt="Check"
+                      width={20}
+                      height={20}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <span className="text-amarelo font-instrument font-semibold text-base lg:text-lg tracking-wide">
+                    Ambiente criativo no Humaitá
                   </span>
                 </div>
                 
@@ -535,8 +552,8 @@ export default function AgendamentoSection() {
                       className="w-full h-full"
                     />
                   </div>
-                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                    AMBIENTE CRIATIVO NO HUMAITÁ
+                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg tracking-wide">
+                    Grupos pequenos e intimistas
                   </span>
                 </div>
                 
@@ -545,32 +562,15 @@ export default function AgendamentoSection() {
                 <div className="flex items-center gap-3">
                   <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
                     <Image
-                      src="/images/check-terracota.svg"
+                      src="/images/check.svg"
                       alt="Check"
                       width={20}
                       height={20}
                       className="w-full h-full"
                     />
                   </div>
-                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                    GRUPOS PEQUENOS E INTIMISTAS
-                  </span>
-                </div>
-                
-                <div className="w-full h-px bg-cinza/20"></div>
-                
-                <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                    <Image
-                      src="/images/check-terracota.svg"
-                      alt="Check"
-                      width={20}
-                      height={20}
-                      className="w-full h-full"
-                    />
-                  </div>
-                  <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide">
-                    BARRO, TINTAS E QUEIMA INCLUSAS
+                  <span className="text-verde font-instrument font-semibold text-base lg:text-lg tracking-wide">
+                    Barro, tintas e queima inclusas
                   </span>
                 </div>
               </div>
