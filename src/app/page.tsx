@@ -23,8 +23,10 @@ export default function Home() {
   const scrollToHowItWorks = () => {
     const titleElement = document.getElementById('titulo-decorativo-rotacionado')
     if (titleElement) {
-      const elementPosition = titleElement.offsetTop
-      const offsetPosition = elementPosition - 150 // Ajuste para o header
+      const rect = titleElement.getBoundingClientRect()
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      const elementPosition = rect.top + scrollTop
+      const offsetPosition = elementPosition - 120 // Ajuste para o header
       
       window.scrollTo({
         top: offsetPosition,
@@ -90,7 +92,7 @@ export default function Home() {
               </a>
               
               <button 
-                onClick={scrollToNextSection}
+                onClick={scrollToHowItWorks}
                 className="w-full sm:w-auto bg-transparent border-2 border-cream hover:bg-cream hover:text-verde text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
                 type="button"
               >
@@ -631,7 +633,7 @@ export default function Home() {
               </div>
 
               {/* Frases explicativas */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
                 
                 {/* Frase 1 */}
                 <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
@@ -640,7 +642,11 @@ export default function Home() {
                 
                 {/* Frase 2 */}
                 <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                  Fundamos a Casa Alvite com o objetivo de apresentar a cerâmica de forma festiva, fora das aulas recorrentes dos ateliês tradicionais. <br />
+                  Fundamos a Casa Alvite com o objetivo de apresentar a cerâmica de forma festiva, fora das aulas recorrentes dos ateliês tradicionais.
+                </p>
+                
+                {/* Frase 3 */}
+                <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
                   Nome em homenagem ao vovô da Ju, que dizia que para a casa ser um lar, precisava ter objetos feitos com as próprias mãos.
                 </p>
                 
