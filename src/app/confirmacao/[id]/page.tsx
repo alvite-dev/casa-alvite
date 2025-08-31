@@ -78,19 +78,6 @@ export default function ConfirmacaoPage({ params }: { params: { id: string } }) 
     return `${start} - ${end}`;
   };
 
-  const formatDuration = (durationInMinutes: string | number) => {
-    const minutes = typeof durationInMinutes === 'string' ? parseInt(durationInMinutes) : durationInMinutes;
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    
-    if (hours === 0) {
-      return `${remainingMinutes} minutos`;
-    } else if (remainingMinutes === 0) {
-      return `${hours} ${hours === 1 ? 'hora' : 'horas'}`;
-    } else {
-      return `${hours}h${remainingMinutes}min`;
-    }
-  };
 
   const generateReceipt = async () => {
     if (!booking || !cardRef.current) return;
@@ -177,21 +164,41 @@ export default function ConfirmacaoPage({ params }: { params: { id: string } }) 
     <section className="min-h-screen bg-cream py-12">
       <div className="container mx-auto px-8 max-w-4xl">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <div className="w-16 h-16 bg-verde rounded-full flex items-center justify-center mx-auto mb-6">
             <svg className="w-8 h-8 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
           
-          <h1 className="font-instrument-serif italic text-4xl sm:text-5xl text-cinza font-normal mb-4">
+          <h1 className="font-instrument-serif italic text-4xl sm:text-5xl text-cinza font-normal mb-8">
             Reserva Confirmada!
           </h1>
+        </div>
+
+        {/* Próximos Passos */}
+        <div className="bg-amarelo/10 border border-amarelo/30 rounded-xl p-6 mb-8">
+          <h3 className="text-lg font-semibold text-cinza mb-4 flex items-center gap-2">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+            </svg>
+            Próximos Passos
+          </h3>
           
-          <p className="text-lg text-cinza/80 max-w-2xl mx-auto leading-relaxed">
-            Sua experiência na Casa Alvite foi agendada com sucesso. 
-            Nossa equipe entrará em contato em breve com mais informações sobre pagamento e detalhes da experiência.
-          </p>
+          <div className="space-y-3 text-cinza">
+            <p className="flex items-start gap-2">
+              <span className="text-verde mt-1">✓</span>
+              <span>Nossa equipe entrará em contato por WhatsApp</span>
+            </p>
+            <p className="flex items-start gap-2">
+              <span className="text-verde mt-1">✓</span>
+              <span>Você receberá instruções sobre pagamento e localização</span>
+            </p>
+            <p className="flex items-start gap-2">
+              <span className="text-verde mt-1">✓</span>
+              <span>Recomendamos chegar 10 minutos antes do horário marcado</span>
+            </p>
+          </div>
         </div>
 
         {/* Card de Confirmação */}
@@ -222,20 +229,6 @@ export default function ConfirmacaoPage({ params }: { params: { id: string } }) 
                 </h3>
                 
                 <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-cinza/60 mb-1">Nome</p>
-                    <p className="text-base font-medium text-cinza">
-                      {booking.available_slots.experiences.name}
-                    </p>
-                  </div>
-                  
-                  <div>
-                    <p className="text-sm text-cinza/60 mb-1">Duração</p>
-                    <p className="text-base text-cinza">
-                      {formatDuration(booking.available_slots.experiences.duration)}
-                    </p>
-                  </div>
-                  
                   <div>
                     <p className="text-sm text-cinza/60 mb-1">Data</p>
                     <p className="text-base font-medium text-cinza">
@@ -296,30 +289,6 @@ export default function ConfirmacaoPage({ params }: { params: { id: string } }) 
           </div>
         </div>
 
-        {/* Informações Importantes */}
-        <div className="bg-amarelo/10 border border-amarelo/30 rounded-xl p-6 mb-8">
-          <h3 className="text-lg font-semibold text-cinza mb-4 flex items-center gap-2">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-            </svg>
-            Próximos Passos
-          </h3>
-          
-          <div className="space-y-3 text-cinza">
-            <p className="flex items-start gap-2">
-              <span className="text-verde mt-1">✓</span>
-              <span>Nossa equipe entrará em contato por WhatsApp ou telefone nas próximas horas</span>
-            </p>
-            <p className="flex items-start gap-2">
-              <span className="text-verde mt-1">✓</span>
-              <span>Você receberá instruções sobre pagamento e localização</span>
-            </p>
-            <p className="flex items-start gap-2">
-              <span className="text-verde mt-1">✓</span>
-              <span>Recomendamos chegar 10 minutos antes do horário marcado</span>
-            </p>
-          </div>
-        </div>
 
         {/* Informações de Contato */}
         <div className="bg-cream/50 rounded-xl p-6 mb-8">
