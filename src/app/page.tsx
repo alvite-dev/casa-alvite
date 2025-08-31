@@ -93,7 +93,7 @@ export default function Home() {
               
               <button 
                 onClick={scrollToHowItWorks}
-                className="w-full sm:w-auto bg-transparent border-2 border-cream hover:bg-cream hover:text-verde text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
+                className="w-full sm:w-auto bg-transparent border-2 border-verde hover:bg-verde hover:text-cream text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-6 sm:px-8 lg:px-10 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
                 type="button"
               >
                 COMO FUNCIONA?
