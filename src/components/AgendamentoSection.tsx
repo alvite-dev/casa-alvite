@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Calendar from 'react-calendar';
 
@@ -31,6 +31,7 @@ interface Experience {
 
 export default function AgendamentoSection() {
   const router = useRouter();
+  const horariosRef = useRef<HTMLDivElement>(null);
   const [selectedDate, setSelectedDate] = useState<Value>(null);
   const [availableSlots, setAvailableSlots] = useState<AvailableSlot[]>([]);
   const [loading, setLoading] = useState(true);
@@ -324,6 +325,17 @@ export default function AgendamentoSection() {
     setNumberOfPeople(2); // Reset para 2 pessoas quando muda a data
     // Remove step 1 from completed if changing date
     setCompletedSteps(prev => prev.filter(step => step !== 1));
+    
+    // Scroll para a seção de horários após selecionar data (especialmente útil no mobile)
+    if (date && horariosRef.current) {
+      setTimeout(() => {
+        horariosRef.current?.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+      }, 100); // Pequeno delay para garantir que o DOM seja atualizado
+    }
   };
 
   const handleSlotSelectionWithAccordion = (slot: AvailableSlot) => {
@@ -536,7 +548,7 @@ export default function AgendamentoSection() {
 
                         {/* Horários Minimalistas - Só aparece após selecionar data */}
                         {selectedDate instanceof Date && hasAnySlots(selectedDate) && (
-                          <div>
+                          <div ref={horariosRef}>
                             <h4 className="text-base font-medium text-cinza mb-4">
                               Escolha seu Horário
                             </h4>
@@ -807,7 +819,7 @@ export default function AgendamentoSection() {
                                 : 'bg-cream/50 text-cinza/40 cursor-not-allowed border border-cinza/30'
                             }`}
                           >
-                            Finalizar Informações
+                            Verificar Informações
                           </button>
                         </div>
                       </div>
