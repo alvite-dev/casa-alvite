@@ -21,9 +21,15 @@ export default function Home() {
   }
 
   const scrollToHowItWorks = () => {
-    const howItWorksSection = document.getElementById('como-funciona-section')
-    if (howItWorksSection) {
-      howItWorksSection.scrollIntoView({ behavior: 'smooth' })
+    const titleElement = document.getElementById('titulo-decorativo-rotacionado')
+    if (titleElement) {
+      const elementPosition = titleElement.offsetTop
+      const offsetPosition = elementPosition - 100 // Ajuste para o header
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
     }
   }
 
@@ -58,13 +64,10 @@ export default function Home() {
       <main id="hero-section" className="relative h-screen w-full overflow-hidden">
         {/* Imagem de fundo que ocupa toda a viewport */}
         <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/images/background-home.png')",
-          }}
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat md:bg-[url('/images/background-home.JPG')] bg-[url('/images/background-home-mobile.JPG')]"
         >
           {/* Overlay opcional para melhorar legibilidade do texto */}
-          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
         {/* Conteúdo centralizado */}
@@ -276,7 +279,7 @@ export default function Home() {
                     </div>
                     <div className="flex-1">
                       <h3 className="font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide leading-tight text-left">
-                        2 HORAS DE OFICINA COM SEUS AMADOS
+                        2 HORAS DE EXPERIÊNCIA COM SEUS AMADOS
                       </h3>
                     </div>
                   </div>
@@ -294,7 +297,7 @@ export default function Home() {
                     </div>
                     <div className="flex-1">
                       <h3 className="font-instrument font-semibold text-base lg:text-lg uppercase tracking-wide leading-tight text-left">
-                        2 HORAS DE OFICINA COM SEUS AMADOS
+                        2 HORAS DE EXPERIÊNCIA COM SEUS AMADOS
                       </h3>
                     </div>
                   </div>
@@ -396,11 +399,11 @@ export default function Home() {
                     <div className="space-y-4">
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                         <span className="font-instrument font-semibold text-xl">SEGUNDA À SEXTA</span>
-                                            <span className="font-instrument text-xl font-medium text-cinza">18H ÀS 20H</span>
+                                            <span className="font-instrument text-xl font-medium text-cinza">19H ÀS 21H</span>
                       </div>
                       <div className="w-full h-px bg-cream/30"></div>
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                        <span className="font-instrument font-semibold text-xl">SÁBADO E DOMINGO</span>
+                        <span className="font-instrument font-semibold text-xl">SÁBADO</span>
                                             <span className="font-instrument text-xl font-medium italic text-cinza">A combinar</span>
                       </div>
                     </div>
@@ -413,64 +416,8 @@ export default function Home() {
           
         </div>
       </section>
-      {/* Seção Quem Somos */}
-      <section id="quem-somos-section" className="bg-cream w-full pt-20 sm:pt-24 lg:pt-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Layout simplificado */}
-          <div className="max-w-6xl mx-auto">
-            
-            {/* Título da seção */}
-            <div className="text-left mb-8 lg:mb-12">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal">
-                <span className="font-instrument-serif italic">Prazer, </span>
-                <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Júlia</span>
-                <span className="font-instrument-serif italic"> e </span>
-                <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Bernardo</span>
-              </h2>
-            </div>
-            
-            {/* Layout responsivo: empilhado no mobile, lado a lado no desktop */}
-            <div className="flex flex-col lg:flex-row lg:gap-12 xl:gap-16 lg:items-start">
-              
-              {/* Imagem dos fundadores */}
-              <div className="lg:w-1/2 flex justify-center lg:justify-start">
-                <div className="w-full max-w-md">
-                  <Image
-                    src="/images/ju-be.png"
-                    alt="Júlia e Bernardo - Fundadores Casa Alvite"
-                    width={400}
-                    height={240}
-                    className="w-full h-[340px] sm:h-[280px] lg:h-[520px] rounded-3xl object-cover object-center"
-                  />
-                </div>
-              </div>
-
-              {/* Frases explicativas */}
-              <div className="lg:w-1/2 mt-8 lg:mt-0 lg:pt-8">
-                <div className="space-y-6 lg:space-y-8">
-                  
-                  {/* Frase 1 */}
-                  <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-                  </p>
-                  
-                  {/* Frase 2 */}
-                  <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                    Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-                  </p>
-                  
-                </div>
-              </div>
-              
-            </div>
-            
-          </div>
-        </div>
-      </section>
-
       {/* Seção FAQ */}
-      <section id="faq-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24">
+      <section id="faq-section" className="bg-cream w-full pt-20 sm:pt-24 lg:pt-32">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Header do FAQ */}
@@ -644,10 +591,65 @@ export default function Home() {
               )}
             </div>
 
-
-
           </div>
           
+        </div>
+      </section>
+
+      {/* Seção Quem Somos */}
+      <section id="quem-somos-section" className="bg-cream w-full py-16 sm:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Layout simplificado */}
+          <div className="max-w-4xl mx-auto">
+            
+            {/* Conteúdo centralizado */}
+            <div className="space-y-6">
+              
+              {/* Título da seção */}
+              <div className="text-left">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-4 lg:mb-12">
+                  <span className="font-instrument-serif italic">Prazer, </span>
+                  <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Júlia</span>
+                  <span className="font-instrument-serif italic"> e </span>
+                  <span className="font-junyper text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-roxo">Bernardo</span>
+                </h2>
+              </div>
+              
+              {/* Imagem dos fundadores */}
+              <div className="flex justify-center">
+                <div className="w-full max-w-md">
+                  <Image
+                    src="/images/ju-be.png"
+                    alt="Júlia e Bernardo - Fundadores Casa Alvite"
+                    width={400}
+                    height={240}
+                    className="w-full h-[340px] sm:h-[280px] lg:h-[520px] rounded-3xl object-cover object-center"
+                  />
+                </div>
+              </div>
+
+              {/* Frases explicativas */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                
+                {/* Frase 1 */}
+                <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+                </p>
+                
+                {/* Frase 2 */}
+                <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
+                  Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                </p>
+                
+              </div>
+              
+
+            </div>
+            
+
+            
+          </div>
         </div>
       </section>
 
