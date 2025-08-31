@@ -169,7 +169,7 @@ export default function Home() {
                     
                     {/* Frase 1 */}
                     <p className="text-cinza text-lg lg:text-xl leading-relaxed font-instrument">
-                      Proporcionamos experiências exclusivas de modelagem e pintura em cerâmica
+                      Proporcionamos experiências exclusivas de modelagem e pintura em cerâmica.
                     </p>
                     
                     {/* Frase 2 */}
