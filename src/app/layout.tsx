@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/next'
 
 // Configuração da fonte Juniper Bay personalizada
 const juniperBay = localFont({
@@ -33,6 +34,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={juniperBay.variable}>
       <body className="font-instrument antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   )
