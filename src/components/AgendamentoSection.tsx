@@ -1417,17 +1417,19 @@ export default function AgendamentoSection() {
           opacity: 0.7;
         }
 
-        /* Datas com horários disponíveis - estilo delicado */
+        /* Datas com horários disponíveis - estilo mais forte */
         .minimal-calendar .available-date {
-          background-color: rgba(106, 109, 81, 0.1) !important;
-          color: #6A6D51 !important;
+          background-color: rgba(106, 109, 81, 0.25) !important;
+          color: #5a5d45 !important;
           border-radius: 8px;
-          font-weight: 500;
+          font-weight: 600;
           position: relative;
+          border: 1px solid rgba(106, 109, 81, 0.3) !important;
         }
 
         .minimal-calendar .available-date:hover {
-          background-color: rgba(106, 109, 81, 0.2) !important;
+          background-color: rgba(106, 109, 81, 0.35) !important;
+          border-color: rgba(106, 109, 81, 0.5) !important;
         }
 
         .minimal-calendar .available-date::after {
@@ -1436,11 +1438,11 @@ export default function AgendamentoSection() {
           bottom: 2px;
           left: 50%;
           transform: translateX(-50%);
-          width: 4px;
-          height: 4px;
+          width: 5px;
+          height: 5px;
           background-color: #6A6D51;
           border-radius: 50%;
-          opacity: 0.6;
+          opacity: 0.8;
         }
 
         /* Datas com todos os horários indisponíveis - estilo sutil */
