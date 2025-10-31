@@ -25,6 +25,9 @@ export default function Header({ transparent = false }: HeaderProps) {
 
   const isTransparent = transparent && !isScrolled
   const isAgendamentoPage = pathname === '/agendamento'
+  const isCafeComCeramicaPage = pathname === '/cafe-com-ceramica'
+  const isConfirmacaoCafePage = pathname === '/confirmacao-cafe'
+  const isReservaCafePage = pathname === '/reserva-cafe'
 
   return (
     <header 
@@ -63,7 +66,7 @@ export default function Header({ transparent = false }: HeaderProps) {
 
         {/* Conteúdo dinâmico baseado no scroll */}
         <div className="flex items-center">
-          {isTransparent || isAgendamentoPage ? (
+          {isTransparent || isAgendamentoPage || isConfirmacaoCafePage || isReservaCafePage ? (
             /* Ícones de Redes Sociais - quando transparente ou na página de agendamento */
             <div className="flex items-center gap-1 sm:gap-4 lg:gap-4">
               <a 
@@ -95,13 +98,24 @@ export default function Header({ transparent = false }: HeaderProps) {
               </a>
             </div>
           ) : (
-            /* CTA Agendar - quando com fundo */
-            <a
-              href="/agendamento"
-              className="bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-base px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-2 rounded-xl transition-all duration-200 uppercase tracking-wide"
-            >
-              RESERVAR
-            </a>
+            /* CTA dinâmico - muda conforme a página */
+            isCafeComCeramicaPage ? (
+              <a
+                href="https://mpago.li/1Mo6bXN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-verde hover:bg-verde/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-base px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-2 rounded-xl transition-all duration-200 uppercase tracking-wide"
+              >
+                RESERVAR VAGA
+              </a>
+            ) : (
+              <a
+                href="/agendamento"
+                className="bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-base px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-2 rounded-xl transition-all duration-200 uppercase tracking-wide"
+              >
+                AGENDAR
+              </a>
+            )
           )}
         </div>
       </div>

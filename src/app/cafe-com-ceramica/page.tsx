@@ -27,9 +27,7 @@ export default function CafeComCeramicaPage() {
           {/* CTA Reservar */}
           <section className="text-center">
             <a
-              href="https://mpago.li/1Mo6bXN"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/reserva-cafe"
               className="inline-block bg-verde hover:bg-verde/90 text-cream font-instrument font-bold text-xl px-8 py-4 rounded-2xl transition-all duration-200 uppercase tracking-wide shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               GARANTA SUA VAGA
