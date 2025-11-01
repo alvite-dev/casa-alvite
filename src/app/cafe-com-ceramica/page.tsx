@@ -10,15 +10,26 @@ export default function CafeComCeramicaPage() {
       <Header transparent={false} />
 
       <main className="pt-20" style={{ backgroundColor: '#DECFBC' }}>
-        <div className="w-full">
-          <Image
-            src="/images/cafe-com-ceramica.png"
-            alt="Café da Manhã com Cerâmica"
-            width={1080}
-            height={1920}
-            className="w-full h-auto"
-            priority
-          />
+        <div className="w-full flex flex-col lg:flex-row lg:gap-12 lg:px-24 lg:items-end">
+          <div className="w-full lg:w-1/2">
+            <Image
+              src="/images/cafe-com-ceramica.png"
+              alt="Café da Manhã com Cerâmica - Parte 1"
+              width={1080}
+              height={1920}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+          <div className="w-full lg:w-1/2">
+            <Image
+              src="/images/cafe-com-ceramica-2.png"
+              alt="Café da Manhã com Cerâmica - Parte 2"
+              width={1080}
+              height={1920}
+              className="w-full h-auto"
+            />
+          </div>
         </div>
 
         {/* Seções adicionais */}
@@ -37,52 +48,44 @@ export default function CafeComCeramicaPage() {
             </p>
           </section>
           
-          {/* Política de Cancelamento */}
-          <section className="bg-white rounded-3xl p-6 border border-cinza/10 shadow-sm">
-            <div className="mb-4">
-              <h2 className="font-junyper text-2xl sm:text-3xl text-cinza mb-3">
-                Política de Cancelamento
-              </h2>
-            </div>
+          {/* Cards em 2 colunas no desktop */}
+          <div className="flex flex-col lg:flex-row lg:gap-8 lg:items-start">
             
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-cinza/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-3 h-3 text-cinza" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                </div>
-                <p className="text-cinza font-instrument text-sm leading-relaxed">
-                  <strong>Até 48h antes:</strong> Cancelamento com reembolso total
-                </p>
+            {/* Política de Cancelamento */}
+            <section className="w-full lg:w-1/2 bg-white rounded-3xl p-6 border border-cinza/10 shadow-sm mb-8 lg:mb-0">
+              <div className="mb-4">
+                <h2 className="font-junyper text-2xl sm:text-3xl text-cinza mb-3">
+                  Política de Cancelamento
+                </h2>
               </div>
               
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-cinza/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-3 h-3 text-cinza" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 bg-cinza/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-cinza" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                  <p className="text-cinza font-instrument text-sm leading-relaxed">
+                    <strong>Não há reembolso</strong> em nenhuma circunstância
+                  </p>
                 </div>
-                <p className="text-cinza font-instrument text-sm leading-relaxed">
-                  <strong>Entre 24h e 48h:</strong> Reembolso de 50% do valor
-                </p>
-              </div>
-              
-              <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-cinza/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-3 h-3 text-cinza" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
+                
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 bg-cinza/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-cinza" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                  </div>
+                  <p className="text-cinza font-instrument text-sm leading-relaxed">
+                    <strong>Transferência permitida:</strong> Você pode transferir seu ingresso para outra pessoa avisando pelo WhatsApp
+                  </p>
                 </div>
-                <p className="text-cinza font-instrument text-sm leading-relaxed">
-                  <strong>Menos de 24h:</strong> Sem reembolso
-                </p>
               </div>
-            </div>
-          </section>
+            </section>
 
-          {/* Localização e Mapa */}
-          <section className="bg-white rounded-3xl p-6 border border-cinza/10 shadow-sm">
+            {/* Localização e Mapa */}
+            <section className="w-full lg:w-1/2 bg-white rounded-3xl p-6 border border-cinza/10 shadow-sm">
             <div className="mb-4">
               <h2 className="font-junyper text-2xl sm:text-3xl text-cinza mb-3">
                 Localização
@@ -116,7 +119,7 @@ export default function CafeComCeramicaPage() {
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
-                allowFullScreen=""
+                allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Localização do Vegan Vegan"
@@ -138,6 +141,8 @@ export default function CafeComCeramicaPage() {
               </a>
             </div>
           </section>
+          
+          </div>
         </div>
       </main>
 

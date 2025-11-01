@@ -173,59 +173,8 @@ export default function ReservaCafePage() {
             <div className="mb-16">
               <div className="max-w-2xl">
                 <h1 className="font-instrument-serif italic text-4xl sm:text-5xl lg:text-6xl text-cinza font-normal mb-6">
-                  Reserve sua Vaga no Café com Cerâmica
+                  Café com Cerâmica
                 </h1>
-                
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                      <Image
-                        src="/images/check-vinho.svg"
-                        alt="Check"
-                        width={20}
-                        height={20}
-                        className="w-full h-full"
-                      />
-                    </div>
-                    <span className="text-roxo font-instrument font-semibold text-base lg:text-lg tracking-wide">
-                      Sábado, 06 de Dezembro • 9h às 11h
-                    </span>
-                  </div>
-                  
-                  <div className="w-full h-px bg-cinza/20"></div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                      <Image
-                        src="/images/check-amarelo.svg"
-                        alt="Check"
-                        width={20}
-                        height={20}
-                        className="w-full h-full"
-                      />
-                    </div>
-                    <span className="text-amarelo font-instrument font-semibold text-base lg:text-lg tracking-wide">
-                      Vegan Vegan - Botafogo
-                    </span>
-                  </div>
-                  
-                  <div className="w-full h-px bg-cinza/20"></div>
-                  
-                  <div className="flex items-center gap-3">
-                    <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                      <Image
-                        src="/images/check-terracota.svg"
-                        alt="Check"
-                        width={20}
-                        height={20}
-                        className="w-full h-full"
-                      />
-                    </div>
-                    <span className="text-terracotta font-instrument font-semibold text-base lg:text-lg tracking-wide">
-                      R$ 190 por pessoa - Tudo incluso
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
 

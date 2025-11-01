@@ -4,12 +4,24 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import EventModal from '@/components/EventModal'
 
 
 
 export default function Home() {
   // Estados para o FAQ
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
+  // Estado para o modal do evento
+  const [showEventModal, setShowEventModal] = useState(false)
+
+  // Mostrar modal do evento quando a página carrega
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowEventModal(true)
+    }, 1000) // Aparece após 1 segundo
+
+    return () => clearTimeout(timer)
+  }, [])
 
 
 
@@ -624,6 +636,12 @@ export default function Home() {
       </section>
 
       <Footer />
+
+      {/* Modal do Evento Café com Cerâmica */}
+      <EventModal 
+        show={showEventModal} 
+        onClose={() => setShowEventModal(false)} 
+      />
 
       {/* Estilos do Calendário */}
       <style jsx global>{`
