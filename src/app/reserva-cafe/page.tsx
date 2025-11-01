@@ -25,6 +25,20 @@ export default function ReservaCafePage() {
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingMessage, setBookingMessage] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<{phone?: string; email?: string}>({});
+
+  // Funções de validação
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    // Remove todos os caracteres não numéricos
+    const cleanPhone = phone.replace(/\D/g, '');
+    // Verifica se tem 10 ou 11 dígitos (celular brasileiro)
+    return cleanPhone.length >= 10 && cleanPhone.length <= 11;
+  };
 
   // Função para fazer scroll considerando o offset do header
   const scrollToElementWithOffset = (element: HTMLElement, customOffset?: number) => {
@@ -63,6 +77,14 @@ export default function ReservaCafePage() {
 
   const handleContactInfoChange = (field: string, value: string) => {
     setContactInfo(prev => ({ ...prev, [field]: value }));
+    
+    // Limpar erros de validação quando o usuário começar a digitar
+    if (validationErrors[field as keyof typeof validationErrors]) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [field]: undefined
+      }));
+    }
   };
 
   const toggleAccordion = (stepNumber: number) => {
@@ -109,12 +131,33 @@ export default function ReservaCafePage() {
   };
 
   const handleContinueStep3 = () => {
-    if (contactInfo.phone && contactInfo.email) {
-      if (!completedSteps.includes(3)) {
-        setCompletedSteps(prev => [...prev, 3]);
-      }
-      setActiveAccordion(0);
+    const errors: {phone?: string; email?: string} = {};
+    
+    // Validar telefone
+    if (!contactInfo.phone.trim()) {
+      errors.phone = 'Telefone é obrigatório';
+    } else if (!validatePhone(contactInfo.phone)) {
+      errors.phone = 'Telefone inválido';
     }
+    
+    // Validar email
+    if (!contactInfo.email.trim()) {
+      errors.email = 'E-mail é obrigatório';
+    } else if (!validateEmail(contactInfo.email)) {
+      errors.email = 'E-mail inválido';
+    }
+    
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      return;
+    }
+    
+    // Se chegou até aqui, dados são válidos
+    setValidationErrors({});
+    if (!completedSteps.includes(3)) {
+      setCompletedSteps(prev => [...prev, 3]);
+    }
+    setActiveAccordion(0);
   };
 
   const allStepsCompleted = completedSteps.includes(1) && completedSteps.includes(2) && completedSteps.includes(3);
@@ -400,10 +443,17 @@ export default function ReservaCafePage() {
                                 id="phone"
                                 value={contactInfo.phone}
                                 onChange={(e) => handleContactInfoChange('phone', e.target.value)}
-                                className="w-full px-3 py-2 border border-cinza/30 bg-cream/30 rounded-md focus:outline-none focus:ring-2 focus:ring-verde focus:border-verde text-cinza placeholder-cinza/60"
+                                className={`w-full px-3 py-2 border bg-cream/30 rounded-md focus:outline-none focus:ring-2 text-cinza placeholder-cinza/60 ${
+                                  validationErrors.phone 
+                                    ? 'border-red-400 focus:ring-red-400 focus:border-red-400' 
+                                    : 'border-cinza/30 focus:ring-verde focus:border-verde'
+                                }`}
                                 placeholder="(21) 99999-9999"
                                 required
                               />
+                              {validationErrors.phone && (
+                                <p className="text-red-500 text-xs mt-1">{validationErrors.phone}</p>
+                              )}
                             </div>
                             
                             <div>
@@ -415,10 +465,17 @@ export default function ReservaCafePage() {
                                 id="email"
                                 value={contactInfo.email}
                                 onChange={(e) => handleContactInfoChange('email', e.target.value)}
-                                className="w-full px-3 py-2 border border-cinza/30 bg-cream/30 rounded-md focus:outline-none focus:ring-2 focus:ring-verde focus:border-verde text-cinza placeholder-cinza/60"
+                                className={`w-full px-3 py-2 border bg-cream/30 rounded-md focus:outline-none focus:ring-2 text-cinza placeholder-cinza/60 ${
+                                  validationErrors.email 
+                                    ? 'border-red-400 focus:ring-red-400 focus:border-red-400' 
+                                    : 'border-cinza/30 focus:ring-verde focus:border-verde'
+                                }`}
                                 placeholder="seu@email.com"
                                 required
                               />
+                              {validationErrors.email && (
+                                <p className="text-red-500 text-xs mt-1">{validationErrors.email}</p>
+                              )}
                             </div>
                           </div>
                           

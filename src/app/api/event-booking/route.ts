@@ -1,6 +1,7 @@
 import { createServerClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
+import { Resend } from 'resend';
 
 interface EventBookingRequest {
   numberOfPeople: number;
@@ -102,6 +103,67 @@ export async function POST(request: Request) {
       numberOfPeople,
       participants: insertedParticipants?.length
     });
+
+    // Enviar email de notificação
+    try {
+      const apiKey = process.env.RESEND_API_KEY;
+      console.log('Chave Resend carregada:', apiKey ? 'Sim (***' + apiKey.slice(-4) + ')' : 'Não encontrada');
+      
+      if (!apiKey) {
+        throw new Error('RESEND_API_KEY não configurada');
+      }
+      
+      const resend = new Resend(apiKey);
+      
+      // Calcular valor total
+      const pricePerPerson = 190;
+      const totalValue = pricePerPerson * numberOfPeople;
+      
+      // Criar lista de participantes para o email
+      const participantsList = participants.map((p, index) => 
+        `<li><strong>${index + 1}.</strong> ${p.name}</li>`
+      ).join('');
+      
+      const emailData = {
+        from: 'Casa Alvite <onboarding@resend.dev>',
+        to: ['admin@alvite.com.br'],
+        subject: `Nova Reserva Café com Cerâmica - ${participants[0].name}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #40413E;">Nova Reserva - Café da Manhã com Cerâmica</h2>
+            
+            <div style="background-color: #f4e8da; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="color: #40413E; margin-top: 0;">Detalhes da Reserva</h3>
+              
+              <p><strong>Responsável:</strong> ${participants[0].name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Telefone:</strong> ${phone}</p>
+              <p><strong>Número de Pessoas:</strong> ${numberOfPeople}</p>
+              <p><strong>Data:</strong> ${eventDate}</p>
+              <p><strong>Horário:</strong> ${eventTime}</p>
+              <p><strong>Valor Total:</strong> R$ ${totalValue.toFixed(2)} (R$ ${pricePerPerson} por pessoa)</p>
+              <p><strong>ID do Grupo:</strong> ${groupId}</p>
+            </div>
+            
+            <div style="background-color: #e8f5e8; padding: 15px; border-radius: 8px; margin: 15px 0;">
+              <h4 style="color: #40413E; margin-top: 0;">Participantes:</h4>
+              <ol style="margin: 0; padding-left: 20px;">
+                ${participantsList}
+              </ol>
+            </div>
+            
+            <p style="color: #6a6d51; font-size: 14px;">Esta reserva foi criada através do sistema de agendamento da Casa Alvite.</p>
+          </div>
+        `
+      };
+
+      const result = await resend.emails.send(emailData);
+      console.log('Email de notificação enviado com sucesso:', result);
+    } catch (emailError) {
+      console.error('Erro ao enviar email de notificação:', emailError);
+      console.error('Detalhes do erro:', JSON.stringify(emailError, null, 2));
+      // Não falha o processo se o email não for enviado
+    }
 
     // Retornar sucesso com link do MercadoPago
     return NextResponse.json({

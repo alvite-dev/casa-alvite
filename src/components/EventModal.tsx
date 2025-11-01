@@ -8,6 +8,20 @@ interface EventModalProps {
 }
 
 export default function EventModal({ show, onClose }: EventModalProps) {
+  // Bloquear scroll quando o modal está aberto
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    // Cleanup ao desmontar o componente
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [show])
+
   if (!show) return null
 
   return (
@@ -38,10 +52,10 @@ export default function EventModal({ show, onClose }: EventModalProps) {
 
           {/* Título */}
           <div>
-            <h2 className="font-junyper text-3xl sm:text-4xl text-verde font-medium mb-2">
+            <h2 className="font-junyper text-4xl sm:text-5xl text-verde font-medium mb-2">
               Novidade!
             </h2>
-            <h3 className="font-instrument text-xl sm:text-2xl text-cinza font-semibold">
+            <h3 className="font-instrument text-2xl sm:text-3xl text-cinza font-semibold">
               Café da Manhã com Cerâmica
             </h3>
           </div>
@@ -92,8 +106,8 @@ export default function EventModal({ show, onClose }: EventModalProps) {
             </p>
           </div>
 
-          {/* Botões */}
-          <div className="space-y-3">
+          {/* Botão */}
+          <div>
             <a
               href="/cafe-com-ceramica"
               className="block w-full bg-verde hover:bg-verde/90 text-cream font-instrument font-semibold py-3 px-6 rounded-xl transition-all duration-200 uppercase tracking-wide"
@@ -101,13 +115,6 @@ export default function EventModal({ show, onClose }: EventModalProps) {
             >
               Ver Detalhes
             </a>
-            
-            <button
-              onClick={onClose}
-              className="block w-full bg-transparent border border-cinza/30 hover:bg-cinza/5 text-cinza font-instrument font-medium py-2 px-6 rounded-xl transition-all duration-200"
-            >
-              Agora não
-            </button>
           </div>
         </div>
       </div>
