@@ -48,6 +48,33 @@ export default function CafeComCeramicaPage() {
             </p>
           </section>
           
+          {/* Como funciona o evento */}
+          <section className="bg-white rounded-3xl p-6 sm:p-8 border border-cinza/10 shadow-sm">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="font-junyper text-3xl sm:text-4xl text-cinza mb-6 text-center">
+                Como funciona o evento
+              </h2>
+              
+              <div className="prose prose-lg max-w-none">
+                <p className="text-cinza font-instrument text-base sm:text-lg leading-relaxed mb-4">
+                  O <strong>Café da Manhã com Cerâmica</strong> é uma experiência única que combina gastronomia e arte em argila. Durante duas horas, você vai desfrutar de um delicioso buffet enquanto cria sua própria cumbuca personalizada.
+                </p>
+                
+                <p className="text-cinza font-instrument text-base sm:text-lg leading-relaxed mb-4">
+                  A manhã começa às 9h no <strong>Vegan Vegan</strong>, um dos restaurantes mais charmosos de Botafogo. Você será recebido com um buffet completo de café da manhã, com pães artesanais, geleias caseiras, frutas frescas, sucos naturais e muito mais.
+                </p>
+                
+                <p className="text-cinza font-instrument text-base sm:text-lg leading-relaxed mb-4">
+                  Enquanto saboreia as delícias, você trabalhará com argila para modelar sua própria cumbuca. Nossa equipe estará lá para te guiar durante todo o processo, desde a modelagem até os acabamentos finais. Não se preocupe se for sua primeira vez - a experiência é pensada para todos os níveis!
+                </p>
+                
+                <p className="text-cinza font-instrument text-base sm:text-lg leading-relaxed">
+                  Após a queima e finalização (que acontece depois do evento), sua cumbuca ficará pronta para retirada na Casa Alvite. É uma lembrança especial de uma manhã inesquecível, feita pelas suas próprias mãos.
+                </p>
+              </div>
+            </div>
+          </section>
+          
           {/* Cards em 2 colunas no desktop */}
           <div className="flex flex-col lg:flex-row lg:gap-8 lg:items-start">
             
