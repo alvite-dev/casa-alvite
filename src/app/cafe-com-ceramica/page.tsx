@@ -51,11 +51,11 @@ export default function CafeComCeramicaPage() {
           {/* Como funciona o evento */}
           <section className="bg-white rounded-3xl p-6 sm:p-8 border border-cinza/10 shadow-sm">
             <div className="max-w-4xl mx-auto">
-              <h2 className="font-junyper text-3xl sm:text-4xl text-cinza mb-6 text-center">
+              <h2 className="font-junyper text-3xl sm:text-4xl text-cinza mb-8 text-center">
                 Como funciona o evento
               </h2>
               
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-lg max-w-none lg:columns-2 lg:gap-24">
                 <p className="text-cinza font-instrument text-base sm:text-lg leading-relaxed mb-4">
                   O <strong>Café da Manhã com Cerâmica</strong> é uma experiência única que combina gastronomia e arte em argila. Durante duas horas, você vai desfrutar de um delicioso buffet enquanto cria sua própria cumbuca personalizada.
                 </p>
@@ -105,7 +105,7 @@ export default function CafeComCeramicaPage() {
                     </svg>
                   </div>
                   <p className="text-cinza font-instrument text-sm leading-relaxed">
-                    <strong>Transferência permitida:</strong> Você pode transferir seu ingresso para outra pessoa avisando pelo WhatsApp
+                    <strong>Transferência permitida:</strong> Você pode transferir seu ingresso para outra pessoa avisando a equipe da Casa Alvite pelo WhatsApp
                   </p>
                 </div>
               </div>
