@@ -9,6 +9,9 @@ import EventModal from '@/components/EventModal'
 
 
 export default function Home() {
+  // Toggle para mostrar hero do evento (para facilitar reversão)
+  const showEventHero = true
+  
   // Estados para o FAQ
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
   // Estado para o modal do evento
@@ -75,6 +78,68 @@ export default function Home() {
     <>
       <Header transparent={true} />
 
+      {/* Hero do Evento Café com Cerâmica */}
+      <main id="hero-event-section" className="relative h-screen w-full overflow-hidden">
+        {/* Imagem de fundo do evento */}
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundColor: '#DECFBC' }}
+        >
+          {/* Overlay sutil */}
+          <div className="absolute inset-0 bg-black/20"></div>
+        </div>
+
+        {/* Conteúdo centralizado do evento */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 pt-20 sm:pt-24">
+          <div className="text-center space-y-8 sm:space-y-12 lg:space-y-16 max-w-4xl">
+            
+            {/* Badge de novidade */}
+            <div className="inline-flex items-center gap-2 bg-verde/90 text-cream px-4 py-2 rounded-full text-sm font-instrument font-medium">
+              <span>✨</span>
+              <span>NOVIDADE</span>
+            </div>
+
+            {/* Título principal do evento */}
+            <h1 className="text-cinza font-junyper text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-wide leading-tight">
+              Café da Manhã<br />
+              com Cerâmica
+            </h1>
+
+            {/* Informações do evento */}
+            <div className="space-y-4">
+              <p className="text-cinza font-instrument text-xl sm:text-2xl lg:text-3xl font-medium">
+                Sábado, 06 de Dezembro • 9h às 11h
+              </p>
+              <p className="text-cinza/80 font-instrument text-lg sm:text-xl">
+                <strong>Vegan Vegan - Botafogo</strong> • R$ 190 por pessoa
+              </p>
+              <p className="text-cinza/70 font-instrument text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                Combine gastronomia e arte em uma manhã única. Crie sua cumbuca personalizada enquanto desfruta de um delicioso buffet.
+              </p>
+            </div>
+
+            {/* Botões de Ação */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full sm:w-auto">
+              <a 
+                href="/reserva-cafe"
+                className="w-full sm:w-auto bg-verde hover:bg-verde/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-lg px-8 sm:px-10 lg:px-12 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center shadow-lg"
+              >
+                RESERVAR VAGA
+              </a>
+              
+              <button 
+                onClick={scrollToNextSection}
+                className="w-full sm:w-auto bg-transparent border-2 border-cinza hover:bg-cinza hover:text-cream text-cinza font-instrument font-semibold text-sm sm:text-base lg:text-lg px-8 sm:px-10 lg:px-12 h-12 lg:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
+                type="button"
+              >
+                VER EXPERIÊNCIAS REGULARES
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Hero Original (Experiências Regulares) */}
       <main id="hero-section" className="relative h-screen w-full overflow-hidden">
         {/* Imagem de fundo que ocupa toda a viewport */}
         <div 

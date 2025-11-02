@@ -24,6 +24,7 @@ export default function Header({ transparent = false }: HeaderProps) {
   }, [])
 
   const isTransparent = transparent && !isScrolled
+  const isHomePage = pathname === '/'
   const isAgendamentoPage = pathname === '/agendamento'
   const isCafeComCeramicaPage = pathname === '/cafe-com-ceramica'
   const isConfirmacaoCafePage = pathname === '/confirmacao-cafe'
@@ -121,7 +122,7 @@ export default function Header({ transparent = false }: HeaderProps) {
     </header>
     
     {/* Barra promocional do evento - separada do header para ocupar largura total */}
-    {!isTransparent && (
+    {isHomePage && !isTransparent && (
       <div className="fixed left-0 right-0 z-30 w-full bg-verde text-cream py-4 transition-all duration-300" 
            style={{ 
              top: '72px'
