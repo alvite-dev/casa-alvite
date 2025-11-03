@@ -38,13 +38,15 @@ export default function CafeComCeramicaPage() {
           {/* CTA Reservar */}
           <section className="text-center">
             <a
-              href="/reserva-cafe"
+              href="https://www.sympla.com.br/evento/SEU_EVENTO_AQUI?utm_source=casaalvite&utm_campaign=cafe-ceramica"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block bg-verde hover:bg-verde/90 text-cream font-instrument font-bold text-xl px-8 py-4 rounded-2xl transition-all duration-200 uppercase tracking-wide shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               GARANTA SUA VAGA
             </a>
             <p className="text-cinza/70 text-sm font-instrument mt-3">
-              Pagamento seguro via MercadoPago
+              Pagamento seguro via Sympla
             </p>
           </section>
           

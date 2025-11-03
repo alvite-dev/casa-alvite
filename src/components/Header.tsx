@@ -103,7 +103,9 @@ export default function Header({ transparent = false }: HeaderProps) {
             /* CTA dinâmico - muda conforme a página */
             isCafeComCeramicaPage ? (
               <a
-                href="/reserva-cafe"
+                href="https://www.sympla.com.br/evento/SEU_EVENTO_AQUI?utm_source=casaalvite&utm_campaign=cafe-ceramica&utm_medium=header"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-verde hover:bg-verde/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-base px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-2 rounded-xl transition-all duration-200 uppercase tracking-wide"
               >
                 COMPRAR INGRESSO
