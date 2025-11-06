@@ -15,18 +15,33 @@ export default function Header({ transparent = false }: HeaderProps) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
-      // Detecta se scrollou além de 400px da primeira seção
-      setIsScrolled(scrollPosition > 400)
+      const heroEventSection = document.getElementById('hero-event-section')
+      const heroSection = document.getElementById('hero-section')
+      
+      // Na home page, só mostra o header quando chegar no segundo hero (hero original)
+      if (pathname === '/' && heroSection && heroEventSection) {
+        const heroSectionTop = heroSection.offsetTop
+        setIsScrolled(scrollPosition >= heroSectionTop - 100) // 100px antes de chegar no hero original
+      } else {
+        // Para outras páginas, usa a lógica original
+        setIsScrolled(scrollPosition > 400)
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pathname])
 
   const isTransparent = transparent && !isScrolled
+  const isHomePage = pathname === '/'
   const isAgendamentoPage = pathname === '/agendamento'
 
+  // Na home page, só mostra o header após scroll para o hero original
+  const shouldShowHeader = !isHomePage || isScrolled
+
   return (
+    <>
+    {shouldShowHeader && (
     <header 
       className={`fixed top-0 left-0 right-0 z-40 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
         isTransparent
@@ -95,7 +110,7 @@ export default function Header({ transparent = false }: HeaderProps) {
               </a>
             </div>
           ) : (
-            /* CTA Agendar - quando com fundo */
+            /* CTA para agendar experiência */
             <a
               href="/agendamento"
               className="bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-base px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-2 rounded-xl transition-all duration-200 uppercase tracking-wide"
@@ -106,5 +121,29 @@ export default function Header({ transparent = false }: HeaderProps) {
         </div>
       </div>
     </header>
+    )}
+    
+    {/* Barra promocional do evento - separada do header para ocupar largura total */}
+    {isHomePage && shouldShowHeader && !isTransparent && (
+      <div className="fixed left-0 right-0 z-30 w-full bg-verde text-cream py-4 transition-all duration-300" 
+           style={{ 
+             top: '72px'
+           }}>
+        <div className="flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <span className="font-instrument font-medium text-sm sm:text-base">
+            Café da Manhã com Cerâmica
+          </span>
+          <a 
+            href="https://www.sympla.com.br/evento/cafe-da-manha-com-ceramica-casa-alvite-no-vegan-vegan/3202670"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-cream hover:bg-cream/90 text-verde font-instrument font-semibold text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-lg transition-all duration-200 uppercase tracking-wide whitespace-nowrap"
+          >
+            Ver Evento
+          </a>
+        </div>
+      </div>
+    )}
+    </>
   )
 }

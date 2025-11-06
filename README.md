@@ -11,8 +11,10 @@ A Casa Alvite oferece experiências únicas em cerâmica, onde a arte encontra a
 - **Next.js 14** - Framework React com App Router
 - **TypeScript** - Tipagem estática
 - **Tailwind CSS** - Framework de estilos utilitários
-- **Supabase** - Backend como serviço (futuro)
-- **Stripe** - Processamento de pagamentos (futuro)
+- **Supabase** - Backend como serviço para banco de dados
+- **MercadoPago** - Processamento de pagamentos
+- **Resend** - Envio de emails transacionais
+- **React Calendar** - Calendário interativo para agendamentos
 
 ## 🎨 Design System
 
@@ -71,43 +73,8 @@ O projeto está configurado para deploy automático no Vercel:
 2. **Configure as variáveis de ambiente no dashboard do Vercel**
 3. **O deploy acontecerá automaticamente a cada push na branch main**
 
-## 📋 Roadmap
-
-### Fase 1 - Landing Page ✅
-- [x] Configuração inicial do projeto
-- [x] Design system e cores da marca
-- [x] Página "Em Construção" elegante
-- [x] Deploy no Vercel
-
-### Fase 2 - Estrutura Base (Em Breve)
-- [ ] Sistema de autenticação
-- [ ] Integração com Supabase
-- [ ] Estrutura de dados para experiências
-
-### Fase 3 - Agendamento (Futuro)
-- [ ] Sistema de agendamento
-- [ ] Calendário interativo
-- [ ] Gestão de disponibilidade
-
-### Fase 4 - Pagamentos (Futuro)
-- [ ] Integração com Stripe
-- [ ] Processamento de pagamentos
-- [ ] Sistema de faturas
-
-## 🤝 Contribuição
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
 
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
-## 📞 Contato
-
-Casa Alvite - contato@casaalvite.com
-
-Link do Projeto: [https://github.com/seu-usuario/casa-alvite](https://github.com/seu-usuario/casa-alvite)
