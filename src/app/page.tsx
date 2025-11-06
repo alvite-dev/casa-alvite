@@ -103,7 +103,9 @@ export default function Home() {
             {/* Botões de Ação */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full sm:w-auto">
               <a 
-                href="/cafe-com-ceramica"
+                href="https://www.sympla.com.br/evento/cafe-da-manha-com-ceramica-casa-alvite-no-vegan-vegan/3202670"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto bg-verde hover:bg-verde/90 text-cream font-instrument font-semibold text-sm sm:text-base px-8 sm:px-10 h-12 sm:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center shadow-lg"
               >
                 VER EVENTO

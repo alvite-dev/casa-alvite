@@ -26,9 +26,6 @@ export default function Header({ transparent = false }: HeaderProps) {
   const isTransparent = transparent && !isScrolled
   const isHomePage = pathname === '/'
   const isAgendamentoPage = pathname === '/agendamento'
-  const isCafeComCeramicaPage = pathname === '/cafe-com-ceramica'
-  const isConfirmacaoCafePage = pathname === '/confirmacao-cafe'
-  const isReservaCafePage = pathname === '/reserva-cafe'
 
   return (
     <>
@@ -68,7 +65,7 @@ export default function Header({ transparent = false }: HeaderProps) {
 
         {/* Conteúdo dinâmico baseado no scroll */}
         <div className="flex items-center">
-          {isTransparent || isAgendamentoPage || isConfirmacaoCafePage || isReservaCafePage ? (
+          {isTransparent || isAgendamentoPage ? (
             /* Ícones de Redes Sociais - quando transparente ou na página de agendamento */
             <div className="flex items-center gap-1 sm:gap-4 lg:gap-4">
               <a 
@@ -100,24 +97,13 @@ export default function Header({ transparent = false }: HeaderProps) {
               </a>
             </div>
           ) : (
-            /* CTA dinâmico - muda conforme a página */
-            isCafeComCeramicaPage ? (
-              <a
-                href="https://www.sympla.com.br/evento/SEU_EVENTO_AQUI?utm_source=casaalvite&utm_campaign=cafe-ceramica&utm_medium=header"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-verde hover:bg-verde/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-base px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-2 rounded-xl transition-all duration-200 uppercase tracking-wide"
-              >
-                COMPRAR INGRESSO
-              </a>
-            ) : (
-              <a
-                href="/agendamento"
-                className="bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-base px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-2 rounded-xl transition-all duration-200 uppercase tracking-wide"
-              >
-                AGENDAR
-              </a>
-            )
+            /* CTA para agendar experiência */
+            <a
+              href="/agendamento"
+              className="bg-amarelo hover:bg-amarelo/90 text-cream font-instrument font-semibold text-sm sm:text-base lg:text-base px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-2 rounded-xl transition-all duration-200 uppercase tracking-wide"
+            >
+              AGENDAR
+            </a>
           )}
         </div>
       </div>
@@ -134,7 +120,9 @@ export default function Header({ transparent = false }: HeaderProps) {
             Café da Manhã com Cerâmica
           </span>
           <a 
-            href="/cafe-com-ceramica"
+            href="https://www.sympla.com.br/evento/cafe-da-manha-com-ceramica-casa-alvite-no-vegan-vegan/3202670"
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-cream hover:bg-cream/90 text-verde font-instrument font-semibold text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-lg transition-all duration-200 uppercase tracking-wide whitespace-nowrap"
           >
             Ver Evento
