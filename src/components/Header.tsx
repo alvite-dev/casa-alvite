@@ -15,20 +15,33 @@ export default function Header({ transparent = false }: HeaderProps) {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
-      // Detecta se scrollou além de 400px da primeira seção
-      setIsScrolled(scrollPosition > 400)
+      const heroEventSection = document.getElementById('hero-event-section')
+      const heroSection = document.getElementById('hero-section')
+      
+      // Na home page, só mostra o header quando chegar no segundo hero (hero original)
+      if (pathname === '/' && heroSection && heroEventSection) {
+        const heroSectionTop = heroSection.offsetTop
+        setIsScrolled(scrollPosition >= heroSectionTop - 100) // 100px antes de chegar no hero original
+      } else {
+        // Para outras páginas, usa a lógica original
+        setIsScrolled(scrollPosition > 400)
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pathname])
 
   const isTransparent = transparent && !isScrolled
   const isHomePage = pathname === '/'
   const isAgendamentoPage = pathname === '/agendamento'
 
+  // Na home page, só mostra o header após scroll para o hero original
+  const shouldShowHeader = !isHomePage || isScrolled
+
   return (
     <>
+    {shouldShowHeader && (
     <header 
       className={`fixed top-0 left-0 right-0 z-40 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
         isTransparent
@@ -108,9 +121,10 @@ export default function Header({ transparent = false }: HeaderProps) {
         </div>
       </div>
     </header>
+    )}
     
     {/* Barra promocional do evento - separada do header para ocupar largura total */}
-    {isHomePage && !isTransparent && (
+    {isHomePage && shouldShowHeader && !isTransparent && (
       <div className="fixed left-0 right-0 z-30 w-full bg-verde text-cream py-4 transition-all duration-300" 
            style={{ 
              top: '72px'
