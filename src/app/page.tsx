@@ -41,7 +41,7 @@ export default function Home() {
       {/* Hero do Evento Café com Cerâmica */}
       <main id="hero-event-section" className="relative h-screen w-full overflow-hidden bg-cream">
         {/* Conteúdo centralizado do evento */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 pt-24 pb-8">
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 pt-24 pb-16 sm:pb-20 lg:pb-8">
           <div className="text-center space-y-8 sm:space-y-10 lg:space-y-12 max-w-4xl w-full">
             
             {/* Badge Novidade com ícone */}
