@@ -117,15 +117,6 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
-
-          {/* Informações de desenvolvimento */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <div className="text-xs text-gray-500 text-center space-y-1">
-              <p><strong>Desenvolvimento:</strong></p>
-              <p>Usuário: <code className="bg-gray-100 px-1 rounded">admin</code></p>
-              <p>Senha: <code className="bg-gray-100 px-1 rounded">admin</code></p>
-            </div>
-          </div>
         </div>
 
         {/* Link para voltar */}
