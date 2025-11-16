@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import EventSoldOut from '@/components/EventSoldOut'
 
 export default function Home() {
   // Estados para o FAQ
@@ -38,90 +39,8 @@ export default function Home() {
     <>
       <Header transparent={true} />
 
-      {/* Hero do Evento Café com Cerâmica */}
-      <main id="hero-event-section" className="relative h-screen w-full overflow-hidden bg-cream">
-        {/* Conteúdo centralizado do evento */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 pt-8 pb-16 sm:pb-20 lg:pb-8">
-          <div className="text-center space-y-8 sm:space-y-10 lg:space-y-12 max-w-4xl w-full">
-            
-            {/* Badge Novidade com ícone */}
-            <div className="flex items-center justify-center gap-3">
-              <div className="w-12 h-12 bg-verde/15 rounded-full flex items-center justify-center">
-                <svg className="w-6 h-6 text-verde" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              </div>
-              <span className="font-junyper text-2xl sm:text-3xl text-verde font-medium">
-                Novidade!
-              </span>
-            </div>
-
-            {/* Título Principal */}
-            <div className="pb-10 sm:pb-12 lg:pb-16">
-              <h1 className="font-instrument text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-cinza font-bold leading-tight">
-                Café da Manhã<br />
-                com Cerâmica
-              </h1>
-            </div>
-
-            {/* Informações do evento - mais discretas */}
-            <div className="space-y-2 opacity-80">
-              <div className="flex items-center justify-center gap-2">
-                <svg className="w-4 h-4 text-cinza/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span className="text-cinza/80 font-instrument text-base sm:text-lg">
-                  Sábado, 06 de Dezembro
-                </span>
-              </div>
-              
-              <div className="flex items-center justify-center gap-2">
-                <svg className="w-4 h-4 text-cinza/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="text-cinza/80 font-instrument text-base sm:text-lg">
-                  9h às 11h
-                </span>
-              </div>
-              
-              <div className="flex items-center justify-center gap-2">
-                <svg className="w-4 h-4 text-cinza/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span className="text-cinza/80 font-instrument text-base sm:text-lg">
-                  Vegan Vegan - Botafogo
-                </span>
-              </div>
-            </div>
-
-            {/* Descrição */}
-            <p className="text-cinza/70 font-instrument text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-              Faça sua cumbuca personalizada enquanto aproveita um delicioso café da manhã liberado!
-            </p>
-
-            {/* Botões de Ação */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full sm:w-auto">
-              <a 
-                href="https://www.sympla.com.br/evento/cafe-da-manha-com-ceramica-casa-alvite-no-vegan-vegan/3202670"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-verde hover:bg-verde/90 text-cream font-instrument font-semibold text-sm sm:text-base px-8 sm:px-10 h-12 sm:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center shadow-lg"
-              >
-                VER EVENTO
-              </a>
-              
-              <button 
-                onClick={scrollToMainHero}
-                className="w-full sm:w-auto bg-transparent border-2 border-cinza/40 hover:border-cinza hover:bg-cinza hover:text-cream text-cinza font-instrument font-semibold text-sm sm:text-base px-8 sm:px-10 h-12 sm:h-14 rounded-2xl transition-all duration-200 uppercase tracking-wide flex items-center justify-center"
-                type="button"
-              >
-                VER EXPERIÊNCIAS REGULARES
-              </button>
-            </div>
-          </div>
-        </div>
-      </main>
+      {/* Hero do Evento Café com Cerâmica - Esgotado */}
+      <EventSoldOut />
 
       {/* Hero Original (Experiências Regulares) */}
       <main id="hero-section" className="relative h-screen w-full overflow-hidden">
