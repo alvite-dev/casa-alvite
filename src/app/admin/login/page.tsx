@@ -11,25 +11,38 @@ export default function AdminLoginPage() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
-    // Simular delay de autenticação
-    setTimeout(() => {
-      if (username === 'admin' && password === 'admin') {
-        // Salvar no localStorage
-        localStorage.setItem('admin_authenticated', 'true');
-        localStorage.setItem('admin_login_time', Date.now().toString());
-        
-        // Redirecionar para admin
-        router.push('/admin');
-      } else {
-        setError('Usuário ou senha incorretos');
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao fazer login');
       }
+
+      // Login bem-sucedido, redirecionar para admin
+      router.push('/admin');
+      router.refresh(); // Forçar atualização para carregar com a sessão
+
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Erro ao fazer login');
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (

@@ -11,36 +11,41 @@ export default function AdminPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Verificar autenticação
-    const authenticated = localStorage.getItem('admin_authenticated');
-    const loginTime = localStorage.getItem('admin_login_time');
-    
-    if (authenticated === 'true' && loginTime) {
-      // Verificar se o login não expirou (24 horas)
-      const now = Date.now();
-      const loginTimestamp = parseInt(loginTime);
-      const twentyFourHours = 24 * 60 * 60 * 1000;
-      
-      if (now - loginTimestamp < twentyFourHours) {
-        setIsAuthenticated(true);
-        setAdminUser('Admin');
-      } else {
-        // Login expirado
-        localStorage.removeItem('admin_authenticated');
-        localStorage.removeItem('admin_login_time');
+    // Verificar autenticação via API
+    const checkSession = async () => {
+      try {
+        const response = await fetch('/api/auth/session');
+        const data = await response.json();
+
+        if (response.ok && data.authenticated) {
+          setIsAuthenticated(true);
+          setAdminUser(data.user.username);
+        } else {
+          // Não autenticado, redirecionar para login
+          router.push('/admin/login');
+        }
+      } catch (error) {
+        console.error('Erro ao verificar sessão:', error);
         router.push('/admin/login');
+      } finally {
+        setIsLoading(false);
       }
-    } else {
-      router.push('/admin/login');
-    }
-    
-    setIsLoading(false);
+    };
+
+    checkSession();
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_authenticated');
-    localStorage.removeItem('admin_login_time');
-    router.push('/admin/login');
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    } finally {
+      router.push('/admin/login');
+      router.refresh();
+    }
   };
 
   if (isLoading) {
