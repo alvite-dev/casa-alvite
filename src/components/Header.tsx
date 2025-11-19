@@ -122,36 +122,6 @@ export default function Header({ transparent = false }: HeaderProps) {
       </div>
     </header>
     )}
-    
-    {/* Barra promocional do evento - separada do header para ocupar largura total */}
-    {isHomePage && shouldShowHeader && !isTransparent && (
-      <div className="fixed left-0 right-0 z-30 w-full bg-terracotta text-cream py-3 sm:py-4 transition-all duration-300"
-           style={{
-             top: '72px'
-           }}>
-        <div className="flex flex-row items-center justify-between gap-2 sm:gap-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="font-instrument font-semibold text-xs sm:text-base">
-              Café com Cerâmica
-            </span>
-            <span className="bg-cream text-terracotta font-instrument font-bold text-xs px-1.5 sm:px-2 py-0.5 rounded uppercase">
-              Esgotado
-            </span>
-          </div>
-          <button
-            onClick={() => {
-              const heroEventSection = document.getElementById('hero-event-section')
-              if (heroEventSection) {
-                heroEventSection.scrollIntoView({ behavior: 'smooth' })
-              }
-            }}
-            className="bg-cream hover:bg-cream/90 text-terracotta font-instrument font-semibold text-xs sm:text-sm px-3 sm:px-4 py-1.5 rounded-lg transition-all duration-200 uppercase tracking-wide text-center leading-tight max-w-[100px] sm:max-w-none sm:whitespace-nowrap"
-          >
-            Próximo Evento
-          </button>
-        </div>
-      </div>
-    )}
     </>
   )
 }
