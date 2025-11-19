@@ -122,28 +122,6 @@ export default function Header({ transparent = false }: HeaderProps) {
       </div>
     </header>
     )}
-    
-    {/* Barra promocional do evento - separada do header para ocupar largura total */}
-    {isHomePage && shouldShowHeader && !isTransparent && (
-      <div className="fixed left-0 right-0 z-30 w-full bg-verde text-cream py-4 transition-all duration-300" 
-           style={{ 
-             top: '72px'
-           }}>
-        <div className="flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="font-instrument font-medium text-sm sm:text-base">
-            Café da Manhã com Cerâmica
-          </span>
-          <a 
-            href="https://www.sympla.com.br/evento/cafe-da-manha-com-ceramica-casa-alvite-no-vegan-vegan/3202670"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-cream hover:bg-cream/90 text-verde font-instrument font-semibold text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-lg transition-all duration-200 uppercase tracking-wide whitespace-nowrap"
-          >
-            Ver Evento
-          </a>
-        </div>
-      </div>
-    )}
     </>
   )
 }
