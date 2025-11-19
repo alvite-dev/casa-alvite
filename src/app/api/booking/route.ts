@@ -2,6 +2,10 @@ import { createServerClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
+// Desabilita cache para garantir dados em tempo real
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface BookingRequest {
   slot_id: string;
   name: string;
