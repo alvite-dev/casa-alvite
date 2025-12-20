@@ -4,18 +4,10 @@ import Image from 'next/image'
 import { useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import EventSoldOut from '@/components/EventSoldOut'
 
 export default function Home() {
   // Estados para o FAQ
   const [openFAQ, setOpenFAQ] = useState<number | null>(null)
-
-  const scrollToMainHero = () => {
-    const nextSection = document.getElementById('hero-section')
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
 
   const scrollToHowItWorks = () => {
     const titleElement = document.getElementById('titulo-decorativo-rotacionado')
@@ -39,10 +31,7 @@ export default function Home() {
     <>
       <Header transparent={true} />
 
-      {/* Hero do Evento Café com Cerâmica - Esgotado */}
-      <EventSoldOut />
-
-      {/* Hero Original (Experiências Regulares) */}
+      {/* Hero Principal */}
       <main id="hero-section" className="relative h-screen w-full overflow-hidden">
         {/* Imagem de fundo que ocupa toda a viewport */}
         <div 
