@@ -15,9 +15,9 @@ export default function EventHero() {
       {/* Imagem de fundo do evento */}
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat bg-terracotta"
-        style={{ backgroundImage: "url('/images/event-tapas.jpg')" }}
+        style={{ backgroundImage: "url('/images/tintas.JPG')" }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/65"></div>
       </div>
 
       {/* Conteúdo centralizado */}
@@ -39,7 +39,9 @@ export default function EventHero() {
 
           {/* Data e Local */}
           <p className="text-cream/90 font-instrument text-lg sm:text-xl lg:text-2xl leading-relaxed">
-            Domingo, 01 de Março &bull; Casa Mila, Laranjeiras
+            Domingo, 01 de Março<br className="sm:hidden" />
+            <span className="hidden sm:inline"> &bull; </span>
+            Casa Mila, Laranjeiras
           </p>
 
           {/* Botões */}
