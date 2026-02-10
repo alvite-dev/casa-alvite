@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import EventHero from '@/components/EventHero'
 
 export default function Home() {
   // Estados para o FAQ
@@ -30,6 +31,9 @@ export default function Home() {
   return (
     <>
       <Header transparent={true} />
+
+      {/* Hero do Evento */}
+      <EventHero />
 
       {/* Hero Principal */}
       <main id="hero-section" className="relative h-screen w-full overflow-hidden">

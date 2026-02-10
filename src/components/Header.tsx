@@ -14,8 +14,7 @@ export default function Header({ transparent = false }: HeaderProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY
-      setIsScrolled(scrollPosition > 400)
+      setIsScrolled(window.scrollY > 100)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -25,11 +24,12 @@ export default function Header({ transparent = false }: HeaderProps) {
   const isTransparent = transparent && !isScrolled
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-40 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
+    <div className="fixed top-0 left-0 right-0 z-40">
+    <header
+      className={`w-full px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
         isTransparent
-          ? 'bg-transparent py-4 sm:py-6 lg:py-4' 
-          : 'bg-cream border-b border-verde/20 py-3 sm:py-4 lg:py-3'
+          ? 'bg-transparent py-4 sm:py-6 lg:py-4'
+          : 'bg-cream py-3 sm:py-4 lg:py-3'
       }`}
     >
       <div className="flex items-center justify-between">
@@ -105,5 +105,25 @@ export default function Header({ transparent = false }: HeaderProps) {
         </div>
       </div>
     </header>
+
+    {/* Barra promocional do evento */}
+    {!isTransparent && (
+      <div className="w-full bg-verde text-cream px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
+          <span className="font-instrument text-sm sm:text-base font-medium tracking-wide">
+            Tapas com Cerâmica — Domingo, 01/03
+          </span>
+          <a
+            href="https://www.sympla.com.br/evento/tapas-com-ceramica-alvite-na-casa-mila/3304407?utm_source=casaalvite&utm_campaign=tapas-ceramica&utm_medium=header"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-cream text-verde font-instrument font-semibold text-xs sm:text-sm uppercase tracking-wide px-4 sm:px-5 py-1.5 sm:py-2 rounded-xl hover:bg-cream/90 transition-all duration-200"
+          >
+            COMPRAR INGRESSO
+          </a>
+        </div>
+      </div>
+    )}
+    </div>
   )
 }
